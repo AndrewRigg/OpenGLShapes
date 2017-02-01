@@ -26,6 +26,7 @@ using namespace std;
 // FUNCTIONS
 void render(double currentTime);
 void update(double currentTime);
+void updatePhysics(double currentTime, double prevTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -41,9 +42,12 @@ Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 
+int ballRadius = 1.0;
 float t = 0.001f;			// Global variable for animation
-
-
+float g = 9.8f;
+float h = 1.0f;
+float v = 0.0f;
+double prevTime = glfwGetTime();
 
 int main()
 {
@@ -55,16 +59,16 @@ int main()
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
-
 																			// MAIN LOOP run until the window is closed
 	do {
 		double currentTime = glfwGetTime();		// retrieve timelapse
+		
 		glfwPollEvents();						// poll callbacks
 		update(currentTime);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
-
+		updatePhysics(currentTime, prevTime);
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
-
+		prevTime = currentTime;
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
 		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
@@ -97,6 +101,7 @@ void startup() {
 	myGraphics.SetOptimisations();		// Cull and depth testing
 }
 
+
 void update(double currentTime) {
 
 	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
@@ -108,9 +113,11 @@ void update(double currentTime) {
 	//myCube.mv_matrix = mv_matrix_cube;
 	//myCube.proj_matrix = myGraphics.proj_matrix;
 
+
+
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(glm::vec3(-2.0f, 1.0f, -6.0f)) *
+		glm::translate(glm::vec3(0.0f, h, -6.0f)) *
 		/*glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) **/
 		glm::mat4(1.0f);
@@ -143,6 +150,16 @@ void update(double currentTime) {
 	//arrowZ.proj_matrix = myGraphics.proj_matrix;
 
 	t += 0.01f; // increment movement variable
+}
+
+void updatePhysics(double currentTime, double prevTime)
+{
+	if (h < -2.0 + ballRadius) {
+		h = -2.0 + ballRadius;
+		v = 0;
+	}
+	h = v*(currentTime - prevTime) - 0.5*g*pow(currentTime - prevTime, 2.0);
+	v -= g*(currentTime - prevTime);
 }
 
 void render(double currentTime) {
