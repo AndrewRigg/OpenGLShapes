@@ -44,8 +44,8 @@ Arrow		arrowZ;
 
 int ballRadius = 1.0;
 float t = 0.001f;			// Global variable for animation
-float g = 9.8f;
-float h = 1.0f;
+float g = -9.8f;
+float h = 2.0f;
 float v = 0.0f;
 double prevTime = glfwGetTime();
 
@@ -154,12 +154,15 @@ void update(double currentTime) {
 
 void updatePhysics(double currentTime, double prevTime)
 {
-	if (h < -2.0 + ballRadius) {
-		h = -2.0 + ballRadius;
-		v = 0;
+	if (h <= -3.0 + ballRadius) {
+		h = -3.0 + ballRadius;
+		v = v;
+		g = -g;
 	}
-	h = v*(currentTime - prevTime) - 0.5*g*pow(currentTime - prevTime, 2.0);
-	v -= g*(currentTime - prevTime);
+	else {
+		h += v*(currentTime - prevTime) - 0.5*g*pow(currentTime - prevTime, 2.0);
+		v += 0.1*g*(currentTime - prevTime);
+	}
 }
 
 void render(double currentTime) {
