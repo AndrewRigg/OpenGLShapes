@@ -22,11 +22,12 @@ using namespace std;
 #include "graphics.h"
 #include "shapes.h"
 #include "Physics.h"
+#include "Ball.h"
 
 // FUNCTIONS
 void render(double currentTime);
 void update(double currentTime);
-void updatePhysics(double currentTime, double prevTime);
+void updatePhysics(Ball ball, double currentTime, double prevTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -42,18 +43,22 @@ Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 
-int ballRadius = 1.0;
+Ball ball;
+
+ball.position = glm::vec3(1.0f, 2.0f, 0.0f);
+ball.velocity = glm::vec3();
+//int ballRadius = 1.0;
 float t = 0.001f;					// Global variable for animation
 float g = -9.81f;					// Gravitational force
-float h = 2.0f;						//Initial height of ball
-float x = 1.0f;						//Initial horizontal position of ball
-float ux = 1.0f;					//Initial horizontal velocity of ball
-float u = 0.0f;						//Initial vertical velocity of ball
+//float h = 2.0f;						//Initial height of ball
+//float x = 1.0f;						//Initial horizontal position of ball
+//float ux = 2.0f;					//Initial horizontal velocity of ball
+//float u = 0.0f;						//Initial vertical velocity of ball
 float zoom = -6.0f;					//Amount of zoom
 double prevTime = glfwGetTime();	//Prev time
-float m = 1.00;						//Mass of ball
-float mu = 0.01;					//Coefficient of static friction
-float Ff = m*g*mu;					//frictional force on the ball as it hits surface
+//float m = 1.00;						//Mass of ball
+//float mu = 0.01;					//Coefficient of static friction
+//float Ff = m*g*mu;					//frictional force on the ball as it hits surface
 
 int main()
 {
@@ -72,7 +77,7 @@ int main()
 		glfwPollEvents();						// poll callbacks
 		update(currentTime);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
-		updatePhysics(currentTime, prevTime);
+		updatePhysics(ball, currentTime, prevTime);
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
@@ -123,7 +128,7 @@ void update(double currentTime) {
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(glm::vec3(x, h, zoom)) *
+		glm::translate(glm::vec3(ball.position.x, ball.position.y, zoom)) *
 		/*glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) **/
 		glm::mat4(1.0f);
@@ -158,43 +163,44 @@ void update(double currentTime) {
 	t += 0.01f; // increment movement variable
 }
 
-void updatePhysics(double currentTime, double prevTime)
+void updatePhysics(Ball ball, double currentTime, double prevTime)
 {
 	float deltaTime = currentTime - prevTime;
 
-	if (x + ux*deltaTime >= -3.0 + ballRadius - 1 || x + ux*deltaTime <= 3.0 - ballRadius + 1) {
-		x += ux*deltaTime;
-		//add friction if no longer bouncing
-		if (u == 0) {
-			x -= 0.2;
-		}
+	//add friction if no longer bouncing
+	if (ball.velocity.y == 0) {
+		ball.velocity.x -= 0.05;
+	}
+	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.ballRadius - 1 || ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.ballRadius + 1) {
+		ball.position.x += ball.velocity.x*deltaTime;
+		
 	}
 
-	if ((x <= -3.0 + ballRadius) || (x >= 3.0 - ballRadius)) {
-		ux = -ux;
-		if (x <= -3.0 + ballRadius) {
-			ux-=0.2;
+	if ((ball.position.x <= -3.0 + ball.ballRadius) || (ball.position.x >= 3.0 - ball.ballRadius)) {
+		ball.velocity.x = -ball.velocity.x;
+		if (ball.position.x <= -3.0 + ball.ballRadius) {
+			ball.velocity.x-=0.2;
 		}
-		if (x >= 3.0 - ballRadius) {
-			ux+= 0.2;
+		if (ball.position.x >= 3.0 - ball.ballRadius) {
+			ball.velocity.x+= 0.2;
 		}
 	}
 	
 	
 
-	if (h + u*deltaTime > -3.0 + ballRadius-1) {
-		h += u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		u += g*deltaTime;
+	if (ball.position.y + ball.velocity.y*deltaTime > -3.0 + ball.ballRadius-1) {
+		ball.position.y += ball.u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		ball.velocity.y += g*deltaTime;
 	}
 	
 	
-		if (h <= -3.0 + ballRadius) {
+		if (ball.position.y <= -3.0 + ball.ballRadius) {
 		//The following line makes the ball stop at the ground.
 		//h = -3.0 + ballRadius;
 		//Reverses the direction of the velocity of the ball due an elastic collision.
-		u = -u;
-		h += u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		u += g*deltaTime -1.0;
+			ball.velocity.y = -ball.velocity.y;
+			ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+			ball.velocity.y += g*deltaTime -1.0;
 		//Energy lost due to friction Fr reduces the speed after impact:
 		//E(before) = E(after) = 0.5 * m * (u^2) = 0.5 * m * (v^2) + Ff
 		//ie  sqrt((E - Ff)/(0.5*m)) = v
