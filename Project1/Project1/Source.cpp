@@ -43,11 +43,16 @@ Arrow		arrowY;
 Arrow		arrowZ;
 
 int ballRadius = 1.0;
-float t = 0.001f;			// Global variable for animation
-float g = -9.8f;
-float h = 2.0f;
-float v = 0.0f;
-double prevTime = glfwGetTime();
+float t = 0.001f;					// Global variable for animation
+float g = -9.81f;					// Gravitational force
+float h = 2.0f;						//Initial height of ball
+float x = 1.0f;						//Initial horizontal position of ball
+float ux = 1.0f;					//Initial horizontal velocity of ball
+float u = 0.0f;						//Initial vertical velocity of ball
+double prevTime = glfwGetTime();	//Prev time
+float m = 1.00;						//Mass of ball
+float mu = 0.01;					//Coefficient of static friction
+float Ff = m*g*mu;					//frictional force on the ball as it hits surface
 
 int main()
 {
@@ -117,7 +122,7 @@ void update(double currentTime) {
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(glm::vec3(0.0f, h, -6.0f)) *
+		glm::translate(glm::vec3(x, h, -6.0f)) *
 		/*glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) **/
 		glm::mat4(1.0f);
@@ -154,14 +159,37 @@ void update(double currentTime) {
 
 void updatePhysics(double currentTime, double prevTime)
 {
-	if (h <= -3.0 + ballRadius) {
-		h = -3.0 + ballRadius;
-		v = v;
-		g = -g;
+	float deltaTime = currentTime - prevTime;
+	if ((x <= -3.0 + ballRadius) || (x >= 3.0 - ballRadius)) {
+		ux = -ux;
+		if (x <= -3.0 + ballRadius) {
+			ux-=0.1;
+		}
+		if (x >= 3.0 - ballRadius) {
+			ux+= 0.1;
+		}
 	}
-	else {
-		h += v*(currentTime - prevTime) - 0.5*g*pow(currentTime - prevTime, 2.0);
-		v += 0.1*g*(currentTime - prevTime);
+	x += ux*deltaTime;
+	
+
+	if (h + u*deltaTime > -3.0 + ballRadius-1) {
+		h += u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		u += g*deltaTime;
+	}
+	
+	
+		if (h <= -3.0 + ballRadius) {
+		//The following line makes the ball stop at the ground.
+		//h = -3.0 + ballRadius;
+		//Reverses the direction of the velocity of the ball due an elastic collision.
+		u = -u;
+		h += u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		u += g*deltaTime -1.0;
+		//Energy lost due to friction Fr reduces the speed after impact:
+		//E(before) = E(after) = 0.5 * m * (u^2) = 0.5 * m * (v^2) + Ff
+		//ie  sqrt((E - Ff)/(0.5*m)) = v
+		//u = sqrt((0.5*m*pow(u, 2.0) - Ff) / (0.5*m));
+
 	}
 }
 
