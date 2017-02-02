@@ -1,34 +1,34 @@
-#pragma once
-#pragma once
-
-#include <iostream>
-#include <vector>
-using namespace std;
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GLM/glm.hpp>
-#include <GLM/gtx/transform.hpp>
-
-void ErrorCallbackGLFW(int error, const char* description);
-
-class Physics {
-public:
-	Physics();
-	~Physics();
-
-	int Init();
-	void hintsGLFW();
-	void SetupRender();
-	void endProgram();
-	void SetOptimisations();
-	void ClearViewport();
-
-
-	GLFWwindow*		window;
-	int				windowWidth = 640;
-	int				windowHeight = 480;
-	float           aspect;
-	glm::mat4		proj_matrix = glm::mat4(1.0f);
-
-};
+//#pragma once
+//#pragma once
+//
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//#include <GL/glew.h>
+//#include <GLFW/glfw3.h>
+//#include <GLM/glm.hpp>
+//#include <GLM/gtx/transform.hpp>
+//
+//void ErrorCallbackGLFW(int error, const char* description);
+//
+//class Physics {
+//public:
+//	Physics();
+//	~Physics();
+//
+//	int Init();
+//	void hintsGLFW();
+//	void SetupRender();
+//	void endProgram();
+//	void SetOptimisations();
+//	void ClearViewport();
+//
+//
+//	GLFWwindow*		window;
+//	int				windowWidth = 640;
+//	int				windowHeight = 480;
+//	float           aspect;
+//	glm::mat4		proj_matrix = glm::mat4(1.0f);
+//
+//};

@@ -49,6 +49,7 @@ float h = 2.0f;						//Initial height of ball
 float x = 1.0f;						//Initial horizontal position of ball
 float ux = 1.0f;					//Initial horizontal velocity of ball
 float u = 0.0f;						//Initial vertical velocity of ball
+float zoom = -6.0f;					//Amount of zoom
 double prevTime = glfwGetTime();	//Prev time
 float m = 1.00;						//Mass of ball
 float mu = 0.01;					//Coefficient of static friction
@@ -122,7 +123,7 @@ void update(double currentTime) {
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(glm::vec3(x, h, -6.0f)) *
+		glm::translate(glm::vec3(x, h, zoom)) *
 		/*glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) **/
 		glm::mat4(1.0f);
@@ -160,16 +161,25 @@ void update(double currentTime) {
 void updatePhysics(double currentTime, double prevTime)
 {
 	float deltaTime = currentTime - prevTime;
+
+	if (x + ux*deltaTime >= -3.0 + ballRadius - 1 || x + ux*deltaTime <= 3.0 - ballRadius + 1) {
+		x += ux*deltaTime;
+		//add friction if no longer bouncing
+		if (u == 0) {
+			x -= 0.2;
+		}
+	}
+
 	if ((x <= -3.0 + ballRadius) || (x >= 3.0 - ballRadius)) {
 		ux = -ux;
 		if (x <= -3.0 + ballRadius) {
-			ux-=0.1;
+			ux-=0.2;
 		}
 		if (x >= 3.0 - ballRadius) {
-			ux+= 0.1;
+			ux+= 0.2;
 		}
 	}
-	x += ux*deltaTime;
+	
 	
 
 	if (h + u*deltaTime > -3.0 + ballRadius-1) {
