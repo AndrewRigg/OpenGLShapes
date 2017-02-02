@@ -45,8 +45,7 @@ Arrow		arrowZ;
 
 Ball ball;
 
-ball.position = glm::vec3(1.0f, 2.0f, 0.0f);
-ball.velocity = glm::vec3();
+
 //int ballRadius = 1.0;
 float t = 0.001f;					// Global variable for animation
 float g = -9.81f;					// Gravitational force
@@ -65,8 +64,10 @@ int main()
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 
+	ball.position = glm::vec3(1.0f, 2.0f, 0.0f);
+	ball.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
-
+	
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
@@ -123,6 +124,7 @@ void update(double currentTime) {
 	//	glm::mat4(1.0f);
 	//myCube.mv_matrix = mv_matrix_cube;
 	//myCube.proj_matrix = myGraphics.proj_matrix;
+
 
 
 
