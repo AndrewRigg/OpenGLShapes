@@ -25,6 +25,8 @@ using namespace std;
 #include "Ball.h"
 #include <cstdlib>
 #include <ctime>
+#include <windows.h>
+#include <stdlib.h>
 
 // FUNCTIONS
 void render(double currentTime);
@@ -34,10 +36,15 @@ void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
+
+
 // VARIABLES
 bool		running = true;
 int const number_of_balls = 10;
 Graphics	myGraphics;		// Runing all the graphics in this object
+
+INPUT_RECORD InputRecord;
+COORD coord;
 
 Cube		myCube;
 Sphere		mySphere, mySphere2;
@@ -54,6 +61,10 @@ Ball balls[number_of_balls];
 
 int main()
 {
+
+
+
+
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
@@ -73,18 +84,20 @@ int main()
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	}*/
 
-	//Exploding balls from one point
-	for (int i = 0; i < number_of_balls; i++) {
-		balls[i].radius = 1;
-		balls[i].position = glm::vec3(0.0f, 0.0f, -6.0f);
-		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	}
-
 	ball.radius = 1;
 	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
 	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
 	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	//Exploding balls from one point
+	for (int i = 0; i < number_of_balls; i++) {
+		balls[i].radius = 1;
+		balls[i].position = ball.position;
+		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	}
+
+	
 
 
 	ball2.radius = 1;
@@ -99,6 +112,14 @@ int main()
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
 																			// MAIN LOOP run until the window is closed
 	do {
+
+
+
+		coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
+		coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
+
+	
+
 		double currentTime = glfwGetTime();		// retrieve timelapse
 		double deltaTime = currentTime - prevTime;
 		glfwPollEvents();						// poll callbacks
@@ -287,12 +308,16 @@ Ball updatePhysics(Ball ball, double deltaTime)
 void render(double currentTime) {
 	// Clear viewport - start a new frame.
 	myGraphics.ClearViewport();
-
+	
 	// Draw
 	//myCube.Draw();
-	for (int i = 0; i < number_of_balls; i++) {
-		mySpheres[i].Draw();
-	}
+	//if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+
+
+		for (int i = 0; i < number_of_balls; i++) {
+			mySpheres[i].Draw();
+		}
+	//}
 	//mySphere.Draw();
 	//mySphere2.Draw();
 	/*arrowX.Draw();

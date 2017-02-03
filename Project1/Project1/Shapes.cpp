@@ -141,6 +141,7 @@ void main(void){
 }
 
 void Shapes::Draw() {
+	//glScalef(0.2f, 0.2f, 0.2f);
 	glUseProgram(program);
 	glBindVertexArray(vao);
 	glEnableVertexAttribArray(0);
@@ -155,6 +156,7 @@ void Shapes::Draw() {
 	glUniform4f(color_location, lineColor.r, lineColor.g, lineColor.b, lineColor.a);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  glLineWidth(lineWidth);
 	glDrawArrays(GL_TRIANGLES, 0, vertexPositions.size() / 3);
+
 }
 
 
