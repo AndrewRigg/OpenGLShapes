@@ -1,13 +1,12 @@
 ﻿  Source.cpp
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(22): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(170): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(174): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(184): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(187): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(194): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(204): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(205): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(12): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(172): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(175): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(182): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(185): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(190): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(191): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(200): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(201): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

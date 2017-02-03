@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Lab1-2.cpp" />
     <ClCompile Include="Lab1-3.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Shapes.cpp" />

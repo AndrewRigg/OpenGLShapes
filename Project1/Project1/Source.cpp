@@ -26,8 +26,8 @@ using namespace std;
 
 // FUNCTIONS
 void render(double currentTime);
-void update(double currentTime);
-void updatePhysics(Ball ball, double currentTime, double prevTime);
+void update(double currentTime, glm::vec3 position);
+Ball updatePhysics(Ball ball, double deltaTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -43,44 +43,43 @@ Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 
-Ball ball;
 
 
-//int ballRadius = 1.0;
 float t = 0.001f;					// Global variable for animation
 float g = -9.81f;					// Gravitational force
-//float h = 2.0f;						//Initial height of ball
-//float x = 1.0f;						//Initial horizontal position of ball
-//float ux = 2.0f;					//Initial horizontal velocity of ball
-//float u = 0.0f;						//Initial vertical velocity of ball
-float zoom = -6.0f;					//Amount of zoom
-double prevTime = glfwGetTime();	//Prev time
-//float m = 1.00;						//Mass of ball
-//float mu = 0.01;					//Coefficient of static friction
-//float Ff = m*g*mu;					//frictional force on the ball as it hits surface
 
 int main()
 {
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 
-	ball.position = glm::vec3(1.0f, 2.0f, 0.0f);
-	ball.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
-																			// MAIN LOOP run until the window is closed
+			
+	double currentTime = glfwGetTime();	
+	Ball ball;
+	ball.radius = 1;
+	ball.position = glm::vec3(0.0f, 2.0f, -6.0f);
+	ball.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	ball.acceleration = glm::vec3(0.0f, -9.8f, 0.0f);	
+
+														// MAIN LOOP run until the window is closed
 	do {
-		double currentTime = glfwGetTime();		// retrieve timelapse
-		
+			// retrieve timelapse
+		double prevTime = currentTime;
+		currentTime = glfwGetTime();
+		double deltaTime = currentTime - prevTime;
 		glfwPollEvents();						// poll callbacks
-		update(currentTime);					// update (physics, animation, structures, etc)
+		ball = updatePhysics(ball, deltaTime);
+		update(currentTime, ball.position);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
-		updatePhysics(ball, currentTime, prevTime);
+		
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
-		prevTime = currentTime;
+		
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
 		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
@@ -114,23 +113,23 @@ void startup() {
 }
 
 
-void update(double currentTime) {
+void update(double currentTime, glm::vec3 position) {
 
-	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
-	//glm::mat4 mv_matrix_cube =
-	//	glm::translate(glm::vec3(2.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-	//	glm::rotate(t, glm::vec3(1.0f, 0.0f, 0.0f)) *
-	//	glm::mat4(1.0f);
-	//myCube.mv_matrix = mv_matrix_cube;
-	//myCube.proj_matrix = myGraphics.proj_matrix;
+	 //Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
+	glm::mat4 mv_matrix_cube =
+		glm::translate(glm::vec3(2.0f, 0.0f, -6.0f)) *
+		glm::rotate(t, glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(t, glm::vec3(1.0f, 0.0f, 0.0f)) *
+		glm::mat4(1.0f);
+	myCube.mv_matrix = mv_matrix_cube;
+	myCube.proj_matrix = myGraphics.proj_matrix;
 
 
 
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(glm::vec3(ball.position.x, ball.position.y, zoom)) *
+		glm::translate(glm::vec3(position)) *
 		/*glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) **/
 		glm::mat4(1.0f);
@@ -165,38 +164,35 @@ void update(double currentTime) {
 	t += 0.01f; // increment movement variable
 }
 
-void updatePhysics(Ball ball, double currentTime, double prevTime)
+Ball updatePhysics(Ball ball, double deltaTime)
 {
-	float deltaTime = currentTime - prevTime;
 
 	//add friction if no longer bouncing
 	if (ball.velocity.y == 0) {
 		ball.velocity.x -= 0.05;
 	}
-	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.ballRadius - 1 || ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.ballRadius + 1) {
+	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.radius - 1 || ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.radius + 1) {
 		ball.position.x += ball.velocity.x*deltaTime;
 		
 	}
 
-	if ((ball.position.x <= -3.0 + ball.ballRadius) || (ball.position.x >= 3.0 - ball.ballRadius)) {
+	if ((ball.position.x <= -3.0 + ball.radius) || (ball.position.x >= 3.0 - ball.radius)) {
 		ball.velocity.x = -ball.velocity.x;
-		if (ball.position.x <= -3.0 + ball.ballRadius) {
+		if (ball.position.x <= -3.0 + ball.radius) {
 			ball.velocity.x-=0.2;
 		}
-		if (ball.position.x >= 3.0 - ball.ballRadius) {
+		if (ball.position.x >= 3.0 - ball.radius) {
 			ball.velocity.x+= 0.2;
 		}
 	}
 	
-	
-
-	if (ball.position.y + ball.velocity.y*deltaTime > -3.0 + ball.ballRadius-1) {
-		ball.position.y += ball.u*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+	if (ball.position.y + ball.velocity.y*deltaTime > -3.0 + ball.radius-1) {
+		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		ball.velocity.y += g*deltaTime;
 	}
 	
 	
-		if (ball.position.y <= -3.0 + ball.ballRadius) {
+		if (ball.position.y <= -3.0 + ball.radius) {
 		//The following line makes the ball stop at the ground.
 		//h = -3.0 + ballRadius;
 		//Reverses the direction of the velocity of the ball due an elastic collision.
@@ -209,6 +205,7 @@ void updatePhysics(Ball ball, double currentTime, double prevTime)
 		//u = sqrt((0.5*m*pow(u, 2.0) - Ff) / (0.5*m));
 
 	}
+		return ball;
 }
 
 void render(double currentTime) {
