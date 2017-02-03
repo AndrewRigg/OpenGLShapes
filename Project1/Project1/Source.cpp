@@ -36,7 +36,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 200;
+int const number_of_balls = 10;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
 Cube		myCube;
@@ -65,10 +65,19 @@ int main()
 	bounds[4] = -3;
 	bounds[5] = 3;
 
-	for (int i = 0; i < number_of_balls; i++) {
+	//Random balls everywhere
+	/*for (int i = 0; i < number_of_balls; i++) {
 		balls[i].radius = 1;
 		balls[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
 		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
+		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	}*/
+
+	//Exploding balls from one point
+	for (int i = 0; i < number_of_balls; i++) {
+		balls[i].radius = 1;
+		balls[i].position = glm::vec3(0.0f, 0.0f, -6.0f);
+		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	}
 
@@ -281,10 +290,10 @@ void render(double currentTime) {
 
 	// Draw
 	//myCube.Draw();
-	//for (int i = 0; i < number_of_balls; i++) {
-	//	mySpheres[i].Draw();
-	//}
-	mySphere.Draw();
+	for (int i = 0; i < number_of_balls; i++) {
+		mySpheres[i].Draw();
+	}
+	//mySphere.Draw();
 	//mySphere2.Draw();
 	/*arrowX.Draw();
 	arrowY.Draw();
