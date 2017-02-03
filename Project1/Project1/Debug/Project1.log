@@ -1,13 +1,15 @@
 ﻿  Source.cpp
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(22): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(170): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(174): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(184): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(187): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(194): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(204): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(205): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(12): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(232): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(238): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(241): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(245): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(246): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(250): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(251): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(267): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(270): warning C4305: '+=': truncation from 'double' to 'float'
+Ball.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

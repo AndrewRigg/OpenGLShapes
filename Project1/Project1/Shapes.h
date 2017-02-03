@@ -44,6 +44,12 @@ public:
 	~Cube();
 };
 
+//class Plane : public Plane {
+//public:
+//	Plane();
+//	~Plane();
+//};
+
 class Sphere : public Shapes {
 public:
 	Sphere();

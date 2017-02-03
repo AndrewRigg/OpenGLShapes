@@ -175,6 +175,17 @@ void Shapes::checkErrorShader(GLuint shader) {
 	}
 }
 
+//Plane::Plane() {
+//	rawData = R"(
+//	-100.0 -100.0 -100.0 -100.0)";
+//	loadObj();
+//}
+
+//Plane::~Plane() {
+//
+//}
+
+
 Cube::Cube() {
 	// Exported from Blender a cube by default (OBJ File)
 	rawData = R"(
