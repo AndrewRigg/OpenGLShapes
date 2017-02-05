@@ -31,16 +31,15 @@ using namespace std;
 // FUNCTIONS
 void render(float currentTime);
 void update(float currentTime);
-Ball updatePhysics(Ball ball, float deltaTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
+void explode();
 
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 1;
+int const number_of_balls = 100;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -92,32 +91,6 @@ int main()
 	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 
 
-	
-	//Exploding balls from one point
-	for (int i = 0; i < number_of_balls; i++) {
-		balls[i].radius = 1;
-		balls[i].mass= 28;
-		balls[i].lifeTime = 400;
-		balls[i].position = ball.position;
-		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
-		balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		//balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].velocity = glm::vec3(-1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-		
-		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
-		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
-		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
-		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
-		printf(" Mass: %f", balls[i].mass);
-		printf(" Alive: %d", balls[i].alive());
-		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
-		printf("Lifetime: %f", balls[i].lifeTime);
-	}
-
-	
-
-
 	ball2.radius = 1;
 	ball2.position = glm::vec3(-1.0f, -2.0f, -6.0f);
 	ball2.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -159,6 +132,30 @@ int main()
 	cin.ignore(); cin.get(); // delay closing console to read debugging errors.
 
 	return 0;
+}
+
+void explode() {
+	//Exploding balls from one point
+	for (int i = 0; i < number_of_balls; i++) {
+		balls[i].radius = 1;
+		balls[i].mass = 28;
+		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
+		balls[i].position = ball.position;
+		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
+		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+		balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
+		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
+		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
+		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
+		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
+		printf(" Mass: %f", balls[i].mass);
+		printf(" Alive: %d", balls[i].alive());
+		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
+		printf("Lifetime: %f", balls[i].lifeTime);
+	}
 }
 
 void startup() {
@@ -322,12 +319,12 @@ void render(float currentTime) {
 	
 		for (int i = 0; i < number_of_balls; i++) {
 			if (balls[i].alive()) {
-			printf("Lifetime: %f", balls[i].lifeTime);
-			mySpheres[i].Draw();
-		}
+				printf("Lifetime: %f", balls[i].lifeTime);
+				mySpheres[i].Draw();
+			}
 	}
 	//}
-	//mySphere.Draw();
+	mySphere.Draw();
 	//mySphere2.Draw();
 	/*arrowX.Draw();
 	arrowY.Draw();
@@ -346,5 +343,9 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 
+
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+		explode();
+	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }

@@ -52,6 +52,7 @@ public:
 	~Ball();
 
 	float mass;
+	float lifeTime;
 	float radius;
 	float volume();
 	float g = -9.81;
@@ -72,7 +73,7 @@ public:
 	void setMass(float mass);					//Do I need these getters and setters??!  Look into accessibility
 	float getMass();
 	void setAlive(bool alive);
-	bool getAlive();
+	bool alive();	
 	void setAction(vector3 action);
 	vector3 getAction();
 	void setRadius(float radius);
