@@ -98,6 +98,7 @@ vector3 Ball::Friction() {
 
 vector3 Ball::TotalForce() {
 //	return vector3(GravitationalForce() + Friction() + action);
+	return vector3(0,0,0);
 }
 
 void Ball::setAction(vector3 appliedAction) {

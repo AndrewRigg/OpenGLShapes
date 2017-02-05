@@ -79,22 +79,22 @@ int main()
 	//Random balls everywhere
 	/*for (int i = 0; i < number_of_balls; i++) {
 		balls[i].radius = 1;
-		balls[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
-		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		balls[i].position = vector3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
+		balls[i].velocity = vector3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
+		balls[i].acceleration = vector3(0.0f, 0.0f, 0.0f);
 	}*/
 
 	ball.radius = 1;
 	ball.setMass(27);
-	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
-	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
-	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	ball.position = vector3(1.0f, 2.0f, -6.0f);
+	ball.velocity = vector3(3.0f, 1.0f, 1.0f);
+	ball.acceleration = vector3(0.0f, 0.0f, 0.0f);
 
 
 	ball2.radius = 1;
-	ball2.position = glm::vec3(-1.0f, -2.0f, -6.0f);
-	ball2.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-	ball2.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	ball2.position = vector3(-1.0f, -2.0f, -6.0f);
+	ball2.velocity = vector3(0.0f, 0.0f, 0.0f);
+	ball2.acceleration = vector3(0.0f, 0.0f, 0.0f);
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
@@ -141,11 +141,11 @@ void explode() {
 		balls[i].mass = 28;
 		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
 		balls[i].position = ball.position;
-		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
-		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		//balls[i].velocity = vector3(1.0f, 1.0f, 1.0f);
+		//balls[i].angular_velocity = vector3(0.0f, 0.0f, 0.0f);
+		balls[i].angular_velocity = vector3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
+		balls[i].velocity = vector3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		balls[i].acceleration = vector3(0.0f, 0.0f, 0.0f);
 
 		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
 		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
@@ -192,9 +192,9 @@ void update(float currentTime) {
 
 	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 	//glm::mat4 mv_matrix_cube =
-	//	glm::translate(glm::vec3(2.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-	//	glm::rotate(t, glm::vec3(1.0f, 0.0f, 0.0f)) *
+	//	glm::translate(vector3(2.0f, 0.0f, -6.0f)) *
+	//	glm::rotate(t, vector3(0.0f, 1.0f, 0.0f)) *
+	//	glm::rotate(t, vector3(1.0f, 0.0f, 0.0f)) *
 	//	glm::mat4(1.0f);
 	//myCube.mv_matrix = mv_matrix_cube;
 	//myCube.proj_matrix = myGraphics.proj_matrix;
@@ -202,50 +202,50 @@ void update(float currentTime) {
 	glm::mat4 mv_matrix_spheres[number_of_balls];
 
 	for (int i = 0; i < number_of_balls; i++) {
-		mv_matrix_spheres[i] =
-			glm::translate(balls[i].position) *
-			glm::rotate(-t, balls[i].angular_velocity) *
+		//mv_matrix_spheres[i] =
+			//glm::translate(balls[i].position) *
+			//glm::rotate(-t, balls[i].angular_velocity) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres[i];
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
 	}
 
 	// calculate Sphere movement
-	glm::mat4 mv_matrix_sphere =
-		glm::translate(ball.position) *
-		glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) *
+	//glm::mat4 mv_matrix_sphere =
+		//glm::translate(ball.position) *
+		//glm::rotate(-t, vector3(0.0f, 1.0f, 0.0f)) *
+		//glm::rotate(-t, vector3(1.0f, 0.0f, 0.0f)) *
 		glm::mat4(1.0f);
-	mySphere.mv_matrix = mv_matrix_sphere; 
+	//mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;
 
 	glm::mat4 mv_matrix_sphere2 =
-		glm::translate(ball2.position) *
+		//glm::translate(ball2.position) *
 		glm::mat4(1.0f);
 	mySphere2.mv_matrix = mv_matrix_sphere2;
 	mySphere2.proj_matrix = myGraphics.proj_matrix;
 
 	//Calculate Arrows translations (note: arrow model points up)
 	//glm::mat4 mv_matrix_x =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
+	//	glm::translate(vector3(0.0f, 0.0f, -6.0f)) *
+	//	glm::rotate(glm::radians(-90.0f), vector3(0.0f, 0.0f, 1.0f)) *
+	//	glm::scale(vector3(0.2f, 0.5f, 0.2f)) *
 	//	glm::mat4(1.0f);
 	//arrowX.mv_matrix = mv_matrix_x;
 	//arrowX.proj_matrix = myGraphics.proj_matrix;
 
 	//glm::mat4 mv_matrix_y =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	//glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *	// already model pointing up
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
+	//	glm::translate(vector3(0.0f, 0.0f, -6.0f)) *
+	//	//glm::rotate(glm::radians(-90.0f), vector3(0.0f, 0.0f, 1.0f)) *	// already model pointing up
+	//	glm::scale(vector3(0.2f, 0.5f, 0.2f)) *
 	//	glm::mat4(1.0f);
 	//arrowY.mv_matrix = mv_matrix_y;
 	//arrowY.proj_matrix = myGraphics.proj_matrix;
 
 	//glm::mat4 mv_matrix_z =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f)) *
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
+	//	glm::translate(vector3(0.0f, 0.0f, -6.0f)) *
+	//	glm::rotate(glm::radians(90.0f), vector3(1.0f, 0.0f, 0.0f)) *
+	//	glm::scale(vector3(0.2f, 0.5f, 0.2f)) *
 	//	glm::mat4(1.0f);
 	//arrowZ.mv_matrix = mv_matrix_z;
 	//arrowZ.proj_matrix = myGraphics.proj_matrix;
