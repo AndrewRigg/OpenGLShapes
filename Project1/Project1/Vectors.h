@@ -8,7 +8,7 @@ class vector3 {
 public:
 	vector3();
 	~vector3();
-	vector3(float, float, float);
+	vector3(float x, float y, float z);
 
 	int equivalence(vector3 vec);
 

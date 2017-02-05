@@ -19,6 +19,7 @@ const double pi = 3.1415926535897;
 Ball::Ball() {};
 Ball::~Ball() {};
 
+
 glm::vec3 Ball::Momentum() {
 	return glm::vec3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
 }
@@ -55,12 +56,8 @@ float Ball::getMass() {
 	return mass;
 }
 
-void Ball::setAlive(bool isAlive) {
-	alive = isAlive;
-}
-
-bool Ball::getAlive() {
-	return alive;
+bool Ball::alive() {
+	return lifeTime > 0;
 }
 
 void Ball::setAction(glm::vec3 appliedAction) {
@@ -77,6 +74,57 @@ void Ball::setRadius(float newRadius) {
 
 float Ball::getRadius() {
 	return radius;
+}
+
+
+void Ball::updatePhysics(float deltaTime)
+{
+	lifeTime--;
+
+	if (position.y - radius <= 0) {
+		velocity.x *= 0.999;
+		velocity.z *= 0.999;
+	}
+
+	if (position.x + velocity.x*deltaTime >= -3.0 + radius && position.x + velocity.x*deltaTime <= 3.0 - radius) {
+		position.x += velocity.x*deltaTime;
+	}
+	if (position.x + velocity.x*deltaTime <= -3.0 + radius || position.x + velocity.x*deltaTime >= 3.0 - radius) {
+		velocity.x = -velocity.x;
+		if (position.x <= -3.0 + radius) {
+			velocity.x -= 0.2;
+		}
+		if (position.x >= 3.0 - radius) {
+			velocity.x += 0.2;
+		}
+	}
+
+	if (position.y + velocity.y*deltaTime >= -3.0 + radius && position.y + velocity.y*deltaTime <= 10.0 - radius) {
+		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		velocity.y += g*deltaTime;
+	}
+	if (position.y + velocity.y*deltaTime <= -3.0 + radius || position.y + velocity.y*deltaTime >= 10.0 - radius) {
+		velocity.y = -velocity.y;
+		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		velocity.y += g*deltaTime - 1;
+		//Not sure if the following works
+		angular_velocity.x += 0.1;
+		angular_velocity.y += 0.1;
+		angular_velocity.z += 0.1;
+	}
+
+	if (position.z + velocity.z*deltaTime >= -20.0 + radius && position.z + velocity.z*deltaTime <= -5.0 - radius) {
+		position.z += velocity.z*deltaTime;
+	}
+	if (position.z + velocity.z*deltaTime <= -20.0 + radius || position.z + velocity.z*deltaTime >= -5.0 - radius) {
+		velocity.z = -velocity.z;
+		if (position.z <= -20.0 + radius) {
+			velocity.z -= 0.2;
+		}
+		if (position.z >= -5.0 - radius) {
+			velocity.z += 0.2;
+		}
+	}
 }
 
 

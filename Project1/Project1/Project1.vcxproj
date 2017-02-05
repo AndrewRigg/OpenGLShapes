@@ -69,24 +69,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <ReferencePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(ReferencePath)</ReferencePath>
-    <LibraryPath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;H:\.windows_settings\My Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;H:\.windows_settings\My Documents\Visual Studio 2015\GLFW\glfw-3.2.1\include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\.windows_settings\My Documents\Visual Studio 2015\GLEW\glew-2.0.0\lib\Release\Win32;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLEW\glew-2.0.0\bin\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <ReferencePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(ReferencePath)</ReferencePath>
-    <LibraryPath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;H:\.windows_settings\My Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;H:\.windows_settings\My Documents\Visual Studio 2015\GLFW\glfw-3.2.1\include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\.windows_settings\My Documents\Visual Studio 2015\GLEW\glew-2.0.0\lib\Release\Win32;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLEW\glew-2.0.0\bin\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Project1\glm-0.9.8.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Project1\glm-0.9.8.4;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\include;H:\Documents\GLEW\glew-2.0.0\include;H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Project1\glm-0.9.8.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLEW\glew-2.0.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -104,12 +104,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Project1\glm-0.9.8.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\include;C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\include;C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Project1\glm-0.9.8.4;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\include;H:\Documents\GLEW\glew-2.0.0\include;H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Project1\glm-0.9.8.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Andrew\Documents\Visual Studio 2015\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;C:\Users\Andrew\Documents\Visual Studio 2015\GLEW\glew-2.0.0\bin\Release\Win32;H:\Documents\GLFW\glfw-3.2.1.bin.WIN32\lib-vc2015;H:\Documents\GLEW\glew-2.0.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Lab1-3.cpp" />
     <ClCompile Include="Matrix.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Emitter.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Physics.h" />

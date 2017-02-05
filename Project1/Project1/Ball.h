@@ -10,6 +10,7 @@ public:
 
 	float mass;
 	float radius;
+	float lifeTime;
 	float volume();
 	float g = -9.81;
 	float mu = 0.01;							//This is the coefficient of static friction fot this ball
@@ -25,15 +26,15 @@ public:
 	glm::vec3 TotalForce();						//Addition of all forces acting on ball
 	float KineticEnergy();								
 	float PotentialEnergy();
-	bool alive;																			
+	bool alive();																			
 	void setMass(float mass);					//Do I need these getters and setters??!  Look into accessibility
 	float getMass();
-	void setAlive(bool alive);
-	bool getAlive();
 	void setAction(glm::vec3 action);
 	glm::vec3 getAction();
 	void setRadius(float radius);
 	float getRadius();
+	void updatePhysics(float deltaTime);
+
 
 private:
 
@@ -51,6 +52,7 @@ public:
 	~Ball();
 
 	float mass;
+	float lifeTime;
 	float radius;
 	float volume();
 	float g = -9.81;
@@ -71,7 +73,7 @@ public:
 	void setMass(float mass);					//Do I need these getters and setters??!  Look into accessibility
 	float getMass();
 	void setAlive(bool alive);
-	bool getAlive();
+	bool alive();	
 	void setAction(vector3 action);
 	vector3 getAction();
 	void setRadius(float radius);
