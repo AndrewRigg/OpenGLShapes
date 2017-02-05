@@ -1,9 +1,23 @@
-﻿  Source.cpp
+﻿  Ball.cpp
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(16): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(48): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(85): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(86): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(95): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(98): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(103): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(108): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(111): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(112): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(113): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(122): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(125): warning C4305: '+=': truncation from 'double' to 'float'
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Source.cpp
+  Physics.cpp
+  Graphics.cpp
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

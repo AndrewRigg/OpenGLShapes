@@ -52,6 +52,7 @@ Sphere mySpheres[number_of_balls];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
+float scale = 0.3;
 float bounds[6];
 float t = 0.001f;					// Global variable for animation
 float g = -9.81f;					// Gravitational force
@@ -205,6 +206,7 @@ void update(float currentTime) {
 		mv_matrix_spheres[i] =
 			glm::translate(balls[i].position) *
 			glm::rotate(-t, balls[i].angular_velocity) *
+			glm::scale(glm::vec3(scale, scale, scale)) *		//trial
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres[i];
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
@@ -215,6 +217,7 @@ void update(float currentTime) {
 		glm::translate(ball.position) *
 		glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) *
+		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);
 	mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;
@@ -256,57 +259,6 @@ void update(float currentTime) {
 float update_vector(float derivative, float deltaTime) {
 	return derivative*deltaTime;
 }
-/*
-Ball updatePhysics(Ball ball, float deltaTime)
-{
-	if (ball.position.y - ball.radius <= 0) {
-		ball.velocity.x *= 0.999;
-		ball.velocity.z *= 0.999;
-	}
-
-	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.radius && ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.radius) {
-		ball.position.x += ball.velocity.x*deltaTime;
-	}
-	if (ball.position.x + ball.velocity.x*deltaTime <= -3.0 + ball.radius || ball.position.x + ball.velocity.x*deltaTime >= 3.0 - ball.radius) {
-		ball.velocity.x = -ball.velocity.x;
-		if (ball.position.x <= -3.0 + ball.radius) {
-			ball.velocity.x -= 0.2;
-		}
-		if (ball.position.x >= 3.0 - ball.radius) {
-			ball.velocity.x += 0.2;
-		}
-	}
-
-	if (ball.position.y + ball.velocity.y*deltaTime >= -3.0 + ball.radius && ball.position.y + ball.velocity.y*deltaTime <= 10.0 - ball.radius) {
-		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		ball.velocity.y += g*deltaTime;
-	}
-	if (ball.position.y + ball.velocity.y*deltaTime <= -3.0 + ball.radius || ball.position.y + ball.velocity.y*deltaTime >= 10.0 - ball.radius) {
-		ball.velocity.y = -ball.velocity.y;
-		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		ball.velocity.y += g*deltaTime - 1;
-		//Not sure if the following works
-		ball.angular_velocity.x += 0.1;
-		ball.angular_velocity.y += 0.1;
-		ball.angular_velocity.z += 0.1;
-	}
-
-	if (ball.position.z + ball.velocity.z*deltaTime >= -20.0 + ball.radius && ball.position.z + ball.velocity.z*deltaTime <= -5.0 - ball.radius) {
-		ball.position.z += ball.velocity.z*deltaTime;
-	}
-	if (ball.position.z + ball.velocity.z*deltaTime <= -20.0 + ball.radius || ball.position.z + ball.velocity.z*deltaTime >= -5.0 - ball.radius) {
-		ball.velocity.z = -ball.velocity.z;
-		if (ball.position.z <= -20.0 + ball.radius) {
-			ball.velocity.z -= 0.2;
-		}
-		if (ball.position.z >= -5.0 - ball.radius) {
-			ball.velocity.z += 0.2;
-		}
-	}
-		return ball;
-}
-*/
-
 
 void render(float currentTime) {
 	// Clear viewport - start a new frame.
@@ -319,7 +271,7 @@ void render(float currentTime) {
 	
 		for (int i = 0; i < number_of_balls; i++) {
 			if (balls[i].alive()) {
-				printf("Lifetime: %f", balls[i].lifeTime);
+				//printf("Lifetime: %f", balls[i].lifeTime);
 				mySpheres[i].Draw();
 			}
 	}
