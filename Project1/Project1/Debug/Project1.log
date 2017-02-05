@@ -1,9 +1,72 @@
 ﻿  Source.cpp
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(16): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(89): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(89): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(90): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(90): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(91): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(91): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(95): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(95): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(96): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(96): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(97): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(97): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
-  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(146): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(146): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(147): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(147): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(148): error C2679: binary '=': no operator found which takes a right-hand operand of type 'glm::tvec3<float,0>' (or there is no acceptable conversion)
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\vectors.h(31): note: could be 'vector3 &vector3::operator =(const vector3 &)'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(148): note: while trying to match the argument list '(vector3, glm::tvec3<float,0>)'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(206): error C2672: 'glm::translate': no matching overloaded function found
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(206): error C2784: 'glm::tmat4x4<T,P> glm::translate(const glm::tvec3<T,P> &)': could not deduce template argument for 'const glm::tvec3<T,P> &' from 'vector3'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtx\transform.hpp(35): note: see declaration of 'glm::translate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(206): error C2780: 'glm::tmat4x4<T,P> glm::translate(const glm::tmat4x4<T,P> &,const glm::tvec3<T,P> &)': expects 2 arguments - 1 provided
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtc\matrix_transform.hpp(58): note: see declaration of 'glm::translate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(207): error C2672: 'glm::rotate': no matching overloaded function found
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(207): error C2784: 'glm::tmat4x4<T,P> glm::rotate(T,const glm::tvec3<T,P> &)': could not deduce template argument for 'const glm::tvec3<T,P> &' from 'vector3'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtx\transform.hpp(42): note: see declaration of 'glm::rotate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(207): error C2780: 'glm::tmat4x4<T,P> glm::rotate(const glm::tmat4x4<T,P> &,T,const glm::tvec3<T,P> &)': expects 3 arguments - 2 provided
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtc\matrix_transform.hpp(72): note: see declaration of 'glm::rotate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(215): error C2672: 'glm::translate': no matching overloaded function found
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(215): error C2784: 'glm::tmat4x4<T,P> glm::translate(const glm::tvec3<T,P> &)': could not deduce template argument for 'const glm::tvec3<T,P> &' from 'vector3'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtx\transform.hpp(35): note: see declaration of 'glm::translate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(215): error C2780: 'glm::tmat4x4<T,P> glm::translate(const glm::tmat4x4<T,P> &,const glm::tvec3<T,P> &)': expects 2 arguments - 1 provided
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtc\matrix_transform.hpp(58): note: see declaration of 'glm::translate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(223): error C2672: 'glm::translate': no matching overloaded function found
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(223): error C2784: 'glm::tmat4x4<T,P> glm::translate(const glm::tvec3<T,P> &)': could not deduce template argument for 'const glm::tvec3<T,P> &' from 'vector3'
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtx\transform.hpp(35): note: see declaration of 'glm::translate'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(223): error C2780: 'glm::tmat4x4<T,P> glm::translate(const glm::tmat4x4<T,P> &,const glm::tvec3<T,P> &)': expects 2 arguments - 1 provided
+  h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\glm-0.9.8.4\glm\gtc\matrix_transform.hpp(58): note: see declaration of 'glm::translate'
+  Ball.cpp
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(16): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(23): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(31): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(117): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(118): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(127): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(130): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(135): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(140): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(143): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(144): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(145): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(154): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(157): warning C4305: '+=': truncation from 'double' to 'float'
+  Generating Code...
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.cpp(101): error C4716: 'Ball::TotalForce': must return a value
