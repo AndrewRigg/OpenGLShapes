@@ -41,6 +41,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 // VARIABLES
 bool		running = true;
 int const number_of_balls = 10;
+int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
 INPUT_RECORD InputRecord;
@@ -85,16 +86,32 @@ int main()
 	}*/
 
 	ball.radius = 1;
+	ball.setMass(27);
 	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
 	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
 	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 
+
+	
 	//Exploding balls from one point
 	for (int i = 0; i < number_of_balls; i++) {
 		balls[i].radius = 1;
+		balls[i].mass= 28;
+		balls[i].alive =1;
 		balls[i].position = ball.position;
+		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
+		balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+		//balls[i].angular_velocity = glm::vec3( - 10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
 		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		
+		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
+		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
+		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
+		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
+		printf(" Mass: %f", balls[i].mass);
+		printf(" Alive: %d", balls[i].alive);
+		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
 	}
 
 	
@@ -191,8 +208,7 @@ void update(double currentTime) {
 	for (int i = 0; i < number_of_balls; i++) {
 		mv_matrix_spheres[i] =
 			glm::translate(balls[i].position) *
-			glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-			glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) *
+			glm::rotate(-t, balls[i].angular_velocity) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres[i];
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
@@ -241,28 +257,21 @@ void update(double currentTime) {
 	t += 0.01f; // increment movement variable
 }
 
+float update_vector(float derivative, float deltaTime) {
+	return derivative*deltaTime;
+}
+
 Ball updatePhysics(Ball ball, double deltaTime)
 {
-	//*******Try to do all vector calculations in one
-	/*for (int direction = 0; direction < 3; direction++) {
-		if (ball.position[direction] <= bounds[direction * 2] + ball.radius || ball.position[direction] >= bounds[direction * 2 + 2] - ball.radius) {
-			ball.velocity[direction] = -ball.velocity[direction];
-		}
-		ball.position[direction] += ball.velocity[direction] * deltaTime;
-		ball.velocity[direction] += ball.acceleration[direction] * deltaTime;
-	}*/
-
-	//*******
-
-	if (ball.velocity.y == 0) {
-		ball.velocity.x = 0;
-		ball.velocity.z = 0;
+	if (ball.position.y - ball.radius <= 0) {
+		ball.velocity.x *= 0.999;
+		ball.velocity.z *= 0.999;
 	}
-	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.radius - 1 || ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.radius + 1) {
+
+	if (ball.position.x + ball.velocity.x*deltaTime >= -3.0 + ball.radius && ball.position.x + ball.velocity.x*deltaTime <= 3.0 - ball.radius) {
 		ball.position.x += ball.velocity.x*deltaTime;
-		
 	}
-	if ((ball.position.x <= -3.0 + ball.radius) || (ball.position.x >= 3.0 - ball.radius)) {
+	if (ball.position.x + ball.velocity.x*deltaTime <= -3.0 + ball.radius || ball.position.x + ball.velocity.x*deltaTime >= 3.0 - ball.radius) {
 		ball.velocity.x = -ball.velocity.x;
 		if (ball.position.x <= -3.0 + ball.radius) {
 			ball.velocity.x -= 0.2;
@@ -271,37 +280,33 @@ Ball updatePhysics(Ball ball, double deltaTime)
 			ball.velocity.x += 0.2;
 		}
 	}
-	if (ball.position.y + ball.velocity.y*deltaTime > -3.0 + ball.radius-1) {
+
+	if (ball.position.y + ball.velocity.y*deltaTime >= -3.0 + ball.radius && ball.position.y + ball.velocity.y*deltaTime <= 10.0 - ball.radius) {
 		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		ball.velocity.y += g*deltaTime;
 	}
-	if (ball.position.y <= -3.0 + ball.radius) {
+	if (ball.position.y + ball.velocity.y*deltaTime <= -3.0 + ball.radius || ball.position.y + ball.velocity.y*deltaTime >= 10.0 - ball.radius) {
 		ball.velocity.y = -ball.velocity.y;
 		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		ball.velocity.y += g*deltaTime -1.0;
+		ball.velocity.y += g*deltaTime - 1;
+		//Not sure if the following works
+		ball.angular_velocity.x -= 0.1;
+		ball.angular_velocity.y -= 0.1;
+		ball.angular_velocity.z -= 0.1;
 	}
-	/*
-	if (ball.position.z + ball.velocity.z*deltaTime > -3.0 + ball.radius - 1) {
-		ball.position.z += ball.velocity.z*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		ball.velocity.z += g*deltaTime;
+
+	if (ball.position.z + ball.velocity.z*deltaTime >= -20.0 + ball.radius && ball.position.z + ball.velocity.z*deltaTime <= -5.0 - ball.radius) {
+		ball.position.z += ball.velocity.z*deltaTime;
 	}
-	if (ball.position.z <= -3.0 + ball.radius) {
+	if (ball.position.z + ball.velocity.z*deltaTime <= -20.0 + ball.radius || ball.position.z + ball.velocity.z*deltaTime >= -5.0 - ball.radius) {
 		ball.velocity.z = -ball.velocity.z;
-		ball.position.z += ball.velocity.z*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		ball.velocity.z += g*deltaTime - 1.0;
-	}*/
-	//
-	if ((ball.position.z <= -10.0 + ball.radius) || (ball.position.z >= -3.0 - ball.radius)) {
-		ball.velocity.z = -ball.velocity.z;
-		if (ball.position.z <= -10.0 + ball.radius) {
+		if (ball.position.z <= -20.0 + ball.radius) {
 			ball.velocity.z -= 0.2;
 		}
-		if (ball.position.z >= -3.0 - ball.radius) {
+		if (ball.position.z >= -5.0 - ball.radius) {
 			ball.velocity.z += 0.2;
 		}
 	}
-	//
-
 		return ball;
 }
 
@@ -315,7 +320,9 @@ void render(double currentTime) {
 
 
 		for (int i = 0; i < number_of_balls; i++) {
-			mySpheres[i].Draw();
+			//if (balls[i].getAlive() == 1) {
+				mySpheres[i].Draw();
+			//}	
 		}
 	//}
 	//mySphere.Draw();
