@@ -40,7 +40,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 10;
+int const number_of_balls = 1;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -101,8 +101,8 @@ int main()
 		balls[i].position = ball.position;
 		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
 		balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		//balls[i].angular_velocity = glm::vec3( - 10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
-		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		//balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
+		balls[i].velocity = glm::vec3(-1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 		
 		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
@@ -290,9 +290,9 @@ Ball updatePhysics(Ball ball, double deltaTime)
 		ball.position.y += ball.velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		ball.velocity.y += g*deltaTime - 1;
 		//Not sure if the following works
-		ball.angular_velocity.x -= 0.1;
-		ball.angular_velocity.y -= 0.1;
-		ball.angular_velocity.z -= 0.1;
+		ball.angular_velocity.x += 0.1;
+		ball.angular_velocity.y += 0.1;
+		ball.angular_velocity.z += 0.1;
 	}
 
 	if (ball.position.z + ball.velocity.z*deltaTime >= -20.0 + ball.radius && ball.position.z + ball.velocity.z*deltaTime <= -5.0 - ball.radius) {
