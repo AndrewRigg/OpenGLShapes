@@ -29,9 +29,9 @@ using namespace std;
 #include <stdlib.h>
 
 // FUNCTIONS
-void render(double currentTime);
-void update(double currentTime);
-Ball updatePhysics(Ball ball, double deltaTime);
+void render(float currentTime);
+void update(float currentTime);
+Ball updatePhysics(Ball ball, float deltaTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -56,7 +56,7 @@ Arrow		arrowZ;
 float bounds[6];
 float t = 0.001f;					// Global variable for animation
 float g = -9.81f;					// Gravitational force
-double prevTime = glfwGetTime();	//Prev time
+float prevTime = glfwGetTime();	//Prev time
 Ball ball, ball2;
 Ball balls[number_of_balls];
 
@@ -97,7 +97,7 @@ int main()
 	for (int i = 0; i < number_of_balls; i++) {
 		balls[i].radius = 1;
 		balls[i].mass= 28;
-		balls[i].alive =1;
+		balls[i].lifeTime = 400;
 		balls[i].position = ball.position;
 		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
 		balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -110,8 +110,9 @@ int main()
 		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
 		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
 		printf(" Mass: %f", balls[i].mass);
-		printf(" Alive: %d", balls[i].alive);
+		printf(" Alive: %d", balls[i].alive());
 		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
+		printf("Lifetime: %f", balls[i].lifeTime);
 	}
 
 	
@@ -129,24 +130,22 @@ int main()
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
 																			// MAIN LOOP run until the window is closed
 	do {
-
-
-
 		coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
 		coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
-
-	
-
-		double currentTime = glfwGetTime();		// retrieve timelapse
-		double deltaTime = currentTime - prevTime;
+		
+		float currentTime = glfwGetTime();		// retrieve timelapse
+		float deltaTime = currentTime - prevTime;
 		glfwPollEvents();						// poll callbacks
 		update(currentTime);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_balls; i++) {
-			balls[i] = updatePhysics(balls[i], deltaTime);
+			//balls[i] = updatePhysics(balls[i], deltaTime);
+			balls[i].updatePhysics(deltaTime);
 		}
-		ball = updatePhysics(ball, deltaTime);
-		ball2 = updatePhysics(ball2, deltaTime);
+		//ball = updatePhysics(ball, deltaTime);
+		ball.updatePhysics(deltaTime);
+		//ball2 = updatePhysics(ball2, deltaTime);
+		ball2.updatePhysics(deltaTime);
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 
@@ -192,7 +191,7 @@ void startup() {
 }
 
 
-void update(double currentTime) {
+void update(float currentTime) {
 
 	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 	//glm::mat4 mv_matrix_cube =
@@ -260,8 +259,8 @@ void update(double currentTime) {
 float update_vector(float derivative, float deltaTime) {
 	return derivative*deltaTime;
 }
-
-Ball updatePhysics(Ball ball, double deltaTime)
+/*
+Ball updatePhysics(Ball ball, float deltaTime)
 {
 	if (ball.position.y - ball.radius <= 0) {
 		ball.velocity.x *= 0.999;
@@ -309,21 +308,24 @@ Ball updatePhysics(Ball ball, double deltaTime)
 	}
 		return ball;
 }
+*/
 
-void render(double currentTime) {
+
+void render(float currentTime) {
 	// Clear viewport - start a new frame.
 	myGraphics.ClearViewport();
 	
 	// Draw
 	//myCube.Draw();
 	//if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-
-
+	
+	
 		for (int i = 0; i < number_of_balls; i++) {
-			//if (balls[i].getAlive() == 1) {
-				mySpheres[i].Draw();
-			//}	
+			if (balls[i].alive()) {
+			printf("Lifetime: %f", balls[i].lifeTime);
+			mySpheres[i].Draw();
 		}
+	}
 	//}
 	//mySphere.Draw();
 	//mySphere2.Draw();
