@@ -79,14 +79,15 @@ float Boid::getRadius() {
 
 //3 Boid behaviours
 
-void Boid::neighbours(vector <Boid> boids) {
-	for (Boid boid : boids) {
-		float diff_x = position.x - boid.position.x;
-		float diff_y = position.y - boid.position.y;
-		float diff_z = position.z - boid.position.z;
+void Boid::neighbours(Boid boids []) {
+
+	for (int i = 0; i < 10; i++) {
+		float diff_x = position.x - boids[i].position.x;
+		float diff_y = position.y - boids[i].position.y;
+		float diff_z = position.z - boids[i].position.z;
 
 		if (diff_x <= neighbourhood && diff_y <= neighbourhood && diff_z <= neighbourhood) {
-			neighbouring_boids.push_back(boid);
+			neighbouring_boids.push_back(boids[i]);
 		}
 	}	
 }
@@ -179,7 +180,6 @@ glm::vec3 Boid::separation() {
 
 void Boid::updatePhysics(float deltaTime)
 {
-
 
 	lifeTime--;
 

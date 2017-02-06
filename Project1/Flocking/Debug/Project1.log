@@ -1,74 +1,12 @@
-﻿  Boids.cpp
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(17): error C2143: syntax error: missing ';' before '<'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(17): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(17): error C2238: unexpected token(s) preceding ';'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(43): error C2061: syntax error: identifier 'vector'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(19): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(48): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(82): error C2511: 'void Boid::neighbours(std::vector<Boid,std::allocator<_Ty>>)': overloaded member function not found in 'Boid'
-          with
-          [
-              _Ty=Boid
-          ]
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(5): note: see declaration of 'Boid'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(84): error C2228: left of '.x' must have class/struct/union
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(85): error C2228: left of '.y' must have class/struct/union
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(86): error C2228: left of '.z' must have class/struct/union
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(88): error C2597: illegal reference to non-static member 'Boid::neighbourhood'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(88): error C3867: 'Boid::neighbourhood': non-standard syntax; use '&' to create a pointer to member
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(88): error C2568: '<=': unable to resolve function overload
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(89): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(89): error C2228: left of '.push_back' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(89): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(98): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(98): error C3312: no callable 'begin' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(98): error C3312: no callable 'end' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(99): error C2065: 'boid': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(99): error C2228: left of '.velocity' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(99): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(99): error C2228: left of '.x' must have class/struct/union
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(114): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(114): error C3312: no callable 'begin' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(114): error C3312: no callable 'end' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(115): error C2065: 'boid': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(115): error C2228: left of '.position' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(115): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(117): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(117): error C2228: left of '.size' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(117): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(117): error C2672: 'glm::tvec3<float,0>::operator /=': no matching overloaded function found
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(126): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(126): error C3312: no callable 'begin' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(126): error C3312: no callable 'end' function found for type 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(127): error C2065: 'boid': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(127): error C2228: left of '.position' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(127): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(129): error C2065: 'neighbouring_boids': undeclared identifier
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(129): error C2228: left of '.size' must have class/struct/union
-  h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(129): note: type is 'unknown-type'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(129): error C2672: 'glm::tvec3<float,0>::operator /=': no matching overloaded function found
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(143): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(144): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(145): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(154): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(157): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(162): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(167): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(170): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(171): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(172): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(182): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(185): warning C4305: '+=': truncation from 'double' to 'float'
-  Generating Code...
-  Compiling...
-  Source.cpp
+﻿  Source.cpp
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(19): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(56): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(57): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(60): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(61): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(99): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(54): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(55): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(58): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(59): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(97): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
+  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

@@ -35,12 +35,10 @@ void update(float currentTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void explode();
-
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 100;
+int const number_of_boids = 10;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -103,7 +101,12 @@ int main()
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_boids; i++) {
 			//boids[i] = updatePhysics(Boids[i], deltaTime);
+			boids[i].neighbours(boids);
+			glm::vec3 alignment = boids[i].alignment();
+			glm::vec3 cohesion = boids[i].cohesion();
+			glm::vec3 separation = boids[i].separation();
 			boids[i].updatePhysics(deltaTime);
+			
 		}
 		//boid = updatePhysics(Boid, deltaTime);
 		boid.updatePhysics(deltaTime);
@@ -222,7 +225,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
-		explode();
+		
 	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }
