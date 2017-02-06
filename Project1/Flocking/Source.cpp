@@ -55,7 +55,6 @@ Arrow		arrowY;
 Arrow		arrowZ;
 float scale = 0.3;
 float rate = 0.001;
-float bounds[6];
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
 float g = -9.81;					// Gravitational force
@@ -67,19 +66,9 @@ Boid boids[number_of_boids];
 int main()
 {
 
-	
-
-
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
-
-	bounds[0] = -3;
-	bounds[1] = 3;
-	bounds[2] = -3;
-	bounds[3] = 3;
-	bounds[4] = -3;
-	bounds[5] = 3;
 
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
@@ -131,19 +120,6 @@ int main()
 	cin.ignore(); cin.get(); // delay closing console to read debugging errors.
 
 	return 0;
-}
-
-void explode() {
-	//Exploding Boids from one point
-	for (int i = 0; i < number_of_boids; i++) {
-		boids[i].radius = 1;
-		boids[i].mass = 28;
-		boids[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
-		boids[i].position = glm::vec3(-4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (8))), -4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (8))), -4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (8))));
-		boids[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		boids[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
-		boids[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	}
 }
 
 void startup() {

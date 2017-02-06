@@ -79,9 +79,27 @@ float Boid::getRadius() {
 
 //3 Boid behaviours
 
+void Boid::neighbours(vector <Boid> boids) {
+
+
+	for (Boid boid : boids) {
+		float diff_x = position.x - boid.position.x;
+		float diff_y = position.y - boid.position.y;
+		float diff_z = position.z - boid.position.z;
+
+		if (diff_x <= neighbourhood && diff_y <= neighbourhood && diff_z <= neighbourhood) {
+			neighbouring_boids.push_back(boid);
+		}
+	}	
+}
+
 void Boid::cohesion() {
 	//keep the boids together in a group
-
+	glm::vec3 centre_of_mass = glm::vec3(0.0f,0.0f,0.0f);
+	for (Boid boid : neighbouring_boids) {
+		centre_of_mass += boid.position;
+	}
+	centre_of_mass = centre_of_mass.operator/=(neighbouring_boids.size());
 
 }
 
@@ -106,10 +124,10 @@ void Boid::updatePhysics(float deltaTime)
 		rate *= 0.99;
 	}
 
-	if (position.x + velocity.x*deltaTime >= -3.0 + radius && position.x + velocity.x*deltaTime <= 3.0 - radius) {
+	if (position.x + velocity.x*deltaTime >= -4.0 + radius && position.x + velocity.x*deltaTime <= 4.0 - radius) {
 		position.x += velocity.x*deltaTime;
 	}
-	if (position.x + velocity.x*deltaTime <= -3.0 + radius || position.x + velocity.x*deltaTime >= 3.0 - radius) {
+	if (position.x + velocity.x*deltaTime <= -4.0 + radius || position.x + velocity.x*deltaTime >= 4.0 - radius) {
 		velocity.x = -velocity.x;
 		if (position.x <= -3.0 + radius) {
 			velocity.x -= 0.2;
@@ -119,11 +137,11 @@ void Boid::updatePhysics(float deltaTime)
 		}
 	}
 
-	if (position.y + velocity.y*deltaTime >= -3.0 + radius && position.y + velocity.y*deltaTime <= 10.0 - radius) {
+	if (position.y + velocity.y*deltaTime >= -4.0 + radius && position.y + velocity.y*deltaTime <= 4.0 - radius) {
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime;
 	}
-	if (position.y + velocity.y*deltaTime <= -3.0 + radius || position.y + velocity.y*deltaTime >= 10.0 - radius) {
+	if (position.y + velocity.y*deltaTime <= -4.0 + radius || position.y + velocity.y*deltaTime >= 4.0 - radius) {
 		velocity.y = -velocity.y;
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime - 1;
@@ -134,15 +152,15 @@ void Boid::updatePhysics(float deltaTime)
 		//rate *= 0.999;
 	}
 
-	if (position.z + velocity.z*deltaTime >= -20.0 + radius && position.z + velocity.z*deltaTime <= -5.0 - radius) {
+	if (position.z + velocity.z*deltaTime >= -10.0 + radius && position.z + velocity.z*deltaTime <= -3.0 - radius) {
 		position.z += velocity.z*deltaTime;
 	}
-	if (position.z + velocity.z*deltaTime <= -20.0 + radius || position.z + velocity.z*deltaTime >= -5.0 - radius) {
+	if (position.z + velocity.z*deltaTime <= -10.0 + radius || position.z + velocity.z*deltaTime >= -3.0 - radius) {
 		velocity.z = -velocity.z;
-		if (position.z <= -20.0 + radius) {
+		if (position.z <= -10.0 + radius) {
 			velocity.z -= 0.2;
 		}
-		if (position.z >= -5.0 - radius) {
+		if (position.z >= -3.0 - radius) {
 			velocity.z += 0.2;
 		}
 	}
