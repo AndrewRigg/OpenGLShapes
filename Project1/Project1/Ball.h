@@ -13,6 +13,7 @@ public:
 	float lifeTime;
 	float volume();
 	float g = -9.81;
+	float rate;
 	float mu = 0.01;							//This is the coefficient of static friction fot this ball
 	glm::vec3 position;
 	glm::vec3 angular_velocity;

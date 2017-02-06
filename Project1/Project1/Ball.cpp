@@ -82,8 +82,9 @@ void Ball::updatePhysics(float deltaTime)
 	lifeTime--;
 
 	if (position.y - radius <= 0) {
-		velocity.x *= 0.999;
-		velocity.z *= 0.999;
+		velocity.x *= 0.995;
+		velocity.z *= 0.995;
+		rate *= 0.99;
 	}
 
 	if (position.x + velocity.x*deltaTime >= -3.0 + radius && position.x + velocity.x*deltaTime <= 3.0 - radius) {
@@ -108,9 +109,10 @@ void Ball::updatePhysics(float deltaTime)
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime - 1;
 		//Not sure if the following works
-		angular_velocity.x += 0.1;
-		angular_velocity.y += 0.1;
-		angular_velocity.z += 0.1;
+		angular_velocity.x += 0.01;
+		angular_velocity.y += 0.01;
+		angular_velocity.z += 0.01;
+		//rate *= 0.999;
 	}
 
 	if (position.z + velocity.z*deltaTime >= -20.0 + radius && position.z + velocity.z*deltaTime <= -5.0 - radius) {
