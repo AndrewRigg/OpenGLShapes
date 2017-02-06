@@ -14,7 +14,7 @@ public:
 	float volume();
 	float g = 0;
 	float rate;
-	vector<Boid> neighbouring_boids;
+	vector <Boid> neighbouring_boids;
 	float neighbourhood = 2;
 	float mu = 0.01;							//This is the coefficient of static friction fot this Boid
 	glm::vec3 position;
@@ -37,9 +37,9 @@ public:
 	void setRadius(float radius);
 	float getRadius();
 	void updatePhysics(float deltaTime);
-	void cohesion();
-	void alignment();
-	void separation();
+	glm::vec3 cohesion();
+	glm::vec3 alignment();
+	glm::vec3 separation();
 	void neighbours(vector<Boid> boids) {}
 
 

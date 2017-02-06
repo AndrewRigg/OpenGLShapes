@@ -80,8 +80,6 @@ float Boid::getRadius() {
 //3 Boid behaviours
 
 void Boid::neighbours(vector <Boid> boids) {
-
-
 	for (Boid boid : boids) {
 		float diff_x = position.x - boid.position.x;
 		float diff_y = position.y - boid.position.y;
@@ -93,24 +91,91 @@ void Boid::neighbours(vector <Boid> boids) {
 	}	
 }
 
-void Boid::cohesion() {
-	//keep the boids together in a group
-	glm::vec3 centre_of_mass = glm::vec3(0.0f,0.0f,0.0f);
-	for (Boid boid : neighbouring_boids) {
-		centre_of_mass += boid.position;
-	}
-	centre_of_mass = centre_of_mass.operator/=(neighbouring_boids.size());
-
-}
-
-void Boid::separation() {
-	//keep the boids separate from each other
-
-}
-
-void Boid::alignment() {
+glm::vec3 Boid::alignment() {
 	//keep the boids going in the same direction
+	//initialise a new vector which will calculate our new direction
+	glm::vec3 alignment = glm::vec3(0.0f, 0.0f, 0.0f);
+	//initialise a count variable to keep track of the number of neighbours
+	int neighbours = 0;
+	for (Boid boid : neighbouring_boids) {
+		alignment.x += boid.velocity.x;
+		alignment.y += boid.velocity.y;
+		alignment.z += boid.velocity.z;
+		neighbours++;
+	}
+	if (neighbours > 0) {
+		//divide each component by number of neighbours
+		alignment.x = alignment.x / neighbours;
+		alignment.y = alignment.y / neighbours;
+		alignment.z = alignment.z / neighbours;
+
+		//normalise this vector
+		alignment = glm::normalize(alignment);
+	}
+	//direct boid to centre of mass:
+	return alignment;
 }
+
+glm::vec3 Boid::cohesion() {
+	//keep the boids together in a group
+	//initialise a new vector which will calculate our new direction
+	glm::vec3 cohesion = glm::vec3(0.0f, 0.0f, 0.0f);
+	//initialise a count variable to keep track of the number of neighbours
+	int neighbours = 0;
+	for (Boid boid : neighbouring_boids) {
+		cohesion.x += boid.position.x;
+		cohesion.y += boid.position.y;
+		cohesion.z += boid.position.z;
+		neighbours++;
+	}
+	if (neighbours > 0) {
+		//divide each component by number of neighbours
+		cohesion.x = cohesion.x / neighbours;
+		cohesion.y = cohesion.y / neighbours;
+		cohesion.z = cohesion.z / neighbours;
+
+		//subtract from the cohesion vector the current position of the boid
+		cohesion.x -= position.x;
+		cohesion.y -= position.y;
+		cohesion.z -= position.z;
+
+		//normalise this vector
+		cohesion = glm::normalize(cohesion);
+	}
+	//direct boid to centre of mass:
+	return cohesion;
+}
+
+glm::vec3 Boid::separation() {
+	//keep the boids separate from each other
+	//initialise a new vector which will calculate our new direction
+	glm::vec3 separation = glm::vec3(0.0f, 0.0f, 0.0f);
+	//initialise a count variable to keep track of the number of neighbours
+	int neighbours = 0;
+	for (Boid boid : neighbouring_boids) {
+		separation.x += boid.position.x - position.x;
+		separation.y += boid.position.y - position.y;
+		separation.z += boid.position.z - position.z;
+		neighbours++;
+	}
+	if (neighbours > 0) {
+		//divide each component by number of neighbours
+		separation.x = separation.x / neighbours;
+		separation.y = separation.y / neighbours;
+		separation.z = separation.z / neighbours;
+
+		separation.x *= -1;
+		separation.y *= -1;
+		separation.z *= -1;
+
+		//normalise this vector
+		separation = glm::normalize(separation);
+	}
+	//direct boid to centre of mass:
+	return separation;
+}
+
+
 
 void Boid::updatePhysics(float deltaTime)
 {
