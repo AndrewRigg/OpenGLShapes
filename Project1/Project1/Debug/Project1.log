@@ -1,19 +1,11 @@
-﻿  Ball.cpp
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(48): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(85): warning C4305: '*=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(86): warning C4305: '*=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(87): warning C4305: '*=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(96): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(99): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(104): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(109): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(112): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(113): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(114): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(124): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\andrew\documents\github\openglshapes\project1\project1\ball.cpp(127): warning C4305: '+=': truncation from 'double' to 'float'
-  Project1.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\Project1.exe
-  Project1.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\Project1.pdb (Partial PDB)
+﻿  Source.cpp
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(58): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(61): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(62): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(91): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
+  Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

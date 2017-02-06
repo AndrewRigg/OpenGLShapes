@@ -40,7 +40,7 @@ void explode();
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 100;
+int const number_of_balls = 2;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -50,56 +50,37 @@ COORD coord;
 Cube		myCube;
 Sphere		mySphere;
 Sphere mySpheres[number_of_balls];
+std::vector<Sphere> spheres;
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float scale = 0.3;
+float scale = 0.5;
 float rate = 0.001;
-float bounds[6];
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
 float g = -9.81;					// Gravitational force
 float prevTime = glfwGetTime();	//Prev time
-Ball ball;
-vector<Ball> ball_vec;
+Ball initial_ball;
+std::vector<Ball> ball_vec;
 Ball balls[number_of_balls];
 
 int main()
 {
-
 	
-
-
-	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 
-	bounds[0] = -3;
-	bounds[1] = 3;
-	bounds[2] = -3;
-	bounds[3] = 3;
-	bounds[4] = -3;
-	bounds[5] = 3;
+	initial_ball.radius = 1;
+	initial_ball.setMass(27);
+	initial_ball.rate = 10;
+	initial_ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
+	initial_ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
+	initial_ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	//Random balls everywhere
-	/*for (int i = 0; i < number_of_balls; i++) {
-		balls[i].radius = 1;
-		balls[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
-		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	}*/
-
-	ball.radius = 1;
-	ball.setMass(27);
-	ball.rate = 10;
-	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
-	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
-	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	//ball_vec.push_back(ball);
-
-	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
+	// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
+	startup();
 	
-												// Mixed graphics and update functions - declared in main for simplicity.
+	// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
 																			// MAIN LOOP run until the window is closed
@@ -112,17 +93,21 @@ int main()
 		glfwPollEvents();						// poll callbacks
 		update(currentTime);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
-		for (int i = 0; i < number_of_balls; i++) {
-			//balls[i] = updatePhysics(balls[i], deltaTime);
-			balls[i].updatePhysics(deltaTime);
+		//for (int i = 0; i < number_of_balls; i++) {
+		//	//balls[i] = updatePhysics(balls[i], deltaTime);
+		//	balls[i].updatePhysics(deltaTime);
+		//}
+
+		for (Ball b : ball_vec) {
+			b.updatePhysics(deltaTime);
 		}
 		//ball = updatePhysics(ball, deltaTime);
-		ball.updatePhysics(deltaTime);
+		initial_ball.updatePhysics(deltaTime);
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 
-		//running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
-		//running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
+		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
+		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...
@@ -135,26 +120,25 @@ int main()
 
 void explode() {
 	//Exploding balls from one point
-	for (int i = 0; i < number_of_balls; i++) {
-		balls[i].radius = 1;
-		balls[i].mass = 28;
-		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
-		balls[i].position = ball.position;
-		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
-		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	srand(static_cast <unsigned> (time(0)));
 
-		ball_vec.push_back(balls[i]);
-		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
-		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
-		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
-		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
-		printf(" Mass: %f", balls[i].mass);
-		printf(" Alive: %d", balls[i].alive());
-		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
-		printf("Lifetime: %f", balls[i].lifeTime);
+	for (int i = 0; i < number_of_balls; i++) {
+		Sphere sphere;
+		Ball ball;
+		sphere.Load();
+		sphere.fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
+			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
+		spheres.push_back(sphere);
+		ball.radius = 1;
+		ball.mass = 28;
+		ball.lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
+		ball.position = ball.position;
+		//ball.velocity = glm::vec3(1.0f, 1.0f, 1.0f);
+		//ball.angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+		ball.angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
+		ball.velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		ball_vec.push_back(ball);
 	}
 }
 
@@ -167,11 +151,13 @@ void startup() {
 	// Load Geometry
 	myCube.Load();
 
-	for (int i = 0; i < number_of_balls; i++) {
+
+	/*for (int i = 0; i < number_of_balls; i++) {
 		mySpheres[i].Load();
 		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
 			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
-	}
+	}*/
+
 
 	mySphere.Load();
 	mySphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
@@ -197,36 +183,46 @@ void update(float currentTime) {
 	myCube.mv_matrix = mv_matrix_cube;
 	myCube.proj_matrix = myGraphics.proj_matrix;
 
-	vector <glm::mat4> mv_matrix_spheres[number_of_balls];
 
-	for (int i = 0; i < number_of_balls; i++) {
-		glm::mat4 mv_matrix_spheres =
-			glm::translate(balls[i].position) *
-			glm::rotate(-t, balls[i].angular_velocity) *
-			//glm::scale(glm::vec3(scale, scale, scale)) *		//trial
+
+	//for (int i = 0; i < number_of_balls; i++) {
+	//	glm::mat4 mv_matrix_sphere =
+	//		glm::translate(balls[i].position) *
+	//		glm::rotate(-t, balls[i].angular_velocity) *
+	//		glm::scale(glm::vec3(scale, scale, scale)) *		//trial
+	//		glm::mat4(1.0f);
+	//	mySpheres[i].mv_matrix = mv_matrix_sphere;
+	//	mySpheres[i].proj_matrix = myGraphics.proj_matrix;
+	//}
+
+
+
+	//***************CHECK
+	int i = 0;
+	for (Ball b: ball_vec) {
+		glm::mat4 mv_matrix_sphere =
+			glm::translate(b.position) *
+			glm::rotate(-t, b.angular_velocity) *
+			glm::scale(glm::vec3(scale, scale, scale)) *		//trial
 			glm::mat4(1.0f);
-		mySpheres[i].mv_matrix = mv_matrix_spheres;
-		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
+		spheres.at(i).mv_matrix = mv_matrix_sphere;
+		spheres.at(i).proj_matrix = myGraphics.proj_matrix;
+		i++;
 	}
+
+	//************
+	
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(ball.position) *
-		glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
+		glm::translate(initial_ball.position) *
+		glm::rotate(-initial_ball.rate, glm::vec3(initial_ball.angular_velocity)) *
 		glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
 		glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);
 	mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;
 
-	//Calculate Arrows translations (note: arrow model points up)
-	//glm::mat4 mv_matrix_x =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
-	//	glm::mat4(1.0f);
-	//arrowX.mv_matrix = mv_matrix_x;
-	//arrowX.proj_matrix = myGraphics.proj_matrix;
 
 	//glm::mat4 mv_matrix_y =
 	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
@@ -256,11 +252,11 @@ void render(float currentTime) {
 	//if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
 	
 	
-		for (int i = 0; i < number_of_balls; i++) {
-			if (balls[i].alive()) {
+		for (Sphere s: spheres) {
+			//if (ball_vec.at(i).alive()) {
 				//printf("Lifetime: %f", balls[i].lifeTime);
-				mySpheres[i].Draw();
-			}
+				s.Draw();
+			//}
 	}
 	//}
 	mySphere.Draw();
