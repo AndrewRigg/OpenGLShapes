@@ -105,6 +105,12 @@ int main()
 			glm::vec3 alignment = boids[i].alignment();
 			glm::vec3 cohesion = boids[i].cohesion();
 			glm::vec3 separation = boids[i].separation();
+
+			boids[i].velocity.x += alignment.x + cohesion.x + separation.x;
+			boids[i].velocity.y += alignment.y + cohesion.y + separation.y;
+			boids[i].velocity.z += alignment.z + cohesion.z + separation.z;
+
+			boids[i].velocity = glm::normalize(boids[i].velocity);
 			boids[i].updatePhysics(deltaTime);
 			
 		}
