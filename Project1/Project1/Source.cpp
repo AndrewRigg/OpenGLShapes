@@ -202,8 +202,8 @@ void update(float currentTime) {
 	for (int i = 0; i < number_of_balls; i++) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(balls[i].position) *
-			glm::rotate(-t, balls[i].angular_velocity) *
-			//glm::scale(glm::vec3(scale, scale, scale)) *		//trial
+			//glm::rotate(-t, balls[i].angular_velocity) *
+			glm::scale(glm::vec3(scale, scale, scale)) *		//trial
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
@@ -213,8 +213,8 @@ void update(float currentTime) {
 	glm::mat4 mv_matrix_sphere =
 		glm::translate(ball.position) *
 		glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
-		glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
-		glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
+		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
+		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);
 	mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;

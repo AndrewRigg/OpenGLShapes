@@ -1,0 +1,27 @@
+﻿  Source.cpp
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(56): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(57): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(61): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(62): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(110): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Boids.cpp
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(48): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(104): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(105): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(106): warning C4305: '*=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(115): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(118): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(123): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(128): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(131): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(132): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(133): warning C4305: '+=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(143): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(146): warning C4305: '+=': truncation from 'double' to 'float'
