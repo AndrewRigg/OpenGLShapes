@@ -188,7 +188,28 @@ void Boid::updatePhysics(float deltaTime)
 {
 
 	lifeTime--;
+	float screenWidth = 4;
+	/*
+	if (position.x > screenWidth) {
+		position.x = -screenWidth;
+	}
+	if (position.x < -screenWidth) {
+		position.x = screenWidth;
+	}
+	if (position.y > screenWidth) {
+		position.y = -screenWidth;
+	}
+	if (position.y < screenWidth) {
+		position.y = screenWidth;
+	}
+	if (position.z > screenWidth) {
+		position.z = -screenWidth;
+	}
+	if (position.z < screenWidth) {
+		position.z = screenWidth;
+	}
 
+	*/
 	if (position.y - radius <= 0) {
 		velocity.x *= 0.995;
 		velocity.z *= 0.995;
@@ -216,11 +237,11 @@ void Boid::updatePhysics(float deltaTime)
 		velocity.y = -velocity.y;
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime - 1;
-		//Not sure if the following works
+//		Not sure if the following works
 		angular_velocity.x += 0.01;
 		angular_velocity.y += 0.01;
 		angular_velocity.z += 0.01;
-		//rate *= 0.999;
+		rate *= 0.999;
 	}
 
 	if (position.z + velocity.z*deltaTime >= -10.0 + radius && position.z + velocity.z*deltaTime <= -3.0 - radius) {

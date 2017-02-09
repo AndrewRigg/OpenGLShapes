@@ -44,6 +44,12 @@ public:
 	~Cube();
 };
 
+class Tetrahedron : public Shapes {
+public:
+	Tetrahedron();
+	~Tetrahedron();
+};
+
 //class Plane : public Plane {
 //public:
 //	Plane();

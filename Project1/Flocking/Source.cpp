@@ -38,7 +38,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 10;
+int const number_of_boids = 100;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -47,14 +47,14 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Sphere mySpheres[number_of_boids];
+Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 float alignmentFactor = 0.01;
 float cohesionFactor = 0.01;
 float separationFactor = 0.01f;
-float scale = 0.3;
+float scale = 0.1;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -144,8 +144,9 @@ void startup() {
 
 	for (int i = 0; i < number_of_boids; i++) {
 		mySpheres[i].Load();
-		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
-			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
+		mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6,0);
+		//mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
+			//static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
 	}
 
 	mySphere.Load();
@@ -177,8 +178,8 @@ void update(float currentTime) {
 	for (int i = 0; i < number_of_boids; i++) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
-			//glm::rotate(-t, Boids[i].angular_velocity) *
-			glm::scale(glm::vec3(scale, scale, scale)) *		//trial
+			//glm::rotate(-t, boids[i].angular_velocity) *
+			glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;

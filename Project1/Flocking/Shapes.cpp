@@ -215,6 +215,27 @@ f 1 4 8)";
 	LoadObj();
 }
 
+
+Tetrahedron::~Tetrahedron() {
+
+}
+
+Tetrahedron::Tetrahedron() {
+	// Exported from Blender a cube by default (OBJ File)
+	rawData = R"(
+v 1.000000 0.00000 -0.707107
+v -1.000000 0.000000 -0.707107
+v 0.000000 1.000000 0.707107
+v 0.000000 -1.000000 0.707107
+f 1 2 4
+f 1 3 4
+f 2 1 4
+f 4 3 2
+)";
+
+	LoadObj();
+}
+
 Cube::~Cube() {
 
 }
