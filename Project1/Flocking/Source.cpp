@@ -38,7 +38,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 100;
+int const number_of_boids = 500;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 

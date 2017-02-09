@@ -3,18 +3,5 @@ h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(47): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(55): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(214): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(215): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(216): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(225): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(228): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(233): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(238): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(241): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(242): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(243): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(244): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(253): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(256): warning C4305: '+=': truncation from 'double' to 'float'
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
