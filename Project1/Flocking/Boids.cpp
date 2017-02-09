@@ -19,6 +19,13 @@ const double pi = 3.1415926535897;
 Boid::Boid() {};
 Boid::~Boid() {};
 
+bool Boid::operator!=(Boid rhs) {
+	return (position != rhs.position || velocity != rhs.velocity);
+}
+
+float Boid::distance(Boid boid) {
+	return sqrt(pow(boid.position.x, 2.0) + pow(boid.position.y, 2.0) + pow(boid.position.z, 2.0));
+}
 
 glm::vec3 Boid::Momentum() {
 	return glm::vec3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
@@ -79,30 +86,21 @@ float Boid::getRadius() {
 
 //3 Boid behaviours
 
-void Boid::neighbours(Boid boids []) {
-
-	for (int i = 0; i < 10; i++) {
-		float diff_x = position.x - boids[i].position.x;
-		float diff_y = position.y - boids[i].position.y;
-		float diff_z = position.z - boids[i].position.z;
-
-		if (diff_x <= neighbourhood && diff_y <= neighbourhood && diff_z <= neighbourhood) {
-			neighbouring_boids.push_back(boids[i]);
-		}
-	}	
-}
-
-glm::vec3 Boid::alignment() {
+glm::vec3 Boid::alignment(Boid boids []) {
 	//keep the boids going in the same direction
 	//initialise a new vector which will calculate our new direction
 	glm::vec3 alignment = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (Boid boid : neighbouring_boids) {
-		alignment.x += boid.velocity.x;
-		alignment.y += boid.velocity.y;
-		alignment.z += boid.velocity.z;
-		neighbours++;
+	for (int i = 0; i < 10; i++) {
+		if (boids[i] != *this) {
+			if (boids[i].distance(*this) <= neighbourhood) {
+				alignment.x += boids[i].velocity.x;
+				alignment.y += boids[i].velocity.y;
+				alignment.z += boids[i].velocity.z;
+				neighbours++;
+			}
+		}
 	}
 	if (neighbours > 0) {
 		//divide each component by number of neighbours
@@ -117,17 +115,21 @@ glm::vec3 Boid::alignment() {
 	return alignment;
 }
 
-glm::vec3 Boid::cohesion() {
+glm::vec3 Boid::cohesion(Boid boids[]) {
 	//keep the boids together in a group
 	//initialise a new vector which will calculate our new direction
 	glm::vec3 cohesion = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (Boid boid : neighbouring_boids) {
-		cohesion.x += boid.position.x;
-		cohesion.y += boid.position.y;
-		cohesion.z += boid.position.z;
-		neighbours++;
+	for (int i = 0; i < 10; i++) {
+		if (boids[i] != *this) {
+			if (boids[i].distance(*this) <= neighbourhood) {
+				cohesion.x += boids[i].position.x;
+				cohesion.y += boids[i].position.y;
+				cohesion.z += boids[i].position.z;
+				neighbours++;
+			}
+		}
 	}
 	if (neighbours > 0) {
 		//divide each component by number of neighbours
@@ -147,17 +149,21 @@ glm::vec3 Boid::cohesion() {
 	return cohesion;
 }
 
-glm::vec3 Boid::separation() {
+glm::vec3 Boid::separation(Boid boids[]) {
 	//keep the boids separate from each other
 	//initialise a new vector which will calculate our new direction
 	glm::vec3 separation = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (Boid boid : neighbouring_boids) {
-		separation.x += boid.position.x - position.x;
-		separation.y += boid.position.y - position.y;
-		separation.z += boid.position.z - position.z;
-		neighbours++;
+	for (int i = 0; i < 10; i++) {
+		if (boids[i] != *this) {
+			if (boids[i].distance(*this) <= neighbourhood) {
+				separation.x += boids[i].position.x - position.x;
+				separation.y += boids[i].position.y - position.y;
+				separation.z += boids[i].position.z - position.z;
+				neighbours++;
+			}
+		}
 	}
 	if (neighbours > 0) {
 		//divide each component by number of neighbours
@@ -189,10 +195,10 @@ void Boid::updatePhysics(float deltaTime)
 		rate *= 0.99;
 	}
 
-	if (position.x + velocity.x*deltaTime >= -4.0 + radius && position.x + velocity.x*deltaTime <= 4.0 - radius) {
+	if (position.x + velocity.x*deltaTime >= -3.0 + radius && position.x + velocity.x*deltaTime <= 3.0 - radius) {
 		position.x += velocity.x*deltaTime;
 	}
-	if (position.x + velocity.x*deltaTime <= -4.0 + radius || position.x + velocity.x*deltaTime >= 4.0 - radius) {
+	if (position.x + velocity.x*deltaTime <= -3.0 + radius || position.x + velocity.x*deltaTime >= 3.0 - radius) {
 		velocity.x = -velocity.x;
 		if (position.x <= -3.0 + radius) {
 			velocity.x -= 0.2;
@@ -202,11 +208,11 @@ void Boid::updatePhysics(float deltaTime)
 		}
 	}
 
-	if (position.y + velocity.y*deltaTime >= -4.0 + radius && position.y + velocity.y*deltaTime <= 4.0 - radius) {
+	if (position.y + velocity.y*deltaTime >= -3.0 + radius && position.y + velocity.y*deltaTime <= 3.0 - radius) {
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime;
 	}
-	if (position.y + velocity.y*deltaTime <= -4.0 + radius || position.y + velocity.y*deltaTime >= 4.0 - radius) {
+	if (position.y + velocity.y*deltaTime <= -3.0 + radius || position.y + velocity.y*deltaTime >= 3.0 - radius) {
 		velocity.y = -velocity.y;
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime - 1;

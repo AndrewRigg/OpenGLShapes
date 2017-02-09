@@ -4,25 +4,9 @@ c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning
   h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(54): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(55): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(57): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(58): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(59): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(97): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Boids.cpp
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(19): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(48): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(187): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(188): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(189): warning C4305: '*=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(198): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(201): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(206): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(211): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(214): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(215): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(216): warning C4305: '+=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(226): warning C4305: '-=': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.cpp(229): warning C4305: '+=': truncation from 'double' to 'float'
-  Generating Code...
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(62): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(100): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

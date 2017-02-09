@@ -51,11 +51,14 @@ Sphere mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
+float alignmentFactor = 0.01;
+float cohesionFactor = 0.01;
+float separationFactor = 0.01f;
 float scale = 0.3;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
-float g = -9.81;					// Gravitational force
+float g = 0;					// Gravitational force
 float prevTime = glfwGetTime();	//Prev time
 Boid boid;
 vector<Boid> boid_vec;
@@ -100,15 +103,14 @@ int main()
 		update(currentTime);					// update (physics, animation, structures, etc)
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_boids; i++) {
-			//boids[i] = updatePhysics(Boids[i], deltaTime);
-			boids[i].neighbours(boids);
-			glm::vec3 alignment = boids[i].alignment();
-			glm::vec3 cohesion = boids[i].cohesion();
-			glm::vec3 separation = boids[i].separation();
 
-			boids[i].velocity.x += alignment.x + cohesion.x + separation.x;
-			boids[i].velocity.y += alignment.y + cohesion.y + separation.y;
-			boids[i].velocity.z += alignment.z + cohesion.z + separation.z;
+			glm::vec3 alignment = boids[i].alignment(boids);
+			glm::vec3 cohesion = boids[i].cohesion(boids);
+			glm::vec3 separation = boids[i].separation(boids);
+
+			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x;
+			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y;
+			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z;
 
 			boids[i].velocity = glm::normalize(boids[i].velocity);
 			boids[i].updatePhysics(deltaTime);
