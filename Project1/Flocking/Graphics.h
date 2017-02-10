@@ -26,7 +26,10 @@ public:
 
 
 	GLFWwindow*		window;
+	//changing these makes no difference seemingly
+	//int				windowWidth = 640;
 	int				windowWidth = 640;
+	//int				windowHeight = 480;
 	int				windowHeight = 480;
 	float           aspect;
 	glm::mat4		proj_matrix = glm::mat4(1.0f);

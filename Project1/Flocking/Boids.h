@@ -15,7 +15,7 @@ public:
 	float g = 0;
 	float rate;
 	std::vector <Boid> neighbouring_boids;
-	float neighbourhood = 20;
+	float neighbourhood = 10;
 	float mu = 0.01;							//This is the coefficient of static friction fot this Boid
 	glm::vec3 position;
 	glm::vec3 angular_velocity;

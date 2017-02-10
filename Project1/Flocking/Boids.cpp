@@ -187,81 +187,34 @@ glm::vec3 Boid::separation(Boid boids[]) {
 void Boid::updatePhysics(float deltaTime)
 {
 
-	lifeTime--;
-	float screenWidth = 4;
-	/*
-	if (position.x > screenWidth) {
-		position.x = -screenWidth;
-	}
-	if (position.x < -screenWidth) {
-		position.x = screenWidth;
-	}
-	if (position.y > screenWidth) {
-		position.y = -screenWidth;
-	}
-	if (position.y < screenWidth) {
-		position.y = screenWidth;
-	}
-	if (position.z > screenWidth) {
-		position.z = -screenWidth;
-	}
-	if (position.z < screenWidth) {
-		position.z = screenWidth;
-	}
-
-	
-	if (position.y - radius <= 0) {
-		velocity.x *= 0.995;
-		velocity.z *= 0.995;
-		rate *= 0.99;
-	}*/
-
-	//if (position.x + velocity.x*deltaTime >= -3.0 + radius && position.x + velocity.x*deltaTime <= 3.0 - radius) {
+		float wrapAround = 6.0;
 		position.x += velocity.x*deltaTime;
-	//}
-	if (position.x + velocity.x*deltaTime <= -3.0 + radius || position.x + velocity.x*deltaTime >= 3.0 - radius) {
-		//velocity.x = -velocity.x;
+		position.y += velocity.y*deltaTime;
+		position.z += velocity.z*deltaTime;
+
 		if (position.x <= -3.0 + radius) {
-			//velocity.x -= 0.2;
-			position.x = +3.0;
+			position.x += wrapAround;
 		}
 		if (position.x >= 3.0 - radius) {
-			//velocity.x += 0.2;
-			position.x = -3.0;
+			position.x -= wrapAround;
 		}
-	}
 
-	//if (position.y + velocity.y*deltaTime >= -3.0 + radius && position.y + velocity.y*deltaTime <= 3.0 - radius) {
-		//position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		velocity.y += g*deltaTime;
-		
-	//}
-	if (position.y + velocity.y*deltaTime <= -3.0 + radius || position.y + velocity.y*deltaTime >= 3.0 - radius) {
-		//velocity.y = -velocity.y;
-		//position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
-		//velocity.y += g*deltaTime - 1;
 		if (position.y <= -3.0 + radius) {
-			position.y = +3.0;
+			position.y += wrapAround;
 		}
 		if (position.y >= 3.0 - radius) {
-			position.y = -3.0;
+			position.y -= wrapAround;
 		}
-	}
 
-	//if (position.z + velocity.z*deltaTime >= -10.0 + radius && position.z + velocity.z*deltaTime <= -3.0 - radius) {
-		position.z += velocity.z*deltaTime;
-	//}
-	if (position.z + velocity.z*deltaTime <= -10.0 + radius || position.z + velocity.z*deltaTime >= -3.0 - radius) {
-		//velocity.z = -velocity.z;
-		if (position.z <= -10.0 + radius) {
-			//velocity.z -= 0.2;
-			position.z = -3.0;
+		if (position.z <= -20.0 + radius) {
+			position.z += wrapAround;
 		}
-		if (position.z >= -3.0 - radius) {
-			//velocity.z += 0.2;
-			position.z = -10.0;
+		if (position.z >= -2.0 - radius) {
+			position.z -= wrapAround;
 		}
-	}
+
+		//angular_velocity.x 
+
 }
 
 

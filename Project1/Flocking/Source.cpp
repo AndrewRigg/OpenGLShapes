@@ -38,7 +38,7 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 500;
+int const number_of_boids = 50;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -51,10 +51,10 @@ Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float alignmentFactor = 0.01;
-float cohesionFactor = 0.01;
+float alignmentFactor = 0.015;
+float cohesionFactor = 0.015;
 float separationFactor = 0.01f;
-float scale = 0.1;
+float scale = 0.2;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -74,9 +74,10 @@ int main()
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
 		boids[i].radius = 1;
-		boids[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
+		boids[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (18))));
 		boids[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
 		boids[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		boids[i].angular_velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
 	}
 
 	boid.radius = 1;
@@ -89,6 +90,9 @@ int main()
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
@@ -121,8 +125,8 @@ int main()
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 
-		//running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
-		//running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
+		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
+		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...
@@ -144,13 +148,14 @@ void startup() {
 
 	for (int i = 0; i < number_of_boids; i++) {
 		mySpheres[i].Load();
-		mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6,0);
-		//mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
-			//static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
+		//mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6, 0.5);
+		mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
+		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
+			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
 	}
 
 	mySphere.Load();
-	mySphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
+	mySphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 0.5f);	// You can change the shape fill colour, line colour or linewidth 
 
 	arrowX.Load(); arrowY.Load(); arrowZ.Load();
 	arrowX.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); arrowX.lineColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -189,7 +194,7 @@ void update(float currentTime) {
 	glm::mat4 mv_matrix_sphere =
 		glm::translate(boid.position) *
 		glm::rotate(-boid.rate, glm::vec3(boid.angular_velocity)) *
-		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
+		glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
 		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);
 	mySphere.mv_matrix = mv_matrix_sphere; 
@@ -210,6 +215,7 @@ void render(float currentTime) {
 		for (int i = 0; i < number_of_boids; i++) {
 			//if (Boids[i].alive()) {
 				//printf("Lifetime: %f", Boids[i].lifeTime);
+			
 				mySpheres[i].Draw();
 		//	}
 	}
