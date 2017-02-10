@@ -42,7 +42,7 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 100;
+int const number_of_balls = 500;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -71,10 +71,6 @@ Ball balls[number_of_balls];
 
 int main()
 {
-
-	
-
-
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
@@ -86,13 +82,6 @@ int main()
 	bounds[4] = -3;
 	bounds[5] = 3;
 
-	//Random balls everywhere
-	/*for (int i = 0; i < number_of_balls; i++) {
-		balls[i].radius = 1;
-		balls[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -6.0f);
-		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	}*/
 	ballTransparency = 1.0;
 	ball.lifeTime = 100000;
 	ball.radius = 1;
@@ -101,7 +90,6 @@ int main()
 	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
 	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
 	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-	//ball_vec.push_back(ball);
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
@@ -155,7 +143,8 @@ void explode() {
 		balls[i].angular_velocity = randNum3(-1,2,-1,2,-1,2);
 		balls[i].velocity = randNum3(-20, 40, -20, 40, -20, 40);
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-		scales[i] = randNum(0.01,0.5);
+		//generate random size between p1 and p1a weighted more towards p1
+		scales[i] = randNum(0.01,randNum(0.01, randNum(0.01, 0.5)));
 		ball_vec.push_back(balls[i]);
 		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
 		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
