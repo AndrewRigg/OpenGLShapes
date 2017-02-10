@@ -53,7 +53,8 @@ Sphere mySpheres[number_of_balls];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float scale = 0.3;
+float scale = 0.5;
+float transparency[number_of_balls];
 float rate = 0.001;
 float bounds[6];
 float t = 0.001f;					// Global variable for animation
@@ -88,7 +89,7 @@ int main()
 		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	}*/
-
+	ball.lifeTime = 1000;
 	ball.radius = 1;
 	ball.setMass(27);
 	ball.rate = 10;
@@ -99,6 +100,9 @@ int main()
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
@@ -121,8 +125,8 @@ int main()
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 
-		//running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
-		//running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
+		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
+		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...
@@ -136,14 +140,15 @@ int main()
 void explode() {
 	//Exploding balls from one point
 	for (int i = 0; i < number_of_balls; i++) {
+		transparency[i] = 1.0;
 		balls[i].radius = 1;
-		balls[i].mass = 28;
-		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1000)));
+		balls[i].mass = 0;
+		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (200)));
 		balls[i].position = ball.position;
 		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
 		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].velocity = glm::vec3(-10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))), -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (20))));
+		balls[i].velocity = glm::vec3(-20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		ball_vec.push_back(balls[i]);
@@ -207,12 +212,14 @@ void update(float currentTime) {
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
+		mySpheres[i].fillColor = glm::vec4(0.8,0.2,0.2,transparency[i]);
+		mySpheres[i].lineColor = glm::vec4(0.9, 0.3, 0.3, transparency[i]);
 	}
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
 		glm::translate(ball.position) *
-		glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
+		//glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
 		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
 		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);
@@ -255,15 +262,21 @@ void render(float currentTime) {
 	//myCube.Draw();
 	//if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
 	
-	
+	float check = 1.0;
 		for (int i = 0; i < number_of_balls; i++) {
-			if (balls[i].alive()) {
+			if (!balls[i].alive()) {
 				//printf("Lifetime: %f", balls[i].lifeTime);
+				//transparency[i] -= 0.03;
+				check = transparency[i];
+			}
+			if (check > 0) {
 				mySpheres[i].Draw();
 			}
 	}
 	//}
-	mySphere.Draw();
+		//if (ball.alive()) {
+			mySphere.Draw();
+		//}
 	/*arrowX.Draw();
 	arrowY.Draw();
 	arrowZ.Draw();*/
@@ -283,7 +296,9 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+		ball.lifeTime = 0;
 		explode();
+
 	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }

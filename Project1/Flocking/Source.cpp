@@ -47,7 +47,7 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Tetrahedron mySpheres[number_of_boids];
+Sphere mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
@@ -149,7 +149,7 @@ void startup() {
 	for (int i = 0; i < number_of_boids; i++) {
 		mySpheres[i].Load();
 		//mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6, 0.5);
-		mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
+		//mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
 		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
 			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
 	}
@@ -184,7 +184,8 @@ void update(float currentTime) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
 			//glm::rotate(-t, boids[i].angular_velocity) *
-			glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
+			//glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
+			glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
