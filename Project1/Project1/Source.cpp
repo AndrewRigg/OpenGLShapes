@@ -36,7 +36,9 @@ void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void explode();
-
+float randNum(float p1, float p1a);
+glm::vec3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
+glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a, float p4, float p4a);
 
 // VARIABLES
 bool		running = true;
@@ -53,9 +55,11 @@ Sphere mySpheres[number_of_balls];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float scale = 0.5;
+float scale = 0.01;
+float scales[number_of_balls];
 float transparency[number_of_balls];
 float rate = 0.001;
+float ballTransparency;
 float bounds[6];
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -89,7 +93,8 @@ int main()
 		balls[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	}*/
-	ball.lifeTime = 1000;
+	ballTransparency = 1.0;
+	ball.lifeTime = 100000;
 	ball.radius = 1;
 	ball.setMass(27);
 	ball.rate = 10;
@@ -143,14 +148,14 @@ void explode() {
 		transparency[i] = 1.0;
 		balls[i].radius = 1;
 		balls[i].mass = 0;
-		balls[i].lifeTime = 100 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (200)));
+		balls[i].lifeTime = randNum(100,200);
 		balls[i].position = ball.position;
 		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
 		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		balls[i].angular_velocity = glm::vec3( - 1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))), -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))));
-		balls[i].velocity = glm::vec3(-20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (40))));
+		balls[i].angular_velocity = randNum3(-1,2,-1,2,-1,2);
+		balls[i].velocity = randNum3(-20, 40, -20, 40, -20, 40);
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-
+		scales[i] = randNum(0.01,0.5);
 		ball_vec.push_back(balls[i]);
 		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
 		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
@@ -161,6 +166,22 @@ void explode() {
 		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
 		printf("Lifetime: %f", balls[i].lifeTime);
 	}
+}
+
+float randNum(float param1, float param1a) {
+	return (param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))));
+}
+
+glm::vec4 randNum4(float param1, float param1a, float param2, float param2a, float param3, float param3a, float param4, float param4a){
+	return glm::vec4(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))), 
+		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))), param3 + 
+		static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))), param4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param4a))));
+}
+
+glm::vec3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
+	return glm::vec3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))), 
+		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))), 
+		param3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))));
 }
 
 void startup() {
@@ -174,8 +195,7 @@ void startup() {
 
 	for (int i = 0; i < number_of_balls; i++) {
 		mySpheres[i].Load();
-		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
-			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
+		//mySpheres[i].fillColor = randNum4(0,1,0,1,0,1,0,1);
 	}
 
 	mySphere.Load();
@@ -208,12 +228,12 @@ void update(float currentTime) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(balls[i].position) *
 			//glm::rotate(-t, balls[i].angular_velocity) *
-			glm::scale(glm::vec3(scale, scale, scale)) *		//trial
+			glm::scale(glm::vec3(scales[i], scales[i], scales[i])) *		//trial
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
 		mySpheres[i].fillColor = glm::vec4(0.8,0.2,0.2,transparency[i]);
-		mySpheres[i].lineColor = glm::vec4(0.9, 0.3, 0.3, transparency[i]);
+		mySpheres[i].lineColor = glm::vec4(0.4, 0.0, 0.0, transparency[i]);
 	}
 
 	// calculate Sphere movement
@@ -225,31 +245,8 @@ void update(float currentTime) {
 		glm::mat4(1.0f);
 	mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;
-
-	//Calculate Arrows translations (note: arrow model points up)
-	//glm::mat4 mv_matrix_x =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
-	//	glm::mat4(1.0f);
-	//arrowX.mv_matrix = mv_matrix_x;
-	//arrowX.proj_matrix = myGraphics.proj_matrix;
-
-	//glm::mat4 mv_matrix_y =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	//glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *	// already model pointing up
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
-	//	glm::mat4(1.0f);
-	//arrowY.mv_matrix = mv_matrix_y;
-	//arrowY.proj_matrix = myGraphics.proj_matrix;
-
-	//glm::mat4 mv_matrix_z =
-	//	glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
-	//	glm::rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f)) *
-	//	glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
-	//	glm::mat4(1.0f);
-	//arrowZ.mv_matrix = mv_matrix_z;
-	//arrowZ.proj_matrix = myGraphics.proj_matrix;
+	mySphere.fillColor = glm::vec4(0.0, 1.0, 0.0, ballTransparency);
+	mySphere.lineColor = glm::vec4(0.0, 0.0, 0.0, ballTransparency);
 
 	t += 0.01f; // increment movement variable
 }
@@ -266,7 +263,7 @@ void render(float currentTime) {
 		for (int i = 0; i < number_of_balls; i++) {
 			if (!balls[i].alive()) {
 				//printf("Lifetime: %f", balls[i].lifeTime);
-				//transparency[i] -= 0.03;
+				transparency[i] -= 0.03;
 				check = transparency[i];
 			}
 			if (check > 0) {
@@ -274,9 +271,10 @@ void render(float currentTime) {
 			}
 	}
 	//}
-		//if (ball.alive()) {
+		if (ball.alive()) {
+			ballTransparency = (1+ballTransparency) * ballTransparency + 0.0001;
 			mySphere.Draw();
-		//}
+		}
 	/*arrowX.Draw();
 	arrowY.Draw();
 	arrowZ.Draw();*/
@@ -296,9 +294,10 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
-		ball.lifeTime = 0;
+		//ball.lifeTime = 0;
+		ballTransparency = 0.0;
 		explode();
-
+		ball.position = randNum3(-5, 10, -3, 8, -20, 15);
 	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }

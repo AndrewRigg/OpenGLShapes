@@ -87,16 +87,24 @@ void Ball::updatePhysics(float deltaTime)
 		velocity.z *= 0.995;
 		rate *= 0.99;
 	}*/
-
+	if (mass <= 0) {
 		position.x += velocity.x*deltaTime;
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 		velocity.y += g*deltaTime;
 		position.z += velocity.z*deltaTime;
+	}
 
+
+	if (position.x + velocity.x*deltaTime >= -5.0 + radius && position.x + velocity.x*deltaTime <= 5.0 - radius && mass > 0) {
+		position.x += velocity.x*deltaTime;
+
+	}
 	if (position.x + velocity.x*deltaTime <= -5.0 + radius || position.x + velocity.x*deltaTime >= 5.0 - radius) {
+		if (mass <= 0) {
+			lifeTime = 0;
+		}
 		if (mass > 0) {
 			velocity.x = -velocity.x;
-			lifeTime = 0;
 			if (position.x <= -5.0 + radius) {
 				velocity.x -= 0.2;
 			}
@@ -106,12 +114,16 @@ void Ball::updatePhysics(float deltaTime)
 		}
 	}
 
-		
-
+	if (position.y + velocity.y*deltaTime >= -3.0 + radius && position.y + velocity.y*deltaTime <= 10.0 - radius && mass > 0) {
+		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
+		velocity.y += g*deltaTime;
+	}
 	if (position.y + velocity.y*deltaTime <= -3.0 + radius || position.y + velocity.y*deltaTime >= 10.0 - radius) {
+		if (mass <= 0) {
+			lifeTime = 0;
+		}
 		if (mass > 0) {
 			velocity.y = -velocity.y;
-			lifeTime = 0;
 			position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);
 			velocity.y += g*deltaTime - 1;
 			//Not sure if the following works
@@ -122,10 +134,15 @@ void Ball::updatePhysics(float deltaTime)
 		}
 	}
 
+	if (position.z + velocity.z*deltaTime >= -20.0 + radius && position.z + velocity.z*deltaTime <= -5.0 - radius && mass > 0) {
+		position.z += velocity.z*deltaTime;
+	}
 	if (position.z + velocity.z*deltaTime <= -20.0 + radius || position.z + velocity.z*deltaTime >= -5.0 - radius) {
+		if (mass <= 0) {
+			lifeTime = 0;
+		}
 		if (mass > 0) {
 			velocity.z = -velocity.z;
-			lifeTime = 0;
 			if (position.z <= -20.0 + radius) {
 				velocity.z -= 0.2;
 			}
