@@ -23,6 +23,10 @@ bool Boid::operator!=(Boid rhs) {
 	return (position != rhs.position || velocity != rhs.velocity);
 }
 
+float Boid::speed() {
+	return sqrt(pow(velocity.x, 2) + pow(velocity.y,2) + pow(velocity.z, 2));
+}
+
 float Boid::distance(Boid boid) {
 	return sqrt(pow(boid.position.x, 2.0) + pow(boid.position.y, 2.0) + pow(boid.position.z, 2.0));
 }
@@ -192,6 +196,7 @@ void Boid::updatePhysics(float deltaTime)
 		position.y += velocity.y*deltaTime;
 		position.z += velocity.z*deltaTime;
 
+		
 		if (position.x <= -3.0 + radius) {
 			position.x += wrapAround;
 		}
@@ -217,6 +222,16 @@ void Boid::updatePhysics(float deltaTime)
 
 }
 
+glm::vec3 Boid::direction() {
+	//return the value of orientation around the x, y and z axis respectively in radians
+	float roll, pitch, yaw;
+
+	roll = atan2(velocity.y, velocity.z);
+	pitch = atan2(velocity.x, velocity.z);
+	yaw = atan2(velocity.y, velocity.x);
+
+	return glm::vec3(roll, pitch, yaw);
+}
 
 //Own versions
 /*

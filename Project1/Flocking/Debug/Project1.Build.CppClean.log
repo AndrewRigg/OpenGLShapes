@@ -1,30 +1,20 @@
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\vc140.pdb
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\vc140.idb
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\ball.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\graphics.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\matrix.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\physics.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\shapes.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\source.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\debug\vectors.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\vc140.pdb
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\vc140.idb
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\ball.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\emitter.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\graphics.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\lab1-3.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\matrix.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\physics.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\shapes.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\source.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\vectors.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\boids.obj
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\debug\project1.ilk
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\debug\project1.exe
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\debug\project1.pdb
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\cl.command.1.tlog
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\link.command.1.tlog
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\cl.write.1.tlog
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\link.read.1.tlog
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\link.write.1.tlog
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\debug\project1.tlog\cl.read.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\vc140.pdb
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\vc140.idb
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\boids.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\emitter.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\graphics.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\lab1-3.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\matrix.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\physics.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\shapes.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\source.obj
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\vectors.obj
+c:\users\andrew\documents\github\openglshapes\project1\debug\project1.ilk
+c:\users\andrew\documents\github\openglshapes\project1\debug\project1.exe
+c:\users\andrew\documents\github\openglshapes\project1\debug\project1.pdb
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\cl.command.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\cl.read.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\cl.write.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\link.command.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\link.read.1.tlog
+c:\users\andrew\documents\github\openglshapes\project1\flocking\debug\project1.tlog\link.write.1.tlog

@@ -35,6 +35,9 @@ void update(float currentTime);
 void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+float randNum(float p1, float p1a);
+glm::vec3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
+glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a, float p4, float p4a);
 
 // VARIABLES
 bool		running = true;
@@ -47,13 +50,13 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Sphere mySpheres[number_of_boids];
+Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float alignmentFactor = 0.015;
-float cohesionFactor = 0.015;
-float separationFactor = 0.01f;
+float alignmentFactor = 1.00;
+float cohesionFactor = 1.1;
+float separationFactor = 1.0;
 float scale = 0.2;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
@@ -74,10 +77,9 @@ int main()
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
 		boids[i].radius = 1;
-		boids[i].position = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -20 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (18))));
-		boids[i].velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
-		boids[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
-		boids[i].angular_velocity = glm::vec3(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))), -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6))));
+		boids[i].position = randNum3(-3, 6, -3, 6, -20, 18);
+		boids[i].velocity = randNum3(-2, 4, -2, 4, -2, 4);
+		boids[i].angular_velocity = randNum3(-3, 6, -3, 6, -3, 6);
 	}
 
 	boid.radius = 1;
@@ -112,11 +114,15 @@ int main()
 			glm::vec3 cohesion = boids[i].cohesion(boids);
 			glm::vec3 separation = boids[i].separation(boids);
 
-			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x;
-			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y;
-			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z;
+			float originalSpeed = boids[i].speed();
+			
+			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x;// +randNum(0.01, 5);
+			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y;// +randNum(0.01, 5);
+			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z;// +randNum(0.01, 5);
+			
+	
 
-			boids[i].velocity = glm::normalize(boids[i].velocity);
+			boids[i].velocity = glm::normalize(boids[i].velocity).operator*=(originalSpeed);
 			boids[i].updatePhysics(deltaTime);
 			
 		}
@@ -137,6 +143,23 @@ int main()
 	return 0;
 }
 
+
+float randNum(float param1, float param1a) {
+	return (param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))));
+}
+
+glm::vec4 randNum4(float param1, float param1a, float param2, float param2a, float param3, float param3a, float param4, float param4a) {
+	return glm::vec4(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))),
+		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))), param3 +
+		static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))), param4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param4a))));
+}
+
+glm::vec3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
+	return glm::vec3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))),
+		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))),
+		param3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))));
+}
+
 void startup() {
 
 	// Calculate proj_matrix for the first time.
@@ -145,13 +168,14 @@ void startup() {
 
 	// Load Geometry
 	myCube.Load();
+	myCube.fillColor = glm::vec4(0.5f, 0.5f, 0.0f, 0.5f);
 
 	for (int i = 0; i < number_of_boids; i++) {
 		mySpheres[i].Load();
 		//mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6, 0.5);
 		//mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
-		mySpheres[i].fillColor = glm::vec4(static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 
-			static_cast <float> (rand()) / static_cast <float> (RAND_MAX), static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
+		mySpheres[i].fillColor = randNum4(0.2, 0.3, 0.15, 0.2, 0, 0.05, 1, 1);
+		//mySpheres[i].fillColor = randNum4(0, 1, 0, 1, 0, 1, 1, 1);
 	}
 
 	mySphere.Load();
@@ -170,10 +194,10 @@ void update(float currentTime) {
 
 	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 	glm::mat4 mv_matrix_cube =
-		glm::translate(glm::vec3(1.0f, 0.0f, -6.0f)) *
+		glm::translate(glm::vec3(0.0f, -6.0f, -12.0f)) *
 		//glm::rotate(t, glm::vec3(0.0f, 1.0f, 0.0f)) *
 		//glm::rotate(t, glm::vec3(1.0f, 0.0f, 0.0f)) *
-		glm::scale(glm::vec3(1.0f, 1.0f, 2.0f)) *
+		glm::scale(glm::vec3(6.0f, 6.0f, 6.0f)) *
 		glm::mat4(1.0f);
 	myCube.mv_matrix = mv_matrix_cube;
 	myCube.proj_matrix = myGraphics.proj_matrix;
@@ -184,8 +208,8 @@ void update(float currentTime) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
 			//glm::rotate(-t, boids[i].angular_velocity) *
-			//glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
-			glm::scale(glm::vec3(scale, scale, scale)) *
+			glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
+			//glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
