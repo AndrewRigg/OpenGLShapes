@@ -42,13 +42,15 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_balls = 500;
+int const number_of_balls = 200;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
 INPUT_RECORD InputRecord;
 COORD coord;
 
+Wall		myWall;
+Plane		myPlane;
 Cube		myCube;
 Sphere		mySphere;
 Sphere mySpheres[number_of_balls];
@@ -103,6 +105,9 @@ int main()
 	do {
 		coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
 		coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
+
+		float mousePosX = coord.X;
+		float mousePosY = coord.Y;
 		
 		float currentTime = glfwGetTime();		// retrieve timelapse
 		float deltaTime = currentTime - prevTime;
@@ -144,16 +149,10 @@ void explode() {
 		balls[i].velocity = randNum3(-20, 40, -20, 40, -20, 40);
 		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 		//generate random size between p1 and p1a weighted more towards p1
+		//scales[i] = randNum(0.01, 0.5);
+		//scales[i] = randNum(0.01, randNum(0.01, 0.5));
 		scales[i] = randNum(0.01,randNum(0.01, randNum(0.01, 0.5)));
 		ball_vec.push_back(balls[i]);
-		printf("Kinetic Energy: %f", balls[i].KineticEnergy());
-		printf(" Position: %f %f %f", balls[i].position.x, balls[i].position.y, balls[i].position.z);
-		printf(" Velocity: %f %f %f", balls[i].velocity.x, balls[i].velocity.y, balls[i].velocity.z);
-		printf(" Potential Energy: %f", balls[i].PotentialEnergy());
-		printf(" Mass: %f", balls[i].mass);
-		printf(" Alive: %d", balls[i].alive());
-		printf(" Momentum: %f %f %f", balls[i].Momentum().x, balls[i].Momentum().y, balls[i].Momentum().z);
-		printf("Lifetime: %f", balls[i].lifeTime);
 	}
 }
 
@@ -186,6 +185,12 @@ void startup() {
 		mySpheres[i].Load();
 		//mySpheres[i].fillColor = randNum4(0,1,0,1,0,1,0,1);
 	}
+
+	myWall.Load();
+	myWall.fillColor = glm::vec4(0.7f, 0.7f, 0.7f, 0.5f);
+
+	myPlane.Load();
+	myPlane.fillColor = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
 
 	mySphere.Load();
 	mySphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
@@ -237,16 +242,30 @@ void update(float currentTime) {
 	mySphere.fillColor = glm::vec4(0.0, 1.0, 0.0, ballTransparency);
 	mySphere.lineColor = glm::vec4(0.0, 0.0, 0.0, ballTransparency);
 
+	glm::mat4 mv_matrix_plane =
+		glm::translate(glm::vec3( 10, -3, -100)) *
+		//glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
+		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
+		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
+		glm::mat4(1.0f);
+	myPlane .mv_matrix = mv_matrix_plane;
+	myPlane.proj_matrix = myGraphics.proj_matrix;
+
+	glm::mat4 mv_matrix_wall =
+		glm::translate(glm::vec3(8, -3, -100)) *
+		//glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
+		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
+		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
+		glm::mat4(1.0f);
+	myWall.mv_matrix = mv_matrix_wall;
+	myWall.proj_matrix = myGraphics.proj_matrix;
+
 	t += 0.01f; // increment movement variable
 }
 
 void render(float currentTime) {
 	// Clear viewport - start a new frame.
 	myGraphics.ClearViewport();
-	
-	// Draw
-	//myCube.Draw();
-	//if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
 	
 	float check = 1.0;
 		for (int i = 0; i < number_of_balls; i++) {
@@ -262,8 +281,12 @@ void render(float currentTime) {
 	//}
 		if (ball.alive()) {
 			ballTransparency = (1+ballTransparency) * ballTransparency + 0.0001;
-			mySphere.Draw();
+			if (ballTransparency >= 0.01) {
+				mySphere.Draw();
+			}
 		}
+		myPlane.Draw();
+		//myWall.Draw();
 	/*arrowX.Draw();
 	arrowY.Draw();
 	arrowZ.Draw();*/
