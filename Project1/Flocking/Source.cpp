@@ -41,7 +41,7 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 200;
+int const number_of_boids = 1000;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -50,17 +50,17 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Sphere mySpheres[number_of_boids];
+Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 //vector3 previous [10];
 vector3 previous;
-float wander = 0;
-float alignmentFactor = 10.0;
+float wander = 0.5;
+float alignmentFactor = 1.0;
 float cohesionFactor = 15.25;
-float separationFactor = 10.9;
-float scale = 0.5;
+float separationFactor = 1.0;
+float scale = 0.1;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -82,12 +82,12 @@ int main()
 
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
-		float spd = randNum(3, 4);
+		float spd = randNum(3, 8);
 		boids[i].radius = 1;
 		boids[i].position = randNum3(-3, 6, -3, 6, -20, 18);
 		boids[i].velocity = randNum3(-spd, 2*spd, -spd, 2*spd, -spd, 2*spd);
 		//boids[i].angular_velocity = boids[i].direction(previous);
-		boids[i].angular_velocity = boids[i].direction();
+		//boids[i].angular_velocity = boids[i].direction();
 		//boids[i].angular_velocity = randNum3(-3, 6, -3, 6, -3, 6);
 	}
 
@@ -131,7 +131,7 @@ int main()
 			
 	
 
-			boids[i].velocity = (boids[i].velocity).normalize()*=(originalSpeed);
+			boids[i].velocity = (boids[i].velocity).normalize() *= originalSpeed;
 			boids[i].updatePhysics(deltaTime);
 			
 		}
@@ -183,8 +183,9 @@ void startup() {
 		mySpheres[i].Load();
 		//mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6, 0.5);
 		//mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
-		//mySpheres[i].fillColor = randNum4(0.2, 0.3, 0.15, 0.2, 0, 0.05, 1, 1);
-		mySpheres[i].fillColor = randNum4(0, 1, 0, 1, 0, 1, 1, 1);
+		mySpheres[i].fillColor = randNum4(0.2, 0.3, 0.15, 0.2, 0, 0.05, 1, 1);
+		mySpheres[i].lineColor = glm::vec4(mySpheres[i].fillColor);
+		//mySpheres[i].fillColor = randNum4(0, 1, 0, 1, 0, 1, 1, 1);
 	}
 
 	mySphere.Load();
@@ -218,8 +219,8 @@ void update(float currentTime) {
 			glm::translate(glm::vec3 (boids[i].position.toVec3())) *
 			//glm::rotate(1.0f, boids[i].direction(previous)) *
 			//glm::rotate(1.0f, glm::vec3 (boids[i].direction().toVec3())) *
-			//glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
-			glm::scale(glm::vec3(scale, scale, scale)) *
+			glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
+			//glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
