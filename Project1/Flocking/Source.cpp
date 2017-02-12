@@ -27,7 +27,6 @@ using namespace std;
 #include <ctime>
 #include <windows.h>
 #include <stdlib.h>
-#include <vector>
 #include "Vectors.h"
 
 // FUNCTIONS
@@ -42,7 +41,7 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 50;
+int const number_of_boids = 200;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -51,16 +50,16 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Arrow mySpheres[number_of_boids];
+Sphere mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
 //vector3 previous [10];
 vector3 previous;
 float wander = 0;
-float alignmentFactor = 1.0;
-float cohesionFactor = 1.25;
-float separationFactor = 0.9;
+float alignmentFactor = 10.0;
+float cohesionFactor = 15.25;
+float separationFactor = 10.9;
 float scale = 0.5;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
@@ -132,7 +131,7 @@ int main()
 			
 	
 
-			boids[i].velocity = glm::normalize(boids[i].velocity).operator*=(originalSpeed);
+			boids[i].velocity = (boids[i].velocity).normalize()*=(originalSpeed);
 			boids[i].updatePhysics(deltaTime);
 			
 		}
@@ -218,14 +217,14 @@ void update(float currentTime) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(glm::vec3 (boids[i].position.toVec3())) *
 			//glm::rotate(1.0f, boids[i].direction(previous)) *
-			glm::rotate(1.0f, glm::vec3 (boids[i].direction().toVec3())) *
+			//glm::rotate(1.0f, glm::vec3 (boids[i].direction().toVec3())) *
 			//glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
 			glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
 		//previous[i%10] = boids[i].direction(previous);
-		previous = boids[i].direction();
+		//previous = boids[i].direction();
 	}
 
 	// calculate Sphere movement

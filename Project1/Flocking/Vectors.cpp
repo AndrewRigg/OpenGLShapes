@@ -1,18 +1,13 @@
-#include <math.h>
 #include "Vectors.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <GLM/glm.hpp>
-#include <GLM/gtx/transform.hpp>
 
 vector3::vector3() {};
-vector3::~vector3() {}
+vector3::~vector3() {};
 vector3::vector3(float x, float y, float z){
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	}
-;
+	};
 
 bool vector3::operator==(vector3 vec) {
 	return(x == vec.x && y == vec.y && z == vec.z);
@@ -98,7 +93,7 @@ float vector3::length() {
 	return (sqrt(x*x + y*y + z*z));
 }
 
-vector3 vector3::normalise() {
+vector3 vector3::normalize() {
 	return vector3(x / length(), y / length(), z / length());
 }
 

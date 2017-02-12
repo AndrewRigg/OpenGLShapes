@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLM/glm.hpp>
+#include "Vectors.h"
 
 class Boid {
 
@@ -15,7 +16,6 @@ public:
 	float g = 0;
 	float rate;
 	float speed();
-	std::vector <Boid> neighbouring_boids;
 	float neighbourhood = 10;
 	float mu = 0.01;							//This is the coefficient of static friction fot this Boid
 	vector3 position;

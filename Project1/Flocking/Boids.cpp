@@ -1,15 +1,6 @@
-#include <GLM/glm.hpp>
 #include <iostream>
-#include <vector>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GLM/glm.hpp>
-#include <GLM/gtx/transform.hpp>
 
 #include "Boids.h"
-#include "graphics.h"
-#include "shapes.h"
-#include "Physics.h"
 #include "Vectors.h"
 
 using namespace std;
@@ -113,7 +104,7 @@ vector3 Boid::alignment(Boid boids []) {
 		alignment.z = alignment.z / neighbours;
 
 		//normalise this vector
-		alignment = glm::normalize(alignment);
+		alignment = alignment.normalize();
 	}
 	//direct boid to centre of mass:
 	return alignment;
@@ -147,7 +138,7 @@ vector3 Boid::cohesion(Boid boids[]) {
 		cohesion.z -= position.z;
 
 		//normalise this vector
-		cohesion = glm::normalize(cohesion);
+		cohesion = cohesion.normalize();
 	}
 	//direct boid to centre of mass:
 	return cohesion;
@@ -180,7 +171,7 @@ vector3 Boid::separation(Boid boids[]) {
 		separation.z *= -1;
 
 		//normalise this vector
-		separation = glm::normalize(separation);
+		separation = separation.normalize();
 	}
 	//direct boid to centre of mass:
 	return separation;
@@ -191,7 +182,7 @@ vector3 Boid::separation(Boid boids[]) {
 void Boid::updatePhysics(float deltaTime)
 {
 	float zSpread = 1.0*abs(position.z);
-		float edgeXY = zSpread*0.8;
+		float edgeXY = zSpread*0.6;
 		float edgeZNear = -2.0;
 		float edgeZFar = -35;
 		float wrapAround = 2*edgeXY;
@@ -245,10 +236,10 @@ vector3 Boid::direction() {
 	//return the value of orientation around the x, y and z axis respectively in radians
 	float roll, pitch, yaw;
 
-	//roll = atan2(velocity.z, velocity.y);
-	roll = 0;
-	//pitch = atan2(velocity.x, velocity.z);
-	pitch = 0;
+	roll = atan2(velocity.z, velocity.y);
+	//roll = 0;
+	pitch = atan2(velocity.x, velocity.z);
+	//pitch = 0;
 	yaw = atan2(velocity.y, velocity.x);
 	//yaw = 0;
 	return vector3(roll, pitch, yaw);

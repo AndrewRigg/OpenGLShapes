@@ -1,11 +1,6 @@
 #pragma once
 
-#include <math.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <GLM/glm.hpp>
-#include <GLM/gtx/transform.hpp>
-
 class vector3 {
 
 public:
@@ -32,7 +27,7 @@ public:
 	vector3 operator*=(float scalar);
 	vector3 operator/=(float scalar);
 	vector3 cross(vector3 vec);
-	vector3 normalise();
+	vector3 normalize();
 	float dot(vector3 vec);
 	float length();
 	glm::vec3 toVec3();
