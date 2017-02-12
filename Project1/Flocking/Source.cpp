@@ -54,9 +54,9 @@ Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-glm::vec3 previous [10];
-//glm::vec3 previous;
-float wander = 0.0;
+//glm::vec3 previous [10];
+glm::vec3 previous;
+float wander = 0;
 float alignmentFactor = 1.0;
 float cohesionFactor = 1.25;
 float separationFactor = 0.9;
@@ -72,10 +72,10 @@ Boid boids[number_of_boids];
 
 int main()
 {
-	for (int i = 0; i < 10; i++) {
+	/*for (int i = 0; i < 10; i++) {
 		previous[i] = glm::vec3(0.0, 0.0, 0.0);
-	}
-	//previous = glm::vec3(0.0, 0.0, 0.0);
+	}*/
+	previous = glm::vec3(0.0, 0.0, 0.0);
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
@@ -86,8 +86,8 @@ int main()
 		boids[i].radius = 1;
 		boids[i].position = randNum3(-3, 6, -3, 6, -20, 18);
 		boids[i].velocity = randNum3(-spd, 2*spd, -spd, 2*spd, -spd, 2*spd);
-		boids[i].angular_velocity = boids[i].direction(previous);
-		//boids[i].angular_velocity = boids[i].direction();
+		//boids[i].angular_velocity = boids[i].direction(previous);
+		boids[i].angular_velocity = boids[i].direction();
 		//boids[i].angular_velocity = randNum3(-3, 6, -3, 6, -3, 6);
 	}
 
@@ -216,15 +216,15 @@ void update(float currentTime) {
 	for (int i = 0; i < number_of_boids; i++) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
-			glm::rotate(1.0f, boids[i].direction(previous)) *
-			//glm::rotate(1.0f, boids[i].direction()) *
+			//glm::rotate(1.0f, boids[i].direction(previous)) *
+			glm::rotate(1.0f, boids[i].direction()) *
 			glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
 			//glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
-		previous[i%10] = boids[i].direction(previous);
-		//previous = boids[i].direction();
+		//previous[i%10] = boids[i].direction(previous);
+		previous = boids[i].direction();
 	}
 
 	// calculate Sphere movement

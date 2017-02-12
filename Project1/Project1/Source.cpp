@@ -95,8 +95,8 @@ int main()
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	/*glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 
 												// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
@@ -123,8 +123,8 @@ int main()
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 		prevTime = currentTime;
 
-		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
-		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
+		//running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
+		//running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...

@@ -190,8 +190,9 @@ glm::vec3 Boid::separation(Boid boids[]) {
 
 void Boid::updatePhysics(float deltaTime)
 {
-		float edgeXY = 5.0;
-		float edgeZNear = -1.0;
+	float zSpread = 1.0*abs(position.z);
+		float edgeXY = zSpread*0.8;
+		float edgeZNear = -2.0;
 		float edgeZFar = -35;
 		float wrapAround = 2*edgeXY;
 		float wrapAroundZ = abs(edgeZFar - edgeZNear);
@@ -222,36 +223,36 @@ void Boid::updatePhysics(float deltaTime)
 		}
 }
 
-glm::vec3 Boid::direction(glm::vec3 previous[]) {
-	//return the value of orientation around the x, y and z axis respectively in radians
-	float roll, pitch, yaw;
-
-	roll = atan2(velocity.z, velocity.y);
-	//roll = 0;
-	pitch = atan2(velocity.x, velocity.z);
-	//pitch = 0;
-	yaw = atan2(velocity.y, velocity.x);
-	//yaw = 0;
-	for (int i = 0; i < 10; i++) {
-		roll += previous[i].x;
-		pitch += previous[i].y;
-		yaw += previous[i].z;
-	}
-	return glm::vec3(roll/10, pitch/10, yaw/10);
-}
-
-//glm::vec3 Boid::direction() {
+//glm::vec3 Boid::direction(glm::vec3 previous[]) {
 //	//return the value of orientation around the x, y and z axis respectively in radians
 //	float roll, pitch, yaw;
 //
-//	//roll = atan2(velocity.z, velocity.y);
-//	roll = 0;
-//	//pitch = atan2(velocity.x, velocity.z);
-//	pitch = 0;
+//	roll = atan2(velocity.z, velocity.y);
+//	//roll = 0;
+//	pitch = atan2(velocity.x, velocity.z);
+//	//pitch = 0;
 //	yaw = atan2(velocity.y, velocity.x);
 //	//yaw = 0;
-//	return glm::vec3(roll, pitch, yaw);
+//	for (int i = 0; i < 10; i++) {
+//		roll += previous[i].x;
+//		pitch += previous[i].y;
+//		yaw += previous[i].z;
+//	}
+//	return glm::vec3(roll/10, pitch/10, yaw/10);
 //}
+
+glm::vec3 Boid::direction() {
+	//return the value of orientation around the x, y and z axis respectively in radians
+	float roll, pitch, yaw;
+
+	//roll = atan2(velocity.z, velocity.y);
+	roll = 0;
+	//pitch = atan2(velocity.x, velocity.z);
+	pitch = 0;
+	yaw = atan2(velocity.y, velocity.x);
+	//yaw = 0;
+	return glm::vec3(roll, pitch, yaw);
+}
 
 //Own versions
 /*
