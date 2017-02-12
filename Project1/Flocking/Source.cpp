@@ -54,10 +54,13 @@ Tetrahedron mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-float alignmentFactor = 1.00;
-float cohesionFactor = 1.1;
-float separationFactor = 1.0;
-float scale = 0.2;
+glm::vec3 previous [10];
+//glm::vec3 previous;
+float wander = 0.0;
+float alignmentFactor = 1.0;
+float cohesionFactor = 1.25;
+float separationFactor = 0.9;
+float scale = 0.3;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -69,17 +72,23 @@ Boid boids[number_of_boids];
 
 int main()
 {
-
+	for (int i = 0; i < 10; i++) {
+		previous[i] = glm::vec3(0.0, 0.0, 0.0);
+	}
+	//previous = glm::vec3(0.0, 0.0, 0.0);
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
+		float spd = randNum(3, 4);
 		boids[i].radius = 1;
 		boids[i].position = randNum3(-3, 6, -3, 6, -20, 18);
-		boids[i].velocity = randNum3(-2, 4, -2, 4, -2, 4);
-		boids[i].angular_velocity = randNum3(-3, 6, -3, 6, -3, 6);
+		boids[i].velocity = randNum3(-spd, 2*spd, -spd, 2*spd, -spd, 2*spd);
+		boids[i].angular_velocity = boids[i].direction(previous);
+		//boids[i].angular_velocity = boids[i].direction();
+		//boids[i].angular_velocity = randNum3(-3, 6, -3, 6, -3, 6);
 	}
 
 	boid.radius = 1;
@@ -116,9 +125,9 @@ int main()
 
 			float originalSpeed = boids[i].speed();
 			
-			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x;// +randNum(0.01, 5);
-			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y;// +randNum(0.01, 5);
-			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z;// +randNum(0.01, 5);
+			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x+randNum(-wander, 2*wander);
+			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y+randNum(-wander, 2*wander);
+			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z+randNum(-wander, 2*wander);
 			
 	
 
@@ -207,12 +216,15 @@ void update(float currentTime) {
 	for (int i = 0; i < number_of_boids; i++) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
-			//glm::rotate(-t, boids[i].angular_velocity) *
-			glm::scale(glm::vec3(scale, 0.2*scale, 0.5*scale)) *		//trial
+			glm::rotate(1.0f, boids[i].direction(previous)) *
+			//glm::rotate(1.0f, boids[i].direction()) *
+			glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
 			//glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
+		previous[i%10] = boids[i].direction(previous);
+		//previous = boids[i].direction();
 	}
 
 	// calculate Sphere movement
@@ -225,6 +237,7 @@ void update(float currentTime) {
 	mySphere.mv_matrix = mv_matrix_sphere; 
 	mySphere.proj_matrix = myGraphics.proj_matrix;
 
+	
 	t += 0.01f; // increment movement variable
 }
 
