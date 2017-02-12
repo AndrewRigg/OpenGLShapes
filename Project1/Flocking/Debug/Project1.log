@@ -5,10 +5,10 @@ h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   h:\documents\glfw\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(62): warning C4305: 'initializing': truncation from 'double' to 'float'
-h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(63): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(64): warning C4305: 'initializing': truncation from 'double' to 'float'
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(68): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(115): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+<<<<<<< HEAD
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\source.cpp(186): warning C4305: 'argument': truncation from 'double' to 'float'
   Boids.cpp
 h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\boids.h(20): warning C4305: 'initializing': truncation from 'double' to 'float'
@@ -20,5 +20,7 @@ h:\.windows_settings\my documents\visual studio 2015\projects\project1\flocking\
   Generating Code...
   LINK : H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe not found or not built by the last incremental link; performing full link
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+=======
+>>>>>>> myVecs
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
