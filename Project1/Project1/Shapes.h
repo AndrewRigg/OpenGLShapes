@@ -44,11 +44,17 @@ public:
 	~Cube();
 };
 
-//class Plane : public Plane {
-//public:
-//	Plane();
-//	~Plane();
-//};
+class Plane : public Shapes {
+public:
+	Plane();
+	~Plane();
+};
+
+class Wall : public Shapes {
+public:
+	Wall();
+	~Wall();
+};
 
 class Sphere : public Shapes {
 public:

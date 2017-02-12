@@ -15,12 +15,16 @@
 using namespace std;
 
 const double pi = 3.1415926535897;
-
+int no_neighbours = 10;
 Boid::Boid() {};
 Boid::~Boid() {};
 
 bool Boid::operator!=(Boid rhs) {
 	return (position != rhs.position || velocity != rhs.velocity);
+}
+
+float Boid::speed() {
+	return sqrt(pow(velocity.x, 2) + pow(velocity.y,2) + pow(velocity.z, 2));
 }
 
 float Boid::distance(Boid boid) {
@@ -92,13 +96,13 @@ glm::vec3 Boid::alignment(Boid boids []) {
 	glm::vec3 alignment = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < no_neighbours; i++) {
 		if (boids[i] != *this) {
 			if (boids[i].distance(*this) <= neighbourhood) {
-				alignment.x += boids[i].velocity.x;
-				alignment.y += boids[i].velocity.y;
-				alignment.z += boids[i].velocity.z;
-				neighbours++;
+					alignment.x += boids[i].velocity.x;
+					alignment.y += boids[i].velocity.y;
+					alignment.z += boids[i].velocity.z;
+					neighbours++;
 			}
 		}
 	}
@@ -121,13 +125,13 @@ glm::vec3 Boid::cohesion(Boid boids[]) {
 	glm::vec3 cohesion = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < no_neighbours; i++) {
 		if (boids[i] != *this) {
 			if (boids[i].distance(*this) <= neighbourhood) {
-				cohesion.x += boids[i].position.x;
-				cohesion.y += boids[i].position.y;
-				cohesion.z += boids[i].position.z;
-				neighbours++;
+					cohesion.x += boids[i].position.x;
+					cohesion.y += boids[i].position.y;
+					cohesion.z += boids[i].position.z;
+					neighbours++;
 			}
 		}
 	}
@@ -155,13 +159,13 @@ glm::vec3 Boid::separation(Boid boids[]) {
 	glm::vec3 separation = glm::vec3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < no_neighbours; i++) {
 		if (boids[i] != *this) {
 			if (boids[i].distance(*this) <= neighbourhood) {
-				separation.x += boids[i].position.x - position.x;
-				separation.y += boids[i].position.y - position.y;
-				separation.z += boids[i].position.z - position.z;
-				neighbours++;
+					separation.x += boids[i].position.x - position.x;
+					separation.y += boids[i].position.y - position.y;
+					separation.z += boids[i].position.z - position.z;
+					neighbours++;
 			}
 		}
 	}
@@ -186,37 +190,68 @@ glm::vec3 Boid::separation(Boid boids[]) {
 
 void Boid::updatePhysics(float deltaTime)
 {
+		float edgeXY = 5.0;
+		float edgeZNear = -1.0;
+		float edgeZFar = -35;
+		float wrapAround = 2*edgeXY;
+		float wrapAroundZ = abs(edgeZFar - edgeZNear);
 
-		float wrapAround = 6.0;
 		position.x += velocity.x*deltaTime;
 		position.y += velocity.y*deltaTime;
 		position.z += velocity.z*deltaTime;
-
-		if (position.x <= -3.0 + radius) {
+		
+		if (position.x <= -edgeXY + radius) {
 			position.x += wrapAround;
 		}
-		if (position.x >= 3.0 - radius) {
+		if (position.x >= edgeXY - radius) {
 			position.x -= wrapAround;
 		}
 
-		if (position.y <= -3.0 + radius) {
+		if (position.y <= -edgeXY + radius) {
 			position.y += wrapAround;
 		}
-		if (position.y >= 3.0 - radius) {
+		if (position.y >= edgeXY - radius) {
 			position.y -= wrapAround;
 		}
 
-		if (position.z <= -20.0 + radius) {
-			position.z += wrapAround;
+		if (position.z <= edgeZFar + radius) {
+			position.z += wrapAroundZ;
 		}
-		if (position.z >= -2.0 - radius) {
-			position.z -= wrapAround;
+		if (position.z >= edgeZNear - radius) {
+			position.z -= wrapAroundZ;
 		}
-
-		//angular_velocity.x 
-
 }
 
+glm::vec3 Boid::direction(glm::vec3 previous[]) {
+	//return the value of orientation around the x, y and z axis respectively in radians
+	float roll, pitch, yaw;
+
+	roll = atan2(velocity.z, velocity.y);
+	//roll = 0;
+	pitch = atan2(velocity.x, velocity.z);
+	//pitch = 0;
+	yaw = atan2(velocity.y, velocity.x);
+	//yaw = 0;
+	for (int i = 0; i < 10; i++) {
+		roll += previous[i].x;
+		pitch += previous[i].y;
+		yaw += previous[i].z;
+	}
+	return glm::vec3(roll/10, pitch/10, yaw/10);
+}
+
+//glm::vec3 Boid::direction() {
+//	//return the value of orientation around the x, y and z axis respectively in radians
+//	float roll, pitch, yaw;
+//
+//	//roll = atan2(velocity.z, velocity.y);
+//	roll = 0;
+//	//pitch = atan2(velocity.x, velocity.z);
+//	pitch = 0;
+//	yaw = atan2(velocity.y, velocity.x);
+//	//yaw = 0;
+//	return glm::vec3(roll, pitch, yaw);
+//}
 
 //Own versions
 /*

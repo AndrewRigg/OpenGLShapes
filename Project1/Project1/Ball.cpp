@@ -82,11 +82,12 @@ void Ball::updatePhysics(float deltaTime)
 	lifeTime--;
 
 
-	/*if (position.y - radius <= 0) {
+	if (position.y - radius <= 0) {
 		velocity.x *= 0.995;
 		velocity.z *= 0.995;
 		rate *= 0.99;
-	}*/
+	}
+
 	if (mass <= 0) {
 		position.x += velocity.x*deltaTime;
 		position.y += velocity.y*deltaTime - 0.5*g*pow(deltaTime, 2.0);

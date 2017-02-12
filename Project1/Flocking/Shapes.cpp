@@ -138,9 +138,11 @@ void main(void){
 	glLinkProgram(0);	// unlink
 	glDisableVertexAttribArray(0); // Disable
 	glBindVertexArray(0);	// Unbind
+	
 }
 
 void Shapes::Draw() {
+
 	glUseProgram(program);
 	glBindVertexArray(vao);
 	glEnableVertexAttribArray(0);
@@ -155,6 +157,7 @@ void Shapes::Draw() {
 	glUniform4f(color_location, lineColor.r, lineColor.g, lineColor.b, lineColor.a);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  glLineWidth(lineWidth);
 	glDrawArrays(GL_TRIANGLES, 0, vertexPositions.size() / 3);
+
 }
 
 
