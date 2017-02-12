@@ -28,6 +28,7 @@ using namespace std;
 #include <windows.h>
 #include <stdlib.h>
 #include <vector>
+#include "Vectors.h"
 
 // FUNCTIONS
 void render(float currentTime);
@@ -36,7 +37,7 @@ void startup();
 void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 float randNum(float p1, float p1a);
-glm::vec3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
+vector3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
 glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a, float p4, float p4a);
 
 // VARIABLES
@@ -50,17 +51,17 @@ COORD coord;
 
 Cube		myCube;
 Sphere		mySphere;
-Tetrahedron mySpheres[number_of_boids];
+Arrow mySpheres[number_of_boids];
 Arrow		arrowX;
 Arrow		arrowY;
 Arrow		arrowZ;
-//glm::vec3 previous [10];
-glm::vec3 previous;
+//vector3 previous [10];
+vector3 previous;
 float wander = 0;
 float alignmentFactor = 1.0;
 float cohesionFactor = 1.25;
 float separationFactor = 0.9;
-float scale = 0.3;
+float scale = 0.5;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
 float factor = 10;					//multiplier for gravity (distance of pixels is not m)
@@ -73,9 +74,9 @@ Boid boids[number_of_boids];
 int main()
 {
 	/*for (int i = 0; i < 10; i++) {
-		previous[i] = glm::vec3(0.0, 0.0, 0.0);
+		previous[i] = vector3(0.0, 0.0, 0.0);
 	}*/
-	previous = glm::vec3(0.0, 0.0, 0.0);
+	previous = vector3(0.0, 0.0, 0.0);
 	srand(static_cast <unsigned> (time(0)));
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
@@ -94,9 +95,9 @@ int main()
 	boid.radius = 1;
 	boid.setMass(27);
 	boid.rate = 10;
-	boid.position = glm::vec3(1.0f, 2.0f, -6.0f);
-	boid.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
-	boid.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	boid.position = vector3(1.0f, 2.0f, -6.0f);
+	boid.velocity = vector3(3.0f, 1.0f, 1.0f);
+	boid.acceleration = vector3(0.0f, 0.0f, 0.0f);
 	//Boid_vec.push_back(Boid);
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
@@ -119,9 +120,9 @@ int main()
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_boids; i++) {
 
-			glm::vec3 alignment = boids[i].alignment(boids);
-			glm::vec3 cohesion = boids[i].cohesion(boids);
-			glm::vec3 separation = boids[i].separation(boids);
+			vector3 alignment = boids[i].alignment(boids);
+			vector3 cohesion = boids[i].cohesion(boids);
+			vector3 separation = boids[i].separation(boids);
 
 			float originalSpeed = boids[i].speed();
 			
@@ -163,8 +164,8 @@ glm::vec4 randNum4(float param1, float param1a, float param2, float param2a, flo
 		static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))), param4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param4a))));
 }
 
-glm::vec3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
-	return glm::vec3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))),
+vector3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
+	return vector3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))),
 		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))),
 		param3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))));
 }
@@ -183,8 +184,8 @@ void startup() {
 		mySpheres[i].Load();
 		//mySpheres[i].fillColor = glm::vec4(0.55, 0.5, 0.6, 0.5);
 		//mySpheres[i].lineColor = glm::vec4(0.45, 0.4, 0.5, 0.5);
-		mySpheres[i].fillColor = randNum4(0.2, 0.3, 0.15, 0.2, 0, 0.05, 1, 1);
-		//mySpheres[i].fillColor = randNum4(0, 1, 0, 1, 0, 1, 1, 1);
+		//mySpheres[i].fillColor = randNum4(0.2, 0.3, 0.15, 0.2, 0, 0.05, 1, 1);
+		mySpheres[i].fillColor = randNum4(0, 1, 0, 1, 0, 1, 1, 1);
 	}
 
 	mySphere.Load();
@@ -215,11 +216,11 @@ void update(float currentTime) {
 
 	for (int i = 0; i < number_of_boids; i++) {
 		glm::mat4 mv_matrix_spheres =
-			glm::translate(boids[i].position) *
+			glm::translate(glm::vec3 (boids[i].position.toVec3())) *
 			//glm::rotate(1.0f, boids[i].direction(previous)) *
-			glm::rotate(1.0f, boids[i].direction()) *
-			glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
-			//glm::scale(glm::vec3(scale, scale, scale)) *
+			glm::rotate(1.0f, glm::vec3 (boids[i].direction().toVec3())) *
+			//glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
+			glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
@@ -229,8 +230,8 @@ void update(float currentTime) {
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(boid.position) *
-		glm::rotate(-boid.rate, glm::vec3(boid.angular_velocity)) *
+		glm::translate(glm::vec3 (boid.position.toVec3())) *
+		glm::rotate(-boid.rate, glm::vec3(boid.angular_velocity.toVec3())) *
 		glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
 		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *
 		glm::mat4(1.0f);

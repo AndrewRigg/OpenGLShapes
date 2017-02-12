@@ -31,20 +31,20 @@ float Boid::distance(Boid boid) {
 	return sqrt(pow(boid.position.x, 2.0) + pow(boid.position.y, 2.0) + pow(boid.position.z, 2.0));
 }
 
-glm::vec3 Boid::Momentum() {
-	return glm::vec3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
+vector3 Boid::Momentum() {
+	return vector3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
 }
 
-glm::vec3 Boid::GravitationalForce() {
-	return glm::vec3(0.0, mass*g, 0.0f);
+vector3 Boid::GravitationalForce() {
+	return vector3(0.0, mass*g, 0.0f);
 }
 
-glm::vec3 Boid::Friction() {
-	return glm::vec3(0, mass*g*mu, 0);
+vector3 Boid::Friction() {
+	return vector3(0, mass*g*mu, 0);
 }
 
-glm::vec3 Boid::TotalForce() {
-	return glm::vec3(GravitationalForce()+Friction()+action);
+vector3 Boid::TotalForce() {
+	return vector3(GravitationalForce()+Friction()+action);
 }
 
 float Boid::KineticEnergy() {
@@ -71,11 +71,11 @@ bool Boid::alive() {
 	return lifeTime > 0;
 }
 
-void Boid::setAction(glm::vec3 appliedAction) {
+void Boid::setAction(vector3 appliedAction) {
 	action = appliedAction;
 }
 
-glm::vec3 Boid::getAction() {
+vector3 Boid::getAction() {
 	return action;
 }
 
@@ -90,10 +90,10 @@ float Boid::getRadius() {
 
 //3 Boid behaviours
 
-glm::vec3 Boid::alignment(Boid boids []) {
+vector3 Boid::alignment(Boid boids []) {
 	//keep the boids going in the same direction
 	//initialise a new vector which will calculate our new direction
-	glm::vec3 alignment = glm::vec3(0.0f, 0.0f, 0.0f);
+	vector3 alignment = vector3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
 	for (int i = 0; i < no_neighbours; i++) {
@@ -119,10 +119,10 @@ glm::vec3 Boid::alignment(Boid boids []) {
 	return alignment;
 }
 
-glm::vec3 Boid::cohesion(Boid boids[]) {
+vector3 Boid::cohesion(Boid boids[]) {
 	//keep the boids together in a group
 	//initialise a new vector which will calculate our new direction
-	glm::vec3 cohesion = glm::vec3(0.0f, 0.0f, 0.0f);
+	vector3 cohesion = vector3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
 	for (int i = 0; i < no_neighbours; i++) {
@@ -153,10 +153,10 @@ glm::vec3 Boid::cohesion(Boid boids[]) {
 	return cohesion;
 }
 
-glm::vec3 Boid::separation(Boid boids[]) {
+vector3 Boid::separation(Boid boids[]) {
 	//keep the boids separate from each other
 	//initialise a new vector which will calculate our new direction
-	glm::vec3 separation = glm::vec3(0.0f, 0.0f, 0.0f);
+	vector3 separation = vector3(0.0f, 0.0f, 0.0f);
 	//initialise a count variable to keep track of the number of neighbours
 	int neighbours = 0;
 	for (int i = 0; i < no_neighbours; i++) {
@@ -223,7 +223,7 @@ void Boid::updatePhysics(float deltaTime)
 		}
 }
 
-//glm::vec3 Boid::direction(glm::vec3 previous[]) {
+//vector3 Boid::direction(vector3 previous[]) {
 //	//return the value of orientation around the x, y and z axis respectively in radians
 //	float roll, pitch, yaw;
 //
@@ -238,10 +238,10 @@ void Boid::updatePhysics(float deltaTime)
 //		pitch += previous[i].y;
 //		yaw += previous[i].z;
 //	}
-//	return glm::vec3(roll/10, pitch/10, yaw/10);
+//	return vector3(roll/10, pitch/10, yaw/10);
 //}
 
-glm::vec3 Boid::direction() {
+vector3 Boid::direction() {
 	//return the value of orientation around the x, y and z axis respectively in radians
 	float roll, pitch, yaw;
 
@@ -251,71 +251,7 @@ glm::vec3 Boid::direction() {
 	pitch = 0;
 	yaw = atan2(velocity.y, velocity.x);
 	//yaw = 0;
-	return glm::vec3(roll, pitch, yaw);
+	return vector3(roll, pitch, yaw);
 }
-
-//Own versions
-/*
-vector3 Boid::Momentum() {
-return vector3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
-}
-
-vector3 Boid::GravitationalForce() {
-return vector3(0.0, mass*g, 0.0f);
-}
-
-vector3 Boid::Friction() {
-return vector3(0, mass*g*mu, 0);
-}
-
-vector3 Boid::TotalForce() {
-return vector3(GravitationalForce()+Friction()+action);
-}
-
-float Boid::KineticEnergy() {
-return (0.5*mass*(pow(velocity.x, 2.0) + pow(velocity.y, 2.0) + pow(velocity.z, 2.0)));
-}
-
-float Boid::PotentialEnergy() {
-return(mass*g*position.y);
-}
-
-float Boid::volume() {
-return 4 / 3 * pi * pow(radius, 3.0);
-}
-
-void Boid::setMass(float m) {
-mass = m;
-}
-
-float Boid::getMass() {
-return mass;
-}
-
-void Boid::setAlive(bool isAlive) {
-alive = isAlive;
-}
-
-bool Boid::getAlive() {
-return alive;
-}
-
-void Boid::setAction(vector3 appliedAction) {
-action = appliedAction;
-}
-
-vector3 Boid::getAction() {
-return action;
-}
-
-void Boid::setRadius(float newRadius) {
-radius = newRadius;
-}
-
-float Boid::getRadius() {
-return radius;
-}
-
-*/
 
 ;

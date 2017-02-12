@@ -1,7 +1,10 @@
 #pragma once
 
 #include <math.h>
-
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <GLM/glm.hpp>
+#include <GLM/gtx/transform.hpp>
 
 class vector3 {
 
@@ -10,21 +13,29 @@ public:
 	~vector3();
 	vector3(float x, float y, float z);
 
-	int equivalence(vector3 vec);
-
-	vector3 addition(vector3 vec);
-	vector3 subtraction(vector3 vec);
-	vector3 multiplication(vector3 vec);
-	vector3 division(vector3 vec);
-	vector3 additionScalar(float scalar);
-	vector3 subtractionScalar(float scalar);
-	vector3 multiplicationScalar(float scalar);
-	vector3 divisionScalar(float scalar);
-	vector3 cross_product(vector3 vec);
-	float dot_product(vector3 vec);
-	float length();
+	bool operator==(vector3 vec);
+	bool operator!=(vector3 vec);
+	vector3 operator+(vector3 vec);
+	vector3 operator-(vector3 vec);
+	vector3 operator*(vector3 vec);
+	vector3 operator/(vector3 vec);
+	vector3 operator+=(vector3 vec);
+	vector3 operator-=(vector3 vec);
+	vector3 operator*=(vector3 vec);
+	vector3 operator/=(vector3 vec);
+	vector3 operator+(float scalar);
+	vector3 operator-(float scalar);
+	vector3 operator*(float scalar);
+	vector3 operator/(float scalar);
+	vector3 operator+=(float scalar);
+	vector3 operator-=(float scalar);
+	vector3 operator*=(float scalar);
+	vector3 operator/=(float scalar);
+	vector3 cross(vector3 vec);
 	vector3 normalise();
-
+	float dot(vector3 vec);
+	float length();
+	glm::vec3 toVec3();
 	float x;
 	float y;
 	float z;
