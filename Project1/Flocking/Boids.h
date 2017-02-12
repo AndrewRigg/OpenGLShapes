@@ -22,6 +22,9 @@ public:
 	glm::vec3 angular_velocity;
 	glm::vec3 velocity;
 	glm::vec3 acceleration;
+	glm::vec3 alignment;
+	glm::vec3 separation;
+	glm::vec3 cohesion;
 	glm::vec3 Momentum();						//Momentum of the Boid
 	//glm::vec3 RotationalMomentum();			//Rotational momentum of the Boid
 	glm::vec3 GravitationalForce();									
@@ -38,14 +41,11 @@ public:
 	void setRadius(float radius);
 	float getRadius();
 	void updatePhysics(float deltaTime);
-	glm::vec3 cohesion(Boid boids []);
-	glm::vec3 alignment(Boid  boids []);
-	glm::vec3 separation(Boid boids []);
 	//glm::vec3 direction(glm::vec3 previous[]);
 	glm::vec3 direction();
 	bool operator!=(Boid rhs);
 	float distance(Boid boid);
-
+	void alignmentCohesionSeparation(Boid boids[]);
 private:
 
 };

@@ -41,7 +41,7 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 50;
+int const number_of_boids = 100;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -56,10 +56,10 @@ Arrow		arrowY;
 Arrow		arrowZ;
 //glm::vec3 previous [10];
 glm::vec3 previous;
-float wander = 0;
+float wander = 0.0;
 float alignmentFactor = 1.0;
 float cohesionFactor = 1.25;
-float separationFactor = 0.9;
+float separationFactor = 5.9;
 float scale = 0.3;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
@@ -119,17 +119,11 @@ int main()
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_boids; i++) {
 
-			glm::vec3 alignment = boids[i].alignment(boids);
-			glm::vec3 cohesion = boids[i].cohesion(boids);
-			glm::vec3 separation = boids[i].separation(boids);
+			boids[i].alignmentCohesionSeparation(boids);
 
 			float originalSpeed = boids[i].speed();
 			
-			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x+randNum(-wander, 2*wander);
-			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y+randNum(-wander, 2*wander);
-			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z+randNum(-wander, 2*wander);
-			
-	
+			boids[i].velocity += alignmentFactor*boids[i].alignment + cohesionFactor*boids[i].cohesion + separationFactor*boids[i].separation +randNum(-wander, 2*wander);
 
 			boids[i].velocity = glm::normalize(boids[i].velocity).operator*=(originalSpeed);
 			boids[i].updatePhysics(deltaTime);
@@ -217,14 +211,14 @@ void update(float currentTime) {
 		glm::mat4 mv_matrix_spheres =
 			glm::translate(boids[i].position) *
 			//glm::rotate(1.0f, boids[i].direction(previous)) *
-			glm::rotate(1.0f, boids[i].direction()) *
+			//glm::rotate(1.0f, boids[i].direction()) *
 			glm::scale(glm::vec3(0.5*scale, 0.1*scale, scale)) *		//trial
 			//glm::scale(glm::vec3(scale, scale, scale)) *
 			glm::mat4(1.0f);
 		mySpheres[i].mv_matrix = mv_matrix_spheres;
 		mySpheres[i].proj_matrix = myGraphics.proj_matrix;
 		//previous[i%10] = boids[i].direction(previous);
-		previous = boids[i].direction();
+		//previous = boids[i].direction();
 	}
 
 	// calculate Sphere movement
