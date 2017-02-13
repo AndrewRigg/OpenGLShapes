@@ -33,20 +33,32 @@ vector3 vector3::operator/(vector3 vec) {
 	return vector3(x / vec.x, y / vec.y, z / vec.z);
 }
 
-vector3 vector3::operator+=(vector3 vec) {
-	return vector3(x + vec.x, y + vec.y, z + vec.z);
+vector3 vector3::operator+=(const vector3 &vec) {
+	x += vec.x; 
+	y += vec.y; 
+	z += vec.z;
+	return *this;
 }
 
-vector3 vector3::operator-=(vector3 vec) {
-	return vector3(x - vec.x, y - vec.y, z - vec.z);
+vector3 vector3::operator-=(const vector3 &vec) {
+	x -= vec.x;
+	y -= vec.y;
+	z -= vec.z;
+	return *this;
 }
 
-vector3 vector3::operator*=(vector3 vec) {
-	return vector3(x*vec.x, y*vec.y, z*vec.z);
+vector3 vector3::operator*=(const vector3 &vec) {
+	x *= vec.x;
+	y *= vec.y;
+	z *= vec.z;
+	return *this;
 }
 
-vector3 vector3::operator/=(vector3 vec) {
-	return vector3(x / vec.x, y / vec.y, z / vec.z);
+vector3 vector3::operator/=(const vector3 &vec) {
+	x /= vec.x;
+	y /= vec.y;
+	z /= vec.z;
+	return *this;
 }
 
 vector3 vector3::operator+(float scalar) {
@@ -66,19 +78,31 @@ vector3 vector3::operator/(float scalar) {
 }
 
 vector3 vector3::operator+=(float scalar) {
-	return vector3(x + scalar, y + scalar, z + scalar);
+	x += scalar;
+	y += scalar;
+	z += scalar;
+	return *this;
 }
 
 vector3 vector3::operator-=(float scalar) {
-	return vector3(x - scalar, y - scalar, z - scalar);
+	x -= scalar;
+	y -= scalar;
+	z -= scalar;
+	return *this;
 }
 
 vector3 vector3::operator*=(float scalar) {
-	return vector3(x*scalar, y*scalar, z*scalar);
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	return *this;
 }
 
 vector3 vector3::operator/=(float scalar) {
-	return vector3(x / scalar, y / scalar, z / scalar);
+	x /= scalar;
+	y /= scalar;
+	z /= scalar;
+	return *this;
 }
 
 vector3 vector3::cross(vector3 vec) {

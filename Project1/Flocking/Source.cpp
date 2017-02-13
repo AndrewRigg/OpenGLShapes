@@ -41,7 +41,7 @@ glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a
 
 // VARIABLES
 bool		running = true;
-int const number_of_boids = 1000;
+int const number_of_boids = 100;
 int const dimensions = 3;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
@@ -57,13 +57,12 @@ Arrow		arrowZ;
 //vector3 previous [10];
 vector3 previous;
 float wander = 0.5;
-float alignmentFactor = 1.0;
-float cohesionFactor = 15.25;
-float separationFactor = 1.0;
-float scale = 0.1;
+float alignmentFactor = 1.2;
+float cohesionFactor = 1.5;
+float separationFactor = 1.2;
+float scale = 0.3;
 float rate = 0.001;
 float t = 0.001f;					// Global variable for animation
-float factor = 10;					//multiplier for gravity (distance of pixels is not m)
 float g = 0;					// Gravitational force
 float prevTime = glfwGetTime();	//Prev time
 Boid boid;
@@ -82,7 +81,7 @@ int main()
 
 	//Random Boids everywhere
 	for (int i = 0; i < number_of_boids; i++) {
-		float spd = randNum(3, 8);
+		float spd = randNum(3, 6);
 		boids[i].radius = 1;
 		boids[i].position = randNum3(-3, 6, -3, 6, -20, 18);
 		boids[i].velocity = randNum3(-spd, 2*spd, -spd, 2*spd, -spd, 2*spd);
@@ -119,19 +118,10 @@ int main()
 		render(currentTime);					// call render function.
 		for (int i = 0; i < number_of_boids; i++) {
 
-			vector3 alignment = boids[i].alignment(boids);
-			vector3 cohesion = boids[i].cohesion(boids);
-			vector3 separation = boids[i].separation(boids);
-
 			float originalSpeed = boids[i].speed();
-			
-			boids[i].velocity.x += alignmentFactor*alignment.x + cohesionFactor*cohesion.x + separationFactor*separation.x+randNum(-wander, 2*wander);
-			boids[i].velocity.y += alignmentFactor*alignment.y + cohesionFactor*cohesion.y + separationFactor*separation.y+randNum(-wander, 2*wander);
-			boids[i].velocity.z += alignmentFactor*alignment.z + cohesionFactor*cohesion.z + separationFactor*separation.z+randNum(-wander, 2*wander);
-			
-	
-
-			boids[i].velocity = (boids[i].velocity).normalize() *= originalSpeed;
+			boids[i].alignmentCohesionSeparation(boids);
+			boids[i].velocity += boids[i].align*alignmentFactor + boids[i].cohes*cohesionFactor + boids[i].separ*separationFactor + randNum(-wander, 2 * wander);
+			boids[i].velocity = boids[i].velocity.normalize() *= originalSpeed;
 			boids[i].updatePhysics(deltaTime);
 			
 		}

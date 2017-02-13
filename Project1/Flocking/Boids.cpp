@@ -6,7 +6,7 @@
 using namespace std;
 
 const double pi = 3.1415926535897;
-int no_neighbours = 10;
+int no_neighbours = 100;
 Boid::Boid() {};
 Boid::~Boid() {};
 
@@ -78,138 +78,67 @@ float Boid::getRadius() {
 	return radius;
 }
 
-
-//3 Boid behaviours
-
-vector3 Boid::alignment(Boid boids []) {
-	//keep the boids going in the same direction
-	//initialise a new vector which will calculate our new direction
-	vector3 alignment = vector3(0.0f, 0.0f, 0.0f);
-	//initialise a count variable to keep track of the number of neighbours
+void Boid::alignmentCohesionSeparation(Boid boids[]) {
 	int neighbours = 0;
+	align = vector3(0, 0, 0);
+	cohes = vector3(0, 0, 0);
+	separ = vector3(0, 0, 0);
 	for (int i = 0; i < no_neighbours; i++) {
 		if (boids[i] != *this) {
 			if (boids[i].distance(*this) <= neighbourhood) {
-					alignment.x += boids[i].velocity.x;
-					alignment.y += boids[i].velocity.y;
-					alignment.z += boids[i].velocity.z;
-					neighbours++;
+				align += boids[i].velocity;
+				cohes += boids[i].position;
+				separ += boids[i].position - position;
+				neighbours++;
 			}
 		}
 	}
 	if (neighbours > 0) {
-		//divide each component by number of neighbours
-		alignment.x = alignment.x / neighbours;
-		alignment.y = alignment.y / neighbours;
-		alignment.z = alignment.z / neighbours;
-
-		//normalise this vector
-		alignment = alignment.normalize();
+		cohes /= neighbours;
+		cohes -= position;
+		cohes = cohes.normalize();
+		separ /= neighbours;
+		separ *= -1;
+		separ = separ.normalize();
+		align = align.normalize();
 	}
-	//direct boid to centre of mass:
-	return alignment;
 }
-
-vector3 Boid::cohesion(Boid boids[]) {
-	//keep the boids together in a group
-	//initialise a new vector which will calculate our new direction
-	vector3 cohesion = vector3(0.0f, 0.0f, 0.0f);
-	//initialise a count variable to keep track of the number of neighbours
-	int neighbours = 0;
-	for (int i = 0; i < no_neighbours; i++) {
-		if (boids[i] != *this) {
-			if (boids[i].distance(*this) <= neighbourhood) {
-					cohesion.x += boids[i].position.x;
-					cohesion.y += boids[i].position.y;
-					cohesion.z += boids[i].position.z;
-					neighbours++;
-			}
-		}
-	}
-	if (neighbours > 0) {
-		//divide each component by number of neighbours
-		cohesion.x = cohesion.x / neighbours;
-		cohesion.y = cohesion.y / neighbours;
-		cohesion.z = cohesion.z / neighbours;
-
-		//subtract from the cohesion vector the current position of the boid
-		cohesion.x -= position.x;
-		cohesion.y -= position.y;
-		cohesion.z -= position.z;
-
-		//normalise this vector
-		cohesion = cohesion.normalize();
-	}
-	//direct boid to centre of mass:
-	return cohesion;
-}
-
-vector3 Boid::separation(Boid boids[]) {
-	//keep the boids separate from each other
-	//initialise a new vector which will calculate our new direction
-	vector3 separation = vector3(0.0f, 0.0f, 0.0f);
-	//initialise a count variable to keep track of the number of neighbours
-	int neighbours = 0;
-	for (int i = 0; i < no_neighbours; i++) {
-		if (boids[i] != *this) {
-			if (boids[i].distance(*this) <= neighbourhood) {
-					separation.x += boids[i].position.x - position.x;
-					separation.y += boids[i].position.y - position.y;
-					separation.z += boids[i].position.z - position.z;
-					neighbours++;
-			}
-		}
-	}
-	if (neighbours > 0) {
-		//divide each component by number of neighbours
-		separation.x = separation.x / neighbours;
-		separation.y = separation.y / neighbours;
-		separation.z = separation.z / neighbours;
-
-		separation.x *= -1;
-		separation.y *= -1;
-		separation.z *= -1;
-
-		//normalise this vector
-		separation = separation.normalize();
-	}
-	//direct boid to centre of mass:
-	return separation;
-}
-
-
 
 void Boid::updatePhysics(float deltaTime)
 {
-	float zSpread = 1.0*abs(position.z);
-		float edgeXY = zSpread*0.6;
-		float edgeZNear = -2.0;
-		float edgeZFar = -35;
-		float wrapAround = 2*edgeXY;
-		float wrapAroundZ = abs(edgeZFar - edgeZNear);
+	float depth = 1.0*abs(position.z);
+		float edgeX1 = depth*0.6;
+		float edgeX2 = depth*0.7;
+		float edgeY1 = depth*0.3;
+		float edgeY2 = depth*0.45;
+		float edgeZ1 = -2.0;
+		float edgeZ2 = -35;
+		float wrapAroundX = edgeX1 + edgeX2;
+		float wrapAroundY = edgeY1 + edgeY2;
+		float wrapAroundZ = abs(edgeZ2 - edgeZ1);
 
 		position.x += velocity.x*deltaTime;
 		position.y += velocity.y*deltaTime;
 		position.z += velocity.z*deltaTime;
 		
-		if (position.x <= -edgeXY + radius) {
-			position.x += wrapAround;
+		if (position.x < -edgeX1) {
+			position.x += wrapAroundX;
 		}
-		if (position.x >= edgeXY - radius) {
-			position.x -= wrapAround;
-		}
-
-		if (position.y <= -edgeXY + radius) {
-			position.y += wrapAround;
-		}
-		if (position.y >= edgeXY - radius) {
-			position.y -= wrapAround;
+		if (position.x > edgeX2) {
+			position.x -= wrapAroundX;
 		}
 
-		if (position.z <= edgeZFar + radius) {
+		if (position.y < -edgeY1) {
+			position.y += wrapAroundY;
+		}
+		if (position.y > edgeY2) {
+			position.y -= wrapAroundY;
+		}
+
+		if (position.z < edgeZ1) {
 			position.z += wrapAroundZ;
 		}
-		if (position.z >= edgeZNear - radius) {
+		if (position.z > edgeZ2) {
 			position.z -= wrapAroundZ;
 		}
 }

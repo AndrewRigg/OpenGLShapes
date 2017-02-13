@@ -14,10 +14,10 @@ public:
 	vector3 operator-(vector3 vec);
 	vector3 operator*(vector3 vec);
 	vector3 operator/(vector3 vec);
-	vector3 operator+=(vector3 vec);
-	vector3 operator-=(vector3 vec);
-	vector3 operator*=(vector3 vec);
-	vector3 operator/=(vector3 vec);
+	vector3 operator+=(const vector3 &vec);
+	vector3 operator-=(const vector3 &vec);
+	vector3 operator*=(const vector3 &vec);
+	vector3 operator/=(const vector3 &vec);
 	vector3 operator+(float scalar);
 	vector3 operator-(float scalar);
 	vector3 operator*(float scalar);

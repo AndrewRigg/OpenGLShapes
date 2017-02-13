@@ -16,21 +16,24 @@ public:
 	float g = 0;
 	float rate;
 	float speed();
-	float neighbourhood = 10;
+	float neighbourhood = 100;
 	float mu = 0.01;							//This is the coefficient of static friction fot this Boid
 	vector3 position;
 	vector3 angular_velocity;
 	vector3 velocity;
 	vector3 acceleration;
+	vector3 align;
+	vector3 cohes;
+	vector3 separ;
 	vector3 Momentum();						//Momentum of the Boid
 	//vector3 RotationalMomentum();			//Rotational momentum of the Boid
-	vector3 GravitationalForce();									
+	vector3 GravitationalForce();
 	vector3 Friction();						//Frictional force on the Boid from surfaces
 	vector3 action;							//External force being applied to Boid
 	vector3 TotalForce();						//Addition of all forces acting on Boid
-	float KineticEnergy();								
+	float KineticEnergy();
 	float PotentialEnergy();
-	bool alive();																			
+	bool alive();
 	void setMass(float mass);					//Do I need these getters and setters??!  Look into accessibility
 	float getMass();
 	void setAction(vector3 action);
@@ -38,8 +41,9 @@ public:
 	void setRadius(float radius);
 	float getRadius();
 	void updatePhysics(float deltaTime);
-	vector3 cohesion(Boid boids []);
+	void alignmentCohesionSeparation(Boid boids []);
 	vector3 alignment(Boid  boids []);
+	vector3 cohesion(Boid boids []);
 	vector3 separation(Boid boids []);
 	//vector3 direction(vector3 previous[]);
 	vector3 direction();
