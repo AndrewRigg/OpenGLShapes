@@ -20,21 +20,21 @@ Ball::Ball() {};
 Ball::~Ball() {};
 
 
-vector3 Ball::Momentum() {
-	return vector3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
-}
-
-vector3 Ball::GravitationalForce() {
-	return vector3(0.0, mass*g, 0.0f);
-}
-
-vector3 Ball::Friction() {
-	return vector3(0, mass*g*mu, 0);
-}
-
-vector3 Ball::TotalForce() {
-	return vector3(GravitationalForce()+Friction()+action);
-}
+//vector3 Ball::Momentum() {
+//	return vector3(velocity.x*mass, velocity.y*mass, velocity.z*mass);
+//}
+//
+//vector3 Ball::GravitationalForce() {
+//	return vector3(0.0, mass*g, 0.0f);
+//}
+//
+//vector3 Ball::Friction() {
+//	return vector3(0, mass*g*mu, 0);
+//}
+//
+//vector3 Ball::TotalForce() {
+//	return vector3(GravitationalForce()+Friction()+action);
+//}
 
 float Ball::KineticEnergy() {
 	return (0.5*mass*(pow(velocity.x, 2.0) + pow(velocity.y, 2.0) + pow(velocity.z, 2.0)));
@@ -55,7 +55,6 @@ bool Ball::alive() {
 void Ball::updatePhysics(float deltaTime)
 {
 	lifeTime--;
-
 
 	if (position.y - radius <= 0) {
 		velocity.x *= 0.995;

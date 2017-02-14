@@ -37,7 +37,7 @@ void onResizeCallback(GLFWwindow* window, int w, int h);
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void explode();
 float randNum(float p1, float p1a);
-glm::vec3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
+vector3 randNum3(float p1, float p1a, float p2, float p2a, float p3, float p3a);
 glm::vec4 randNum4(float p1, float p1a, float p2, float p2a, float p3, float p3a, float p4, float p4a);
 
 // VARIABLES
@@ -87,11 +87,11 @@ int main()
 	ballTransparency = 1.0;
 	ball.lifeTime = 100000;
 	ball.radius = 1;
-	ball.setMass(27);
+	ball.mass = 27;
 	ball.rate = 10;
-	ball.position = glm::vec3(1.0f, 2.0f, -6.0f);
-	ball.velocity = glm::vec3(3.0f, 1.0f, 1.0f);
-	ball.acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	ball.position = vector3(1.0f, 2.0f, -6.0f);
+	ball.velocity = vector3(3.0f, 1.0f, 1.0f);
+	ball.acceleration = vector3(0.0f, 0.0f, 0.0f);
 
 	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
 	
@@ -143,11 +143,11 @@ void explode() {
 		balls[i].mass = 0;
 		balls[i].lifeTime = randNum(100,200);
 		balls[i].position = ball.position;
-		//balls[i].velocity = glm::vec3(1.0f, 1.0f, 1.0f);
-		//balls[i].angular_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+		//balls[i].velocity = vector3(1.0f, 1.0f, 1.0f);
+		//balls[i].angular_velocity = vector3(0.0f, 0.0f, 0.0f);
 		balls[i].angular_velocity = randNum3(-1,2,-1,2,-1,2);
 		balls[i].velocity = randNum3(-20, 40, -20, 40, -20, 40);
-		balls[i].acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+		balls[i].acceleration = vector3(0.0f, 0.0f, 0.0f);
 		//generate random size between p1 and p1a weighted more towards p1
 		//scales[i] = randNum(0.01, 0.5);
 		//scales[i] = randNum(0.01, randNum(0.01, 0.5));
@@ -166,8 +166,8 @@ glm::vec4 randNum4(float param1, float param1a, float param2, float param2a, flo
 		static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))), param4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param4a))));
 }
 
-glm::vec3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
-	return glm::vec3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))), 
+vector3 randNum3(float param1, float param1a, float param2, float param2a, float param3, float param3a) {
+	return vector3(param1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param1a))), 
 		param2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param2a))), 
 		param3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (param3a))));
 }
@@ -220,7 +220,7 @@ void update(float currentTime) {
 
 	for (int i = 0; i < number_of_balls; i++) {
 		glm::mat4 mv_matrix_spheres =
-			glm::translate(balls[i].position) *
+			glm::translate(glm::vec3 (balls[i].position.toVec3())) *
 			//glm::rotate(-t, balls[i].angular_velocity) *
 			glm::scale(glm::vec3(scales[i], scales[i], scales[i])) *		//trial
 			glm::mat4(1.0f);
@@ -232,7 +232,7 @@ void update(float currentTime) {
 
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere =
-		glm::translate(ball.position) *
+		glm::translate(glm::vec3 (ball.position.toVec3())) *
 		//glm::rotate(-ball.rate, glm::vec3(ball.angular_velocity)) *
 		//glm::rotate(-t, glm::vec3(0.1f, 1.0f, 0.0f)) *
 		//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) *

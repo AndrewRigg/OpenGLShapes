@@ -1,67 +1,130 @@
-#include <math.h>
 #include "Vectors.h"
+#include <GLM/glm.hpp>
 
 vector3::vector3() {};
-vector3::~vector3() {}
-vector3::vector3(float x, float y, float z){
+vector3::~vector3() {};
+vector3::vector3(float x, float y, float z) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	}
-;
+};
 
-int vector3::equivalence(vector3 vec) {
+bool vector3::operator==(vector3 vec) {
 	return(x == vec.x && y == vec.y && z == vec.z);
 }
 
-vector3 vector3::addition(vector3 vec) {
+bool vector3::operator!=(vector3 vec) {
+	return(x != vec.x || y != vec.y || z != vec.z);
+}
+
+vector3 vector3::operator+(vector3 vec) {
 	return vector3(x + vec.x, y + vec.y, z + vec.z);
 }
 
-vector3 vector3::subtraction(vector3 vec) {
+vector3 vector3::operator-(vector3 vec) {
 	return vector3(x - vec.x, y - vec.y, z - vec.z);
 }
 
-vector3 vector3::multiplication(vector3 vec) {
+vector3 vector3::operator*(vector3 vec) {
 	return vector3(x * vec.x, y * vec.y, z * vec.z);
 }
 
-vector3 vector3::division(vector3 vec) {
+vector3 vector3::operator/(vector3 vec) {
 	return vector3(x / vec.x, y / vec.y, z / vec.z);
 }
 
-vector3 vector3::additionScalar(float scalar) {
+vector3 vector3::operator+=(const vector3 &vec) {
+	x += vec.x;
+	y += vec.y;
+	z += vec.z;
+	return *this;
+}
+
+vector3 vector3::operator-=(const vector3 &vec) {
+	x -= vec.x;
+	y -= vec.y;
+	z -= vec.z;
+	return *this;
+}
+
+vector3 vector3::operator*=(const vector3 &vec) {
+	x *= vec.x;
+	y *= vec.y;
+	z *= vec.z;
+	return *this;
+}
+
+vector3 vector3::operator/=(const vector3 &vec) {
+	x /= vec.x;
+	y /= vec.y;
+	z /= vec.z;
+	return *this;
+}
+
+vector3 vector3::operator+(float scalar) {
 	return vector3(x + scalar, y + scalar, z + scalar);
 }
 
-vector3 vector3::subtractionScalar(float scalar) {
+vector3 vector3::operator-(float scalar) {
 	return vector3(x - scalar, y - scalar, z - scalar);
 }
 
-vector3 vector3::multiplicationScalar(float scalar) {
+vector3 vector3::operator*(float scalar) {
 	return vector3(x * scalar, y * scalar, z * scalar);
 }
 
-vector3 vector3::divisionScalar(float scalar) {
+vector3 vector3::operator/(float scalar) {
 	return vector3(x / scalar, y / scalar, z / scalar);
 }
 
-vector3 vector3::cross_product(vector3 vec) {
+vector3 vector3::operator+=(float scalar) {
+	x += scalar;
+	y += scalar;
+	z += scalar;
+	return *this;
+}
+
+vector3 vector3::operator-=(float scalar) {
+	x -= scalar;
+	y -= scalar;
+	z -= scalar;
+	return *this;
+}
+
+vector3 vector3::operator*=(float scalar) {
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	return *this;
+}
+
+vector3 vector3::operator/=(float scalar) {
+	x /= scalar;
+	y /= scalar;
+	z /= scalar;
+	return *this;
+}
+
+vector3 vector3::cross(vector3 vec) {
 	return vector3(y*vec.z - z*vec.y, z*vec.x - x*vec.z, x*vec.y - y*vec.x);
 }
 
-float vector3::dot_product(vector3 vec) {
+float vector3::dot(vector3 vec) {
 	return (x*vec.x + y*vec.y + z*vec.z);
 }
 
 float vector3::length() {
-	//Try to not use sqrt here
 	return (sqrt(x*x + y*y + z*z));
 }
 
-vector3 vector3::normalise() {
+vector3 vector3::normalize() {
 	return vector3(x / length(), y / length(), z / length());
 }
 
+glm::vec3 vector3::toVec3() {
+	return glm::vec3(x, y, z);
+}
+
+;
 
 

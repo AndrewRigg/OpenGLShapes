@@ -58,7 +58,7 @@ void Node::moveToNext(Node goal) {
 		int newPathCost = calculatePathCost(i, goal);
 		if (newPathCost < currentCost) {
 			if (pushed > 0) {
-				closedList.pop_back;
+				//closedList.pop_back();
 			}
 			currentCost = newPathCost;
 			closedList.push_back(i);

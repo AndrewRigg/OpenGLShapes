@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLM/glm.hpp>
+#include "Vectors.h"
 
 class Ball {
 
@@ -29,8 +30,4 @@ public:
 	float PotentialEnergy();
 	bool alive();						
 	void updatePhysics(float deltaTime);
-
-
-private:
-
 };
