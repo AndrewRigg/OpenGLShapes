@@ -15,7 +15,7 @@ public:
 	//void checkNext(Node squares[gridSize][gridSize]);
 	void checkNext(Node squares[20][20]);
 	void moveToNext(Node goal);
-	bool isPassable();
+	bool isPassable(Node n);
 	//This is f(n) the total cost function
 	float calculatePathCost(Node node, Node goal);
 	//This is h(n) the heuristic function

@@ -1,10 +1,12 @@
 //Set up conditions for search algorithm
-using namespace std;
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
 #include<time.h>
 #include"A-star.h"
+#include <vector>
+
+using namespace std;
 
 //Functions
 
@@ -15,6 +17,7 @@ bool		running = true;
 Node currentNode, endNode;
 
 bool areSuitableRand(int TempRand, int TempRand2) {
+	srand(time(NULL));
 	if (TempRand == TempRand2) {
 		return false;
 	}
@@ -47,7 +50,7 @@ int main() {
 	int startY = (rand() % 400) / 20;
 	int endX = rand() % 20;
 	int endY = (rand() % 400) / 20;
-	while (startX = endX && startY == endY) {
+	while (startX == endX && startY == endY) {
 		startX = rand() % 20;
 		startY = (rand() % 400) / 20;
 		endX = rand() % 20;
@@ -87,11 +90,14 @@ int main() {
 		if (currentNode.x == endX && currentNode.y == endY) {
 			running = false;
 		}
+		cout << "\n\n\tMoved from: (" << currentNode.x << ", " << currentNode.y << ") to (";
 		currentNode.checkNext(squares);
 		currentNode.moveToNext(endNode);
-
+		cout << currentNode.x << ", " << currentNode.y << ")";
+		running = false;
 	} while (running);
 
+	Sleep(50000);
 	return 0;
 
 }

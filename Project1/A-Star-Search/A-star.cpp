@@ -1,16 +1,14 @@
 //A* algorithm to find optimal path for 
 //f(n) = g(n) + h(n)
-
-#include "A-star.h"
 #include <stdlib.h>
-#include <vector>
-#include <cstdlib>
 #include <cstdlib>
 #include <ctime>
 #include <windows.h>
-#include <stdlib.h>
 #include <vector>
 #include <iostream>
+
+#include "A-star.h"
+
 using namespace std;
 
 Node::Node() {};
@@ -21,19 +19,17 @@ Node::Node(int x, int y) {
 }
 ;
 
-const int gridSize = 20;
-
 vector<Node> openList;
 vector<Node> closedList;
 
 void Node::checkNext(Node squares[20][20]) {
 	for (int i = -1; i <= 1; i++) {
 		for (int j = -1; j <= 1; j++) {
-			if (i != 0 && j != 0) {
+			if (!(i == 0 && j == 0)) {
 				Node a = squares[x + j][y + i];
 				a.x = x + i;
 				a.y = y + j;
-				if (a.isPassable()) {
+				if (isPassable(a)) {
 					openList.push_back(a);
 				}
 			}
@@ -41,10 +37,12 @@ void Node::checkNext(Node squares[20][20]) {
 	}
 }
 
-bool Node::isPassable() {
-	if (attribute = ' ') {
+bool Node::isPassable(Node n) {
+	if (n.attribute = ' ') {
+		cout << "\nThis: (" << n.x <<  n.y;
 		return true;
 	}
+	
 	else {
 		return false;
 	}
@@ -58,14 +56,18 @@ void Node::moveToNext(Node goal) {
 		int newPathCost = calculatePathCost(i, goal);
 		if (newPathCost < currentCost) {
 			if (pushed > 0) {
-				//closedList.pop_back();
+				closedList.pop_back();
 			}
 			currentCost = newPathCost;
 			closedList.push_back(i);
+			//cout << "Current Cost: " << currentCost;
 			pushed++;
 		}
+		*this = closedList.at(0);
 	}
 }
+
+
 
 float Node::calculatePathCost(Node node, Node goal) {
 	//This is the function f(n) = g(n) + h(n) to be minimised to determine the best path
