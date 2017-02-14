@@ -63,6 +63,5 @@ vector3 vector3::normalise() {
 	return vector3(x / length(), y / length(), z / length());
 }
 
-;
 
 

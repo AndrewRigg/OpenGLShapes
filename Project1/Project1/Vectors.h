@@ -2,7 +2,6 @@
 
 #include <math.h>
 
-
 class vector3 {
 
 public:

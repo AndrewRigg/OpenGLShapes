@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\source.cpp(29): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.exe
+  A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.pdb (Partial PDB)
