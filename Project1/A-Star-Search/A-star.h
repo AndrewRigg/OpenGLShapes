@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include "A-star.h"
 
 class Node{
 
@@ -16,6 +17,7 @@ public:
 	void checkNext(Node squares[20][20]);
 	void moveToNext(Node goal);
 	bool isPassable(Node n);
+	Node child(Node node);
 	//This is f(n) the total cost function
 	float calculatePathCost(Node node, Node goal);
 	//This is h(n) the heuristic function

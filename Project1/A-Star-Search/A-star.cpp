@@ -23,12 +23,13 @@ vector<Node> openList;
 vector<Node> closedList;
 
 void Node::checkNext(Node squares[20][20]) {
+	openList.clear();
 	for (int i = -1; i <= 1; i++) {
 		for (int j = -1; j <= 1; j++) {
-			if (!(i == 0 && j == 0)) {
+			if (!(i == 0 && j == 0) && !((x+j) < 0) && !((x+j) > 19) && !((y+i) < 0) && !((y+i) > 19)){
 				Node a = squares[x + j][y + i];
-				a.x = x + i;
-				a.y = y + j;
+				a.x = x + j;
+				a.y = y + i;
 				if (isPassable(a)) {
 					openList.push_back(a);
 				}
@@ -38,8 +39,8 @@ void Node::checkNext(Node squares[20][20]) {
 }
 
 bool Node::isPassable(Node n) {
-	if (n.attribute = ' ') {
-		cout << "\nThis: (" << n.x <<  n.y;
+	if (n.attribute == ' ' || n.attribute == 'G') {
+	//	cout << "\nThis: (" << n.x <<  n.y;
 		return true;
 	}
 	
@@ -53,21 +54,32 @@ void Node::moveToNext(Node goal) {
 	int currentCost = 1000;
 	int pushed = 0;
 	for (Node &i : openList) {
-		int newPathCost = calculatePathCost(i, goal);
-		if (newPathCost < currentCost) {
-			if (pushed > 0) {
-				closedList.pop_back();
-			}
-			currentCost = newPathCost;
-			closedList.push_back(i);
-			//cout << "Current Cost: " << currentCost;
-			pushed++;
+		if (i.x == goal.x && i.y == goal.y) {
+			//child(i);
+			*this = i;
+			currentCost = 0;
 		}
-		*this = closedList.at(0);
+		else {
+			int newPathCost = calculatePathCost(i, goal);
+			if (newPathCost < currentCost) {
+				if (pushed > 0) {
+					closedList.pop_back();
+				}
+				currentCost = newPathCost;
+				closedList.push_back(i);
+				//cout << "Current Cost: " << currentCost;
+				pushed++;
+			}
+			//child(i);
+			*this = closedList.at(closedList.size()-1);
+		}
+		
 	}
 }
 
-
+Node Node::child(Node node) {
+	return node;
+}
 
 float Node::calculatePathCost(Node node, Node goal) {
 	//This is the function f(n) = g(n) + h(n) to be minimised to determine the best path

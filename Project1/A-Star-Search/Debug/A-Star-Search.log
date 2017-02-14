@@ -1,5 +1,5 @@
 ﻿  A-star.cpp
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(82): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(63): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(94): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
   A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.exe
   A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.pdb (Partial PDB)
