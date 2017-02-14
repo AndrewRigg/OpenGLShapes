@@ -1,0 +1,54 @@
+﻿  Source.cpp
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(15): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\ball.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  h:\.windows_settings\my documents\visual studio 2015\glfw\glfw-3.2.1\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(60): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(63): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(68): warning C4305: 'initializing': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(69): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(112): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(154): warning C4305: 'argument': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(274): warning C4305: '-=': truncation from 'double' to 'float'
+h:\.windows_settings\my documents\visual studio 2015\projects\project1\project1\source.cpp(283): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Graphics.obj : error LNK2019: unresolved external symbol __imp_glewInit referenced in function "public: int __cdecl Graphics::Init(void)" (?Init@Graphics@@QEAAHXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwInit referenced in function "public: int __cdecl Graphics::Init(void)" (?Init@Graphics@@QEAAHXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function "public: void __cdecl Graphics::endProgram(void)" (?endProgram@Graphics@@QEAAXXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwSetErrorCallback referenced in function "public: int __cdecl Graphics::Init(void)" (?Init@Graphics@@QEAAHXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwWindowHint referenced in function "public: void __cdecl Graphics::SetupRender(void)" (?SetupRender@Graphics@@QEAAXXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function "public: int __cdecl Graphics::Init(void)" (?Init@Graphics@@QEAAHXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function "public: int __cdecl Graphics::Init(void)" (?Init@Graphics@@QEAAHXZ)
+Graphics.obj : error LNK2019: unresolved external symbol glfwSwapInterval referenced in function "public: void __cdecl Graphics::SetupRender(void)" (?SetupRender@Graphics@@QEAAXXZ)
+Graphics.obj : error LNK2001: unresolved external symbol __imp___glewClearBufferfv
+Graphics.obj : error LNK2001: unresolved external symbol __imp_glewExperimental
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewBufferData
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewGenBuffers
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewAttachShader
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewCompileShader
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewCreateProgram
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewCreateShader
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewDisableVertexAttribArray
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewEnableVertexAttribArray
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderInfoLog
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderiv
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewGetUniformLocation
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewLinkProgram
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewShaderSource
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewUniform4f
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewUniformMatrix4fv
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewUseProgram
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewVertexAttribPointer
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewBindVertexArray
+Shapes.obj : error LNK2001: unresolved external symbol __imp___glewGenVertexArrays
+Source.obj : error LNK2019: unresolved external symbol glfwSetWindowShouldClose referenced in function "void __cdecl onKeyCallback(struct GLFWwindow *,int,int,int,int)" (?onKeyCallback@@YAXPEAUGLFWwindow@@HHHH@Z)
+Source.obj : error LNK2019: unresolved external symbol glfwSetWindowSizeCallback referenced in function main
+Source.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function main
+Source.obj : error LNK2019: unresolved external symbol glfwSetKeyCallback referenced in function main
+Source.obj : error LNK2019: unresolved external symbol glfwGetTime referenced in function "void __cdecl `dynamic initializer for 'prevTime''(void)" (??__EprevTime@@YAXXZ)
+Source.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function main
+glew32.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+glew32s.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+H:\.windows_settings\My Documents\Visual Studio 2015\glfw-3.2.1.bin.WIN32\lib-vc2015\glfw3.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+H:\.windows_settings\My Documents\Visual Studio 2015\glfw-3.2.1.bin.WIN32\lib-vc2015\glfw3dll.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+H:\.windows_settings\My Documents\Visual Studio 2015\Projects\Project1\x64\Debug\Project1.exe : fatal error LNK1120: 36 unresolved externals

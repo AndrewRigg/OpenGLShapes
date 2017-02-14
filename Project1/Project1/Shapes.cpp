@@ -175,6 +175,39 @@ void Shapes::checkErrorShader(GLuint shader) {
 	}
 }
 
+Plane::Plane() {
+	rawData = R"(
+v -200.000000 -3.000000 0.000000
+v 0.000000 -3.000000 200.000000
+v 200.000000 -3.000000 0.000000
+v 0.000000 -3.000000 -200.000000
+f 1 2 3 4)";
+
+	LoadObj();
+}
+
+Plane::~Plane() {
+
+}
+
+
+Wall::Wall() {
+	rawData = R"(
+v -3.000000 0.000000 -200.000000
+v -3.000000 0.000000 200.000000 
+v -3.000000 200.000000 0.000000 
+v -3.000000 -200.000000 0.000000 
+f 1 2 3 4)";
+
+	LoadObj();
+}
+
+Wall::~Wall() {
+
+}
+
+
+
 Cube::Cube() {
 	// Exported from Blender a cube by default (OBJ File)
 	rawData = R"(

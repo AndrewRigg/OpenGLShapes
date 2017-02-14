@@ -1,0 +1,17 @@
+﻿  A-star.cpp
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(25): error C2039: 'checkNext': is not a member of 'Node'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(6): note: see declaration of 'Node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(29): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(29): error C2065: 'y': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(30): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(30): error C2065: 'y': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(31): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(32): error C2065: 'y': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(33): error C3861: 'isPassable': identifier not found
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(52): error C2511: 'void Node::moveToNext(Node)': overloaded member function not found in 'Node'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(6): note: see declaration of 'Node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(59): error C2671: 'Node::moveToNext': static member functions do not have 'this' pointers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(63): error C2352: 'Node::calculatePathCost': illegal call of non-static member function
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(24): note: see declaration of 'Node::calculatePathCost'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(74): error C2671: 'Node::moveToNext': static member functions do not have 'this' pointers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(94): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
