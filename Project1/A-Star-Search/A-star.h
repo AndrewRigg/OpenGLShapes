@@ -11,12 +11,14 @@ public:
 	Node(int x, int y);
 
 	int f;
-	int g;
 	char attribute;
+	float g;
+	
 	//void checkNext(Node squares[gridSize][gridSize]);
-	void checkNext(Node squares[20][20]);
-	void moveToNext(Node goal);
+	void updateOpenList();
+	void moveToNext(Node current, Node goal);
 	bool isPassable(Node n);
+	Node parent(Node node);
 	Node child(Node node);
 	//This is f(n) the total cost function
 	float calculatePathCost(Node node, Node goal);
@@ -24,6 +26,10 @@ public:
 	float straightLineDistance(Node goal);
 	//This is g(n) the actual cost function
 	float manhattanDistance(Node node);
+	bool Node::operator==(Node node);
+	bool Node::operator!=(Node node);
 	int x;
 	int y;
 };
+
+void setUpNullList(Node squares[20][20]);

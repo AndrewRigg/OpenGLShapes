@@ -87,6 +87,7 @@ int main() {
 	currentNode = squares[startX][startY];
 	endNode = squares[endX][endY];
 	int steps = 0;
+	setUpNullList(squares);
 	do{
 		//run A* algorithms to find the quickest path
 		if (currentNode.x == endX && currentNode.y == endY) {
@@ -99,8 +100,8 @@ int main() {
 		else {
 			steps++;
 			cout << "\n\tMoved from: (" << currentNode.x << ", " << currentNode.y << ")\tto (";
-			currentNode.checkNext(squares);
-			currentNode.moveToNext(endNode);
+			currentNode.updateOpenList();
+			currentNode.moveToNext(currentNode, endNode);
 			cout << currentNode.x << ", " << currentNode.y << ")";
 			cout << "\tDistance to goal: " << currentNode.straightLineDistance(endNode);
 		}
