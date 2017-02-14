@@ -34,22 +34,10 @@ public:
 	float KineticEnergy();
 	float PotentialEnergy();
 	bool alive();
-	void setMass(float mass);					//Do I need these getters and setters??!  Look into accessibility
-	float getMass();
-	void setAction(vector3 action);
-	vector3 getAction();
-	void setRadius(float radius);
-	float getRadius();
 	void updatePhysics(float deltaTime);
 	void alignmentCohesionSeparation(Boid boids []);
-	vector3 alignment(Boid  boids []);
-	vector3 cohesion(Boid boids []);
-	vector3 separation(Boid boids []);
 	//vector3 direction(vector3 previous[]);
 	vector3 direction();
 	bool operator!=(Boid rhs);
 	float distance(Boid boid);
-
-private:
-
 };

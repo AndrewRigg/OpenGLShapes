@@ -143,35 +143,11 @@ void Boid::updatePhysics(float deltaTime)
 		}
 }
 
-//vector3 Boid::direction(vector3 previous[]) {
-//	//return the value of orientation around the x, y and z axis respectively in radians
-//	float roll, pitch, yaw;
-//
-//	roll = atan2(velocity.z, velocity.y);
-//	//roll = 0;
-//	pitch = atan2(velocity.x, velocity.z);
-//	//pitch = 0;
-//	yaw = atan2(velocity.y, velocity.x);
-//	//yaw = 0;
-//	for (int i = 0; i < 10; i++) {
-//		roll += previous[i].x;
-//		pitch += previous[i].y;
-//		yaw += previous[i].z;
-//	}
-//	return vector3(roll/10, pitch/10, yaw/10);
-//}
-
 vector3 Boid::direction() {
 	//return the value of orientation around the x, y and z axis respectively in radians
 	float roll, pitch, yaw;
-
-	roll = atan2(velocity.z, velocity.y);
-	//roll = 0;
-	pitch = atan2(velocity.x, velocity.z);
-	//pitch = 0;
-	yaw = atan2(velocity.y, velocity.x);
-	//yaw = 0;
+	roll = atan2f(velocity.z, velocity.y);
+	pitch = atan2f(velocity.x, velocity.z);
+	yaw = atan2f(velocity.y, velocity.x);
 	return vector3(roll, pitch, yaw);
 }
-
-;
