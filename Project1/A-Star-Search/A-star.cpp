@@ -11,22 +11,6 @@
 
 using namespace std;
 
-Node::Node() {};
-Node::~Node() {}
-Node::Node(int x, int y) {
-	this->x = x;
-	this->y = y;
-}
-;
-
-bool Node::operator==(Node node) {
-	return(x == node.x && y == node.y);
-}
-
-bool Node::operator!=(Node node) {
-	return(x != node.x || y != node.y);
-}
-
 vector<Node> openList;
 vector<Node> closedList;
 vector<Node> nullList;
@@ -40,11 +24,11 @@ void setUpNullList(Node squares[20][20]) {
 	}
 }
 
-void Node::updateOpenList() {
+void updateOpenList(Node current) {
 	for (Node &i : nullList) {
 		float nodeX = i.x;
 		float nodeY = i.y;		
-		if (*this != i && abs(x - nodeX) <= 1 && abs(y - nodeY) <= 1) {
+		if (&current != &i && abs(current.x - nodeX) <= 1 && abs(current.y - nodeY) <= 1) {
 			if (isPassable(i) && !(find(openList.begin(), openList.end(), i) != openList.end())) {
 				openList.push_back(i);
 			}
@@ -52,7 +36,7 @@ void Node::updateOpenList() {
 	}
 }
 
-bool Node::isPassable(Node n) {
+bool isPassable(Node n) {
 	if (n.attribute == ' ' || n.attribute == 'G') {
 	//	cout << "\nThis: (" << n.x <<  n.y;
 		return true;
@@ -62,15 +46,15 @@ bool Node::isPassable(Node n) {
 	}
 }
 
-void Node::moveToNext(Node current, Node goal) {
+void moveToNext(Node current, Node goal) {
 	//for each node in the open list, try moving there and calculating the pathfinding function		
-	int currentCost = calculatePathCost(*this, goal);
+	int currentCost = calculatePathCost(current, goal);
 	int pushed = 0;
 	for (Node &i : openList) {
-		i.g += g + manhattanDistance(i);
+		i.g += current.g + manhattanDistance(i);
 		if (i.x == goal.x && i.y == goal.y) {
-			i.parent(current);
-			*this = i;
+			
+			current = i;
 			closedList.push_back(i);
 		}else {	
 			int newPathCost = calculatePathCost(i, goal);
@@ -78,13 +62,14 @@ void Node::moveToNext(Node current, Node goal) {
 				if (pushed > 0) {
 					closedList.pop_back();
 				}
-				i.parent(current);
-				*this = i;
+				
+				struct Parent parent1 = { 1,2 };
+				current = i;
 				currentCost = newPathCost;
 				closedList.push_back(i);
 				pushed++;
 			}
-			*this = closedList.at(closedList.size()-1);
+			current = closedList.at(closedList.size()-1);
 		}
 	}
 	/*auto it = find(openList.begin(), openList.end(), this);
@@ -92,24 +77,17 @@ void Node::moveToNext(Node current, Node goal) {
 		openList.erase(it);*/
 }
 
-Node Node::child(Node node) {
-	return node;
-}
 
-Node Node::parent(Node node) {
-	return node;
-}
-
-float Node::calculatePathCost(Node node, Node goal) {
+float calculatePathCost(Node node, Node goal) {
 	//This is the function f(n) = g(n) + h(n) to be minimised to determine the best path
 	//return(node.straightLineDistance(goal) + manhattanDistance(node));
 	return(node.straightLineDistance(goal) + node.g);
 }
 
-float Node::straightLineDistance(Node goal) {
+float straightLineDistance(Node goal) {
 	return(sqrt(float(pow((x - goal.x), 2) + pow((y - goal.y), 2))));
 }
 
-float Node::manhattanDistance(Node node) {
+float manhattanDistance(Node node) {
 	return(abs(x - node.x) + abs(y - node.y));
 }

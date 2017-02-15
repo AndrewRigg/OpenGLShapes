@@ -1,8 +1,43 @@
-﻿  A-star.cpp
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(46): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(67): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(76): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(114): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-  A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.exe
-  A-Star-Search.vcxproj -> C:\Users\Andrew\Documents\GitHub\OpenGLShapes\Project1\Debug\A-Star-Search.pdb (Partial PDB)
+﻿  Source.cpp
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\source.cpp(20): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\source.cpp(32): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\source.cpp(84): error C2039: 'straightLineDistance': is not a member of 'Node'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\node.h(6): note: see declaration of 'Node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\source.cpp(85): error C2039: 'manhattanDistance': is not a member of 'Node'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\node.h(6): note: see declaration of 'Node'
+  Node.cpp
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(8): error C2065: 'Node': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(8): error C2146: syntax error: missing ')' before identifier 'current'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(11): error C2065: 'Node': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(11): error C2146: syntax error: missing ')' before identifier 'node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(13): error C2065: 'Node': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(13): error C2146: syntax error: missing ')' before identifier 'goal'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(15): error C2065: 'Node': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(15): error C2146: syntax error: missing ')' before identifier 'node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(16): error C2065: 'Node': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(16): error C2146: syntax error: missing ')' before identifier 'squares'
+  A-star.cpp
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(37): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(38): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(39): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(39): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(39): error C2065: 'y': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(40): error C2064: term does not evaluate to a function taking 1 arguments
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(47): error C2365: 'isPassable': redefinition; previous definition was 'data variable'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.h(9): note: see declaration of 'isPassable'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(59): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(62): error C2065: 'g': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(64): error C2274: 'function-style cast': illegal as right side of '.' operator
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(65): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(68): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(73): error C2274: 'function-style cast': illegal as right side of '.' operator
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(74): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(79): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(91): error C2039: 'straightLineDistance': is not a member of 'Node'
+  c:\users\andrew\documents\github\openglshapes\project1\a-star-search\node.h(6): note: see declaration of 'Node'
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(95): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(95): error C2065: 'y': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(99): error C2065: 'x': undeclared identifier
+c:\users\andrew\documents\github\openglshapes\project1\a-star-search\a-star.cpp(99): error C2065: 'y': undeclared identifier
+  Generating Code...
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build

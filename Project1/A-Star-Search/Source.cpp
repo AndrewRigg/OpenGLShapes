@@ -100,10 +100,10 @@ int main() {
 		else {
 			steps++;
 			cout << "\n\tMoved from: (" << currentNode.x << ", " << currentNode.y << ")\tto (";
-			currentNode.updateOpenList();
-			currentNode.moveToNext(currentNode, endNode);
+			updateOpenList();
+			moveToNext(currentNode, endNode);
 			cout << currentNode.x << ", " << currentNode.y << ")";
-			cout << "\tDistance to goal: " << currentNode.straightLineDistance(endNode);
+			cout << "\tDistance to goal: " << straightLineDistance(endNode);
 		}
 	} while (running);
 

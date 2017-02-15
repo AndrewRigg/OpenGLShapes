@@ -50,32 +50,8 @@ float Boid::volume() {
 	return 4 / 3 * pi * pow(radius, 3.0);
 }
 
-void Boid::setMass(float m) {
-	mass = m;
-}
-
-float Boid::getMass() {
-	return mass;
-}
-
 bool Boid::alive() {
 	return lifeTime > 0;
-}
-
-void Boid::setAction(vector3 appliedAction) {
-	action = appliedAction;
-}
-
-vector3 Boid::getAction() {
-	return action;
-}
-
-void Boid::setRadius(float newRadius) {
-	radius = newRadius;
-}
-
-float Boid::getRadius() {
-	return radius;
 }
 
 void Boid::alignmentCohesionSeparation(Boid boids[]) {

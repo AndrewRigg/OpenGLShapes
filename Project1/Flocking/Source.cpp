@@ -91,7 +91,7 @@ int main()
 	}
 
 	boid.radius = 1;
-	boid.setMass(27);
+	boid.mass = 27;
 	boid.rate = 10;
 	boid.position = vector3(1.0f, 2.0f, -6.0f);
 	boid.velocity = vector3(3.0f, 1.0f, 1.0f);
