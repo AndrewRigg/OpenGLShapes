@@ -1,7 +1,6 @@
 #pragma once
 
 #include <math.h>
-#include "A-star.h"
 
 class Node {
 
@@ -15,11 +14,14 @@ public:
 	float h;
 	bool accessible;
 	char attribute;
-	//struct Parent {};
+
 	struct Parent {
 		int xCoord;
 		int yCoord;
 	}parent;
+
+	bool Node::operator==(Node vec);
+	bool Node::operator!=(Node vec);
 	int x;
 	int y;
 };

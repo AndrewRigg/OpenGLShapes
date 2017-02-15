@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 Node::Node() {};
 Node::~Node() {}
 Node::Node(int x, int y) {
@@ -10,7 +11,10 @@ Node::Node(int x, int y) {
 }
 ;
 
-struct Parent {
-	int xCoord;
-	int yCoord;
-}parent;
+bool Node::operator==(Node node) {
+	return(x == node.x && y == node.y);
+}
+
+bool Node::operator!=(Node node) {
+	return(x != node.x || y != node.y);
+}

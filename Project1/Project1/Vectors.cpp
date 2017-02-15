@@ -125,6 +125,4 @@ glm::vec3 vector3::toVec3() {
 	return glm::vec3(x, y, z);
 }
 
-;
-
 

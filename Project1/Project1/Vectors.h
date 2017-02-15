@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLM/glm.hpp>
+
 class vector3 {
 
 public:
